@@ -37,6 +37,29 @@ public class Checkouts extends ShopController {
         return ok();
     }
 
+    public static Result paymill() {
+        Form<Paymill> form = form(Paymill.class).bindFromRequest();
+        if (form.hasErrors()) {
+            return badRequest("Some error during payment");
+        }
+        Paymill paymill = form.get();
+        System.out.println("Token: " + paymill.paymillToken);
+        return ok();
+    }
+
+    public static Result pactas() {
+        Form<Pactas> form = form(Pactas.class).bindFromRequest();
+        if (form.hasErrors()) {
+            return badRequest("Some error during payment");
+        }
+        Pactas pactas = form.get();
+        sphere().currentCart().addLineItem(pactas.productId, pactas.variantId, pactas.quantity);
+        String checkoutId = sphere().currentCart().createCheckoutSummaryId();
+        sphere().currentCart().createOrder(checkoutId, PaymentState.Paid);
+        System.out.println("Order created!");
+        return ok();
+    }
+
     public static Result notification(String checkoutId) {
         Form<PaymentNotification> form = form(PaymentNotification.class).bindFromRequest();
         if (form.hasErrors()) {

@@ -24,6 +24,9 @@ GET     /checkout/failure                                   controllers.Checkout
 GET     /checkout/payment/network                           controllers.Checkouts.listPaymentNetworks(selected: String ?= "")
 POST    /checkout/submit/shipping                           controllers.Checkouts.submitShippingAddress()
 
+POST    /checkout/paymill                                   controllers.Checkouts.paymill()
+POST    /checkout/pactas                                    controllers.Checkouts.pactas()
+
 # Login
 GET     /user/login                                         controllers.Login.show()
 GET     /user/logout                                        controllers.Login.logOut()
