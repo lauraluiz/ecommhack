@@ -139,8 +139,9 @@
         </div>
 
         <input type="hidden" name="checkoutId" value="@checkoutId" />
+
         @* Sending last step of the form to payment platform *@
-        <form method="post" action="@submitUrl" autocomplete="off">
+        <form id="payment-form" action="@routes.Checkouts.paymill" method="post">
 
             <div id="checkout-billing" class="step disabled clearfix">
                 <div class="step-header">
@@ -153,7 +154,7 @@
 
                 <div class="step-body">
                     <div id="payment-networks" class="show">
-                        @* Loading asynchronously after last step submit *@
+                        @form.paymill(cart)
                     </div>
                     <div class="hide">
                         <ul id="billing-method-summary" class="form-summary">
@@ -180,7 +181,7 @@
                 </div>
                 <div class="right">
                     @helper.orderSummary(cart)
-                    <button type="submit" class="btn btn-primary btn-large">
+                    <button type="submit" class="btn btn-primary btn-large submit-button">
                         Complete payment <i class="icon-shopping-cart icon-white"></i>
                     </button>
                 </div>
