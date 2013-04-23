@@ -122,9 +122,6 @@ $ ->
             data: getFormData(form)
             dataType: 'html'
         .done( ->
-            # Load payment networks once we have shipping information
-            loadPaymentNetworks($('#payment-networks'))
-
             # Fill form summary data
             fillSummary(form, $('#shipping-address-summary'))
 
