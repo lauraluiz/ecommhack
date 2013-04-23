@@ -20,8 +20,8 @@
         <link rel="stylesheet" media="screen" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        @styles
 
+        @styles
     </head>
 
     <body class="@bodyClass">
@@ -41,16 +41,23 @@
             </footer>
         </div>
 
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/2.1.07/jquery.masonry.min.js"></script>
-        <script src="@routes.Assets.at("javascripts/product-list.js")"></script>
-        <script src="@routes.Assets.at("javascripts/product-thumbnail.js")"></script>
-        <script src="@routes.Assets.at("javascripts/product.js")"></script>
-        <script src="@routes.Assets.at("javascripts/cart.js")"></script>
-        <script src="@routes.Assets.at("javascripts/checkout.js")"></script>
-        @scripts
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/masonry/2.1.07/jquery.masonry.min.js"></script>
 
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/product-list.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/product-thumbnail.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/product.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/cart.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/checkout.js")"></script>
+
+        <script type="text/javascript">
+            var PAYMILL_PUBLIC_KEY = '656100219254eccf6d8cf1c1814d633b';
+        </script>
+        <script type="text/javascript" src="https://bridge.paymill.de"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/paymill.js")"></script>
+
+        @scripts
     </body>
 
 </html>
