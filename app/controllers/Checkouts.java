@@ -1,9 +1,7 @@
 package controllers;
 
 import forms.*;
-import io.sphere.client.shop.model.PaymentState;
-import io.sphere.client.shop.model.Product;
-import io.sphere.client.shop.model.Variant;
+import io.sphere.client.shop.model.*;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
@@ -15,6 +13,7 @@ import utils.pactas.PactasClient;
 import utils.pactas.WebhookCallbackData;
 
 import java.io.IOException;
+import java.util.Currency;
 
 import static play.data.Form.form;
 
@@ -98,8 +97,12 @@ public class Checkouts extends ShopController {
             return badRequest("No line items in callback data");
         }
         WebhookCallbackData.LineItem lineItemToOrder = callbackData.Items.get(0);
-        sphere().currentCart().addLineItem(lineItemToOrder.productId(), lineItemToOrder.variantId(), lineItemToOrder.Quantity);
-        sphere().currentCart().createOrder(sphere().currentCart().createCheckoutSummaryId(), PaymentState.Paid);
+        Cart cart = sphere().client().carts().createCart(Currency.getInstance("EUR"), Cart.InventoryMode.None).execute();
+        CartUpdate cartUpdate = new CartUpdate().addLineItem(1, lineItemToOrder.productId(), lineItemToOrder.variantId());
+        sphere().client().carts().updateCart(cart.getId(), cart.getVersion(), cartUpdate);
+        sphere().client().orders().orderCart(cart.getId(), cart.getVersion(), PaymentState.Paid);
+        //sphere().currentCart().addLineItem(lineItemToOrder.productId(), lineItemToOrder.variantId(), lineItemToOrder.Quantity);
+        //sphere().currentCart().createOrder(sphere().currentCart().createCheckoutSummaryId(), PaymentState.Paid);
         System.out.println("Order created!");
         return ok();
     }
