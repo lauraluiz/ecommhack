@@ -26,24 +26,33 @@ public class PactasClient {
 
     /** Sets OAuth authorization header for a request. */
     public static AsyncHttpClient.BoundRequestBuilder basicAuth(AsyncHttpClient.BoundRequestBuilder builder) {
-        return builder.setHeader("Authorization", "Basic ZG9udXRzQGVtcGhlc3MubmV0OmhhY2sx");  // donuts@emphess.net, hack1
+        return builder.
+                setHeader("Authorization", "Basic ZG9udXRzQGVtcGhlc3MubmV0OmhhY2sx").  // donuts@emphess.net, hack1
+                setHeader("Content-Type", "application/json");
     }
 
-    public Object createCustomer(String paymillToken) {
-        return execute(createPost(baseUrl + "/contacts", new NewCustomer(paymillToken)), new TypeReference<Object>() {});
+    public Id createCustomer(String paymillToken) {
+        return execute(this.<Id>createPost(
+                baseUrl + "/contacts",
+                new NewCustomer(paymillToken)), new TypeReference<Id>() {});
     }
 
-    public Object createBillingGroup() {
-        return execute(createPost(baseUrl + "/billingGroups", new NewBillingGroup()), new TypeReference<Object>() {});
+    public Id createBillingGroup() {
+        return execute(this.<Id>createPost(
+                baseUrl + "/billingGroups",
+                new NewBillingGroup()), new TypeReference<Id>() {});
     }
 
-    public Object createContract(String billingGroupdId, String customerId) {
-        return execute(createPost(baseUrl + "/contracts", new NewContract(billingGroupdId, customerId)), new TypeReference<Object>() {});
+    public Id createContract(String billingGroupdId, String customerId) {
+        return execute(this.<Id>createPost(
+                baseUrl + "/contact/" + customerId + "/contracts",
+                new NewContract(billingGroupdId, customerId)), new TypeReference<Id>() {});
     }
 
-    public Object createUsageData(String productId, String variantId, double price) {
-        return execute(createPost(baseUrl + "/usage",
-                new NewUsageData(new NewUsageData.Usage(productId, variantId, price))), new TypeReference<Object>() {});
+    public Id createUsageData(String contractId, String productId, String variantId, double price) {
+        return execute(this.<Id>createPost(
+                baseUrl + "/contracts/" + contractId + "/usage",
+                new NewUsageData(new NewUsageData.Usage(productId, variantId, price))), new TypeReference<Id>() {});
     }
 
     public <T> RequestHolder<T> createGet(String url) {

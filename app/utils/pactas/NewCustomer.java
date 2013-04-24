@@ -45,7 +45,7 @@ public class NewCustomer {
         public String PostalCode = "34567";
         public String City = "Springfield";
         public String State = "OK";
-        public String Country = "USA";
+        public String Country = "US";
     }
     public InvoiceAddress InvoiceAddress = new InvoiceAddress();
 
