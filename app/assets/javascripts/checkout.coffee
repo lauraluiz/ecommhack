@@ -1,5 +1,5 @@
 $ ->
-    marginTop = 78
+    marginTop = 1
     checkoutCart = $('#checkout-cart.step')
     checkoutShipping = $('#checkout-shipping.step')
     checkoutBilling = $('#checkout-billing.step')
@@ -56,7 +56,9 @@ $ ->
             $('html, body').animate scrollTop: next.offset().top - marginTop, 'slow'
         else
             # Set submit button visible
-            $('#checkout-footer button[type=submit]').not(':visible').fadeIn()
+            footer = $('#checkout-footer').not(':visible')
+            footer.fadeIn()
+            $('html, body').animate scrollTop: footer.offset().top - marginTop, 'slow'
 
     # Bind 'change' button click event to allow editing a section form
     $('#checkout .btn-edit').click( ->

@@ -1,9 +1,7 @@
 @(product: Product, addressForm: Form[SetAddress])
 
 @main("Checkout", "checkout"){
-<div class="navigation">
-    @helper.topNavigation()
-</div>
+
 }{
 <div id="checkout">
     <form id="payment-form" action="@routes.Checkouts.submit" method="post">
@@ -154,11 +152,9 @@
         </div>
 
         <div id="checkout-footer" class="footer">
-            <div class="right">
-                <button type="submit" class="btn btn-primary btn-large submit-button">
-                    Complete payment <i class="icon-shopping-cart icon-white"></i>
+                <button type="submit" class="btn btn-large submit-button">
+                    Complete payment <i class="icon-shopping-cart"></i>
                 </button>
-            </div>
         </div>
     </form>
 </div>

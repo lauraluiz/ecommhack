@@ -1,12 +1,14 @@
 #checkout, #success {
     .column-detail-style;
     .step-layout-style;
+
+    form {
+        margin-bottom: 0;
+    }
 }
 
 #success {
-    h1, h2 {
-        text-align: center;
-    }
+    text-align: center;
 }
 
 #checkout-cart {
@@ -49,21 +51,20 @@
 }
 
 #checkout-billing {
+    border-bottom: 0 !important;
+
     .step-body {
         margin-left: 50px;
     }
 }
 
 #checkout-footer {
-    .summary {
-         float: right;
-         width: 350px;
-         padding: 20px;
-    }
+    display: none;
+    background-color: @dark-pink;
+    text-align: center;
 
     button[type=submit] {
-        margin-top: 20px;
-        display: none;
+        margin: 20px;
     }
 }
 
