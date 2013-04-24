@@ -17,6 +17,7 @@ import java.util.List;
 
 public class NewUsageData {
     public List<Usage> Usage;
+    public String ValidFrom = "2013-04-24";
     public NewUsageData(Usage singleUsage) {
         Usage = Arrays.asList(singleUsage);
     }
@@ -26,7 +27,7 @@ public class NewUsageData {
         public double Amount;
         public String Description = "Get them donuts!";
         public Usage(String productId, String variantId, Double price) {
-            ProductNumber = productId + "_" + variantId;
+            ProductNumber = productId + "-" + variantId;
             Amount = price;
         }
     }

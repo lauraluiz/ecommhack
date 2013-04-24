@@ -50,16 +50,16 @@ public class PactasClient {
                 new NewContract(billingGroupdId, customerId)), new TypeReference<Id>() {});
     }
 
-    public Id createUsageData(String contractId, String productId, String variantId, double quantity) {
-        return execute(this.<Id>createPost(
-                baseUrl + "/contracts/" + contractId + "/usage",
-                new NewUsageData(new NewUsageData.Usage(productId, variantId, quantity))), new TypeReference<Id>() {});
+    public ValidFrom createUsageData(String contractId, String productId, String variantId, double quantity) {
+        return execute(this.<ValidFrom>createPost(
+                baseUrl + "/contracts/" + contractId + "/recurringusage",
+                new NewUsageData(new NewUsageData.Usage(productId, variantId, quantity))), new TypeReference<ValidFrom>() {});
     }
 
     public void lockContract(String contractId) {
-        execute(this.<Object>createPost(
+        execute(this.<Void>createPlainPost(
                 baseUrl + "/contracts/" + contractId + "/lock",
-                new Object()), new TypeReference<Object>() {});
+                ""), new TypeReference<Void>() {});
     }
 
     public <T> RequestHolder<T> createGet(String url) {
@@ -74,6 +74,11 @@ public class PactasClient {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public <T> RequestHolder<T> createPlainPost(String url, String payload) {
+        RequestHolder<T> request = new RequestHolderImpl<T>(basicAuth(httpClient.preparePost(url)));
+        return request.setBody(payload);
     }
 
     public <T> T execute(RequestHolder<T> request, TypeReference<T> jsonParserTypeRef) {

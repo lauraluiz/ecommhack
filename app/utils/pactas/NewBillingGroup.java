@@ -15,6 +15,6 @@ package utils.pactas;
 public class NewBillingGroup {
     public int BillingEpsilonDays = 0;
     public String PeriodBase = "2013-04-24";
-    public Period BillingInterval = new Period("Month", 1);
+    public Period BillingInterval = new Period("Week", 1);
     public String BillingTriggerMode = "AutomatedRecurring";
 }
