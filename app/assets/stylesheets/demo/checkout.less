@@ -13,14 +13,46 @@
 
 #checkout-cart {
     .step-body {
-        label.radio {
-            input[name=variantId] {
-                display: none;
+
+        .cart-product {
+            text-align: center;
+
+            label.radio {
+                padding-left: 0;
+
+                input[name=variantId] {
+                    display: none;
+                }
+
+                display: inline-block;
+
+                img {
+                    width: 290px;
+                }
+
+                .variant-option {
+                    text-align: center;
+                }
+
+                .variant-attributes {
+                    margin: 15px auto 5px;
+                    text-align: center;
+                    border-radius: 4px;
+                    background-color: @dark-pink;
+                    width: 150px;
+                    color: white;
+                    font-weight: bold;
+                }
+
+                &.active {
+                    opacity: 0.5;
+                }
             }
-            display: inline-block;
-            img {
-                width: 270px;
-            }
+        }
+
+        .cart-quantity {
+            margin-top: 40px;
+            text-align: center;
         }
     }
 }
