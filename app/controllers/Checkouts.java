@@ -17,33 +17,27 @@ public class Checkouts extends ShopController {
         return ok(views.html.ecommhack.render(product, addressForm));
     }
 
-
-    public static Result submitShippingAddress() {
-        Form<SetAddress> form = form(SetAddress.class).bindFromRequest();
-        if (form.hasErrors()) {
-            return badRequest();
-        }
-        SetAddress setAddress = form.get();
-        sphere().currentCart().setShippingAddress(setAddress.getAddress());
-        sphere().currentCart().setCountry(setAddress.getCountryCode());
-        return ok();
-    }
-
-    public static Result addToCart() {
-        Form<AddToCart> form = form(AddToCart.class).bindFromRequest();
-        if (form.hasErrors()) {
-            return badRequest();
-        }
-        AddToCart addToCart = form.get();
-        return ok();
-    }
-
     public static Result paymill() {
-        Form<Paymill> form = form(Paymill.class).bindFromRequest();
-        if (form.hasErrors()) {
+        // Get product information
+        Form<AddToCart> cartForm = form(AddToCart.class).bindFromRequest();
+        if (cartForm.hasErrors()) {
+            return badRequest();
+        }
+        AddToCart addToCart = cartForm.get();
+
+        // Get shipping information
+        Form<SetAddress> shippingForm = form(SetAddress.class).bindFromRequest();
+        if (shippingForm.hasErrors()) {
+            return badRequest();
+        }
+        SetAddress setAddress = shippingForm.get();
+
+        // Get billing information
+        Form<Paymill> billingForm = form(Paymill.class).bindFromRequest();
+        if (billingForm.hasErrors()) {
             return badRequest("Some error during payment");
         }
-        Paymill paymill = form.get();
+        Paymill paymill = billingForm.get();
         System.out.println("Token: " + paymill.paymillToken);
         return ok();
     }
