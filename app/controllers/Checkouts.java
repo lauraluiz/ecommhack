@@ -1,5 +1,6 @@
 package controllers;
 
+import com.neovisionaries.i18n.CountryCode;
 import forms.*;
 import io.sphere.client.shop.model.*;
 import org.codehaus.jackson.map.DeserializationConfig;
@@ -97,13 +98,16 @@ public class Checkouts extends ShopController {
             return badRequest("No line items in callback data");
         }
         WebhookCallbackData.LineItem lineItemToOrder = callbackData.Items.get(0);
-        Cart cart = sphere().client().carts().createCart(Currency.getInstance("EUR"), Cart.InventoryMode.None).execute();
-        CartUpdate cartUpdate = new CartUpdate().addLineItem(1, lineItemToOrder.productId(), lineItemToOrder.variantId());
-        sphere().client().carts().updateCart(cart.getId(), cart.getVersion(), cartUpdate);
-        sphere().client().orders().orderCart(cart.getId(), cart.getVersion(), PaymentState.Paid);
+        Cart cart = sphere().client().carts().createCart(Currency.getInstance("EUR"), CountryCode.DE, Cart.InventoryMode.None).execute();
+        CartUpdate cartUpdate = new CartUpdate();
+        Address address = new Address(CountryCode.DE);
+        cartUpdate.setShippingAddress(address);
+        cartUpdate.addLineItem(1, lineItemToOrder.productId(), lineItemToOrder.variantId());
+        cart = sphere().client().carts().updateCart(cart.getId(), cart.getVersion(), cartUpdate).execute();
+        sphere().client().orders().orderCart(cart.getId(), cart.getVersion(), PaymentState.Paid).execute();
         //sphere().currentCart().addLineItem(lineItemToOrder.productId(), lineItemToOrder.variantId(), lineItemToOrder.Quantity);
         //sphere().currentCart().createOrder(sphere().currentCart().createCheckoutSummaryId(), PaymentState.Paid);
         System.out.println("Order created!");
-        return ok();
+        return ok("Order created!");
     }
 }
