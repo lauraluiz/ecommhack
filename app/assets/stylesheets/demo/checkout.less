@@ -1,11 +1,20 @@
-#checkout {
+#checkout, #success {
     .column-detail-style;
     .step-layout-style;
+}
+
+#success {
+    h1, h2 {
+        text-align: center;
+    }
 }
 
 #checkout-cart {
     .step-body {
         label.radio {
+            input[name=variantId] {
+                display: none;
+            }
             display: inline-block;
             img {
                 width: 270px;
@@ -42,44 +51,6 @@
 #checkout-billing {
     .step-body {
         margin-left: 50px;
-    }
-
-    #payment-networks {
-        .payment-network {
-            .network-img {
-                opacity: 0.5;
-            }
-
-            &.active .network-img {
-                opacity: 1;
-            }
-        }
-
-        .payment-network-form {
-            .row {
-                margin-left: 20px;
-            }
-
-            input[name=network] {
-                display: none;
-            }
-
-            .hint-message {
-                padding: 0 10px 0;
-            }
-
-            .hint {
-                display: none;
-                position: absolute;
-                background-color: @foreground;
-                border: 1px solid @light-gray;
-                border-radius: 10px;
-                -webkit-box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
-                -moz-box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
-                box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
-                padding: 10px;
-            }
-        }
     }
 }
 

@@ -19,37 +19,41 @@
 <h5>Address information</h5>
 
 <div class="form">
+    <label>Company</label>
     @defining(addressForm.field("company").value) { company =>
     <div class="control-group">
         @form.error("shipping-address-company")
         <div class="controls">
-            <input type="text" name="company" id="shipping-address-company" value="@company" placeholder="Company (optional)" class="span4" />
+            <input type="text" name="company" id="shipping-address-company" value="NYPD" placeholder="Company (optional)" class="span4" />
         </div>
     </div>
     }
     @defining(addressForm.field("firstName").value, addressForm.field("lastName").value) { case(firstName, lastName) =>
     <div class="control-group">
+        <label>Name</label>
         @form.error("shipping-address-firstName")
         @form.error("shipping-address-lastName")
         <div class="controls controls-row">
-            <input type="text" name="firstName" id="shipping-address-firstName" value="@firstName" placeholder="First Name" required class="span2"/>
-            <input type="text" name="lastName" id="shipping-address-lastName" value="@lastName" placeholder="Last Name" required class="span2"/>
+            <input type="text" name="firstName" id="shipping-address-firstName" value="Chief" placeholder="First Name" required class="span2"/>
+            <input type="text" name="lastName" id="shipping-address-lastName" value="Wiggum" placeholder="Last Name" required class="span2"/>
         </div>
     </div>
     }
     @defining(addressForm.field("phone").value) { phone =>
     <div class="control-group">
+        <label>Phone</label>
         @form.error("shipping-address-phone")
         <div class="controls">
-            <input type="tel" name="phone" id="shipping-address-phone" value="@phone" placeholder="Phone" required class="span4"/>
+            <input type="tel" name="phone" id="shipping-address-phone" value="555-55555555" placeholder="Phone" required class="span4"/>
         </div>
     </div>
     }
     @defining(addressForm.field("street").value) { street =>
     <div class="control-group">
+        <label>Address</label>
         @form.error("shipping-address-street")
         <div class="controls">
-            <input type="text" name="street" id="shipping-address-street" value="@street" placeholder="Street Address" required class="span4"/>
+            <input type="text" name="street" id="shipping-address-street" value="Evergreen Terrace, 13" placeholder="Street Address" required class="span4"/>
         </div>
     </div>
     }
@@ -63,16 +67,18 @@
     }
     @defining(addressForm.field("postalCode").value, addressForm.field("city").value) { case(postalCode, city) =>
     <div class="control-group">
+        <label>City</label>
         @form.error("shipping-address-postalCode")
         @form.error("shipping-address-city")
         <div class="controls controls-row">
-            <input type="text" name="postalCode" id="shipping-address-postalCode" value="@postalCode" placeholder="Postal Code" required class="span2"/>
-            <input type="text" name="city" id="shipping-address-city" value="@city" placeholder="City" required class="span2"/>
+            <input type="text" name="postalCode" id="shipping-address-postalCode" value="583921" placeholder="Postal Code" required class="span2"/>
+            <input type="text" name="city" id="shipping-address-city" value="Springfield" placeholder="City" required class="span2"/>
         </div>
     </div>
     }
     @defining(addressForm.field("country").value) { country =>
     <div class="control-group">
+        <label>Country</label>
         @form.error("shipping-address-country")
         <div class="controls">
             <select name="country" id="shipping-address-country" required>
@@ -90,6 +96,7 @@
 <div class="form">
     @defining(addressForm.field("email").value) { email =>
     <div class="control-group">
+        <label>Email</label>
         @form.error("shipping-address-email")
         <div class="controls">
             <input type="email" name="email" id="shipping-address-email" value="@email" placeholder="Email Address (optional)"/>
@@ -98,6 +105,7 @@
     }
     @defining(addressForm.field("mobile").value) { mobile =>
     <div class="control-group">
+        <label>Mobile</label>
         @form.error("shipping-address-mobile")
         <div class="controls">
             <input type="tel" name="mobile" id="shipping-address-mobile" value="@mobile" placeholder="Mobile Phone (optional)"/>

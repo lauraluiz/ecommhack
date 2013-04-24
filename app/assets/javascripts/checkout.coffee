@@ -31,6 +31,8 @@ $ ->
         form.find(':input').not(':disabled').each ->
             value = if $(this).is('select') then $(this).find(':selected').text() else $(this).val()
             place = summaryList.find('[data-form=' + $(this).attr("name") + ']')
+            if place.length < 1
+                place = summaryList.find('[data-form=' + $(this).attr("class") + ']')
 
             if place.length > 0
                 # If there is a list element for this value, set here the data
@@ -87,19 +89,11 @@ $ ->
         # Validate form client side
         return unless validateForm(form, false)
 
-        # Send address to server
-        url = "/checkout/submit/shipping"
-        $.ajax url,
-            type: 'POST'
-            data: getFormData(form)
-            dataType: 'html'
-        .done( ->
-            # Fill form summary data
-            fillSummary(form, $('#shipping-address-summary'))
+        # Fill form summary data
+        fillSummary(form, $('#shipping-address-summary'))
 
-            # Go to next section
-            nextStep(checkoutShipping)
-        )
+        # Go to next section
+        nextStep(checkoutShipping)
     )
 
     # Bind billing 'next step' click event to 'validate form' and 'next step' functionality

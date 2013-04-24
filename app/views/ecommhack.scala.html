@@ -6,9 +6,9 @@
 </div>
 }{
 <div id="checkout">
-    <form id="payment-form" action="@routes.Checkouts.paymill" method="post">
-        <div id="checkout-cart" class="step current clearfix">
+    <form id="payment-form" action="@routes.Checkouts.submit" method="post">
 
+        <div id="checkout-cart" class="step current clearfix">
             <div class="step-header">
                 <span class="step-number">1</span>
                 <h3>Select your donut box</h3>
@@ -112,13 +112,34 @@
             </div>
 
             <div class="step-body">
-                <div id="payment-networks" class="show">
-                    @form.paymill(product.getPrice.getValue)
+                <input class="amount" type="hidden" value="@product.getPrice.getValue.getAmount.setScale(2)"/>
+                <input class="currency" type="hidden" value="@product.getPrice.getValue.getCurrencyCode"/>
+                <div id="form-billing-method" class="show">
+                    <input type="hidden" name="network" value="Credit Card"/>
+                    @form.paymill()
                 </div>
                 <div class="hide">
                     <ul id="billing-method-summary" class="form-summary">
                         <li>
                             <span data-form="network" class="network">
+                            </span>
+                        </li>
+                        <li>
+                            <span data-form="card-holdername">
+                            </span>
+                        </li>
+                        <li>
+                            <span data-form="card-number">
+                            </span>
+
+                            (<span data-form="card-cvc">
+                            </span>)
+                        </li>
+                        <li>
+                            <span data-form="card-expiry-month">
+                            </span>
+                            /
+                            <span data-form="card-expiry-year">
                             </span>
                         </li>
                     </ul>
@@ -133,11 +154,6 @@
         </div>
 
         <div id="checkout-footer" class="footer">
-            <div class="left">
-                <a href="@getReturnUrl" class="btn">
-                    <i class="icon-chevron-left"></i> Go back
-                </a>
-            </div>
             <div class="right">
                 <button type="submit" class="btn btn-primary btn-large submit-button">
                     Complete payment <i class="icon-shopping-cart icon-white"></i>

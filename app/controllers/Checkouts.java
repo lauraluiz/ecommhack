@@ -3,6 +3,7 @@ package controllers;
 import forms.*;
 import io.sphere.client.shop.model.PaymentState;
 import io.sphere.client.shop.model.Product;
+import io.sphere.client.shop.model.Variant;
 import play.data.Form;
 import play.mvc.Result;
 import sphere.ShopController;
@@ -17,13 +18,25 @@ public class Checkouts extends ShopController {
         return ok(views.html.ecommhack.render(product, addressForm));
     }
 
-    public static Result paymill() {
+    public static Result submit() {
         // Get product information
         Form<AddToCart> cartForm = form(AddToCart.class).bindFromRequest();
         if (cartForm.hasErrors()) {
             return badRequest();
         }
         AddToCart addToCart = cartForm.get();
+        System.out.println(":" + addToCart.productId);
+        System.out.println(":" + addToCart.variantId);
+        System.out.println(":" + addToCart.quantity);
+        Product product = sphere().products.byId(addToCart.productId).fetch().orNull();
+        if (product == null) {
+            return badRequest("Missing product");
+        }
+        Variant variant = product.getVariants().byId(addToCart.variantId).orNull();
+        if (variant == null) {
+            return badRequest("Missing variant");
+        }
+        int unit = variant.getInt("unit");
 
         // Get shipping information
         Form<SetAddress> shippingForm = form(SetAddress.class).bindFromRequest();
@@ -31,6 +44,17 @@ public class Checkouts extends ShopController {
             return badRequest();
         }
         SetAddress setAddress = shippingForm.get();
+        System.out.println(":" + setAddress.company);
+        System.out.println(":" + setAddress.firstName);
+        System.out.println(":" + setAddress.lastName);
+        System.out.println(":" + setAddress.street);
+        System.out.println(":" + setAddress.street2);
+        System.out.println(":" + setAddress.postalCode);
+        System.out.println(":" + setAddress.city);
+        System.out.println(":" + setAddress.country);
+        System.out.println(":" + setAddress.phone);
+        System.out.println(":" + setAddress.mobile);
+        System.out.println(":" + setAddress.email);
 
         // Get billing information
         Form<Paymill> billingForm = form(Paymill.class).bindFromRequest();
@@ -39,7 +63,7 @@ public class Checkouts extends ShopController {
         }
         Paymill paymill = billingForm.get();
         System.out.println("Token: " + paymill.paymillToken);
-        return ok();
+        return ok(views.html.success.render(unit));
     }
 
     public static Result pactas() {
@@ -52,6 +76,7 @@ public class Checkouts extends ShopController {
         String checkoutId = sphere().currentCart().createCheckoutSummaryId();
         sphere().currentCart().createOrder(checkoutId, PaymentState.Paid);
         System.out.println("Order created!");
+
         return ok();
     }
 

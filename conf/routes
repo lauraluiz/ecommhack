@@ -6,7 +6,7 @@
 GET     /                                                   controllers.Checkouts.show()
 
 # Checkout
-POST    /checkout/paymill                                   controllers.Checkouts.paymill()
+POST    /checkout                                           controllers.Checkouts.submit()
 POST    /checkout/pactas                                    controllers.Checkouts.pactas()
 
 # Map static resources from the /public folder to the /assets URL path

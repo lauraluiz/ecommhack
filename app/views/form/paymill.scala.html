@@ -1,28 +1,24 @@
-@(price: Money)
 
 <div class="payment-errors"></div>
 
 <div class="form-row">
     <label>Credit card number</label>
-    <input class="card-number" type="text" size="20" value="4111111111111111"/>
+    <input class="card-number" type="text" size="20" value="4111111111111111" placeholder="Credit card number"/>
 </div>
 
 <div class="form-row">
     <label>CVC</label>
-    <input class="card-cvc" type="text" size="4" value="111"/>
+    <input class="card-cvc" type="text" size="4" value="111" placeholder="CVC"/>
 </div>
 
 <div class="form-row">
     <label>Credit card holder</label>
-    <input class="card-holdername" type="text" size="20" value="NY Police Department"/>
+    <input class="card-holdername" type="text" size="20" value="NY Police Department" placeholder="Credit card holder"/>
 </div>
 
 <div class="form-row">
-    <label>Expiration date (MM/YYYY)</label>
-    <input class="card-expiry-month" type="text" size="2" value="12"/>
+    <label>Expiration date</label>
+    <input class="card-expiry-month" type="text" size="2" value="12" placeholder="MM"/>
     <span> / </span>
-    <input class="card-expiry-year" type="text" size="4" value="2015"/>
+    <input class="card-expiry-year" type="text" size="4" value="2015" placeholder="YYYY"/>
 </div>
-
-<input class="amount" type="hidden" value="@price.getAmount.setScale(2)"/></div>
-<input class="currency" type="hidden" value="@price.getCurrencyCode"/></div>
