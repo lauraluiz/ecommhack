@@ -7,6 +7,7 @@ import com.ning.http.client.AsyncCompletionHandler;
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.Response;
 import io.sphere.client.SphereException;
+import io.sphere.client.shop.model.Address;
 import io.sphere.internal.request.RequestHolder;
 import io.sphere.internal.request.RequestHolderImpl;
 import io.sphere.internal.util.Log;
@@ -31,10 +32,10 @@ public class PactasClient {
                 setHeader("Content-Type", "application/json");
     }
 
-    public Id createCustomer(String paymillToken) {
+    public Id createCustomer(String paymillToken, Address address) {
         return execute(this.<Id>createPost(
                 baseUrl + "/contacts",
-                new NewCustomer(paymillToken)), new TypeReference<Id>() {});
+                new NewCustomer(paymillToken, address)), new TypeReference<Id>() {});
     }
 
     public Id createBillingGroup() {

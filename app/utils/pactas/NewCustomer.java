@@ -25,6 +25,8 @@ package utils.pactas;
 //    }
 //}
 
+import io.sphere.client.shop.model.Address;
+
 public class NewCustomer {
     public static class CompanyInfo {
         public String VatId = null;
@@ -33,21 +35,34 @@ public class NewCustomer {
     public CompanyInfo CompanyInfo = new CompanyInfo();
 
     public static class UserInfo {
-        public String FirstName = "Homer";
-        public String LastName = "Simpson";
-        public String EmailAddress = "homer.simpson@springfield.com";
+        public String FirstName;
+        public String LastName;
+        public String EmailAddress;
+        public UserInfo(Address address) {
+            FirstName = address.getFirstName();
+            LastName = address.getLastName();
+            EmailAddress = address.getEmail();
+        }
     }
-    public UserInfo UserInfo = new UserInfo();
+    public UserInfo UserInfo;
 
     public static class InvoiceAddress {
-        public String Street = "Homer Street";
-        public String HouseNumber = "1";
-        public String PostalCode = "34567";
-        public String City = "Springfield";
-        public String State = "OK";
-        public String Country = "US";
+        public String Street;
+        public String HouseNumber;
+        public String PostalCode;
+        public String City;
+        public String State;
+        public String Country;
+        public InvoiceAddress(Address address) {
+            Street = address.getFirstName();
+            HouseNumber = address.getStreetNumber();
+            PostalCode = address.getPostalCode();
+            City = address.getCity();
+            State = address.getState();
+            Country = address.getCountry().toString();
+        }
     }
-    public InvoiceAddress InvoiceAddress = new InvoiceAddress();
+    public InvoiceAddress InvoiceAddress;
 
     public class PaymentChannelPaymill {
         public String PaymentToken;
@@ -58,7 +73,9 @@ public class NewCustomer {
     }
     public PaymentChannelPaymill PaymentChannelPaymill;
 
-    public NewCustomer(String paymillToken) {
+    public NewCustomer(String paymillToken, Address address) {
         PaymentChannelPaymill = new PaymentChannelPaymill(paymillToken);
+        UserInfo = new UserInfo(address);
+        InvoiceAddress = new InvoiceAddress(address);
     }
 }

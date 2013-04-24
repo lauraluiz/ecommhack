@@ -74,7 +74,7 @@ public class Checkouts extends ShopController {
         Paymill paymill = billingForm.get();
         System.out.println("Token: " + paymill.paymillToken);
 
-        Id customerId = pactas.createCustomer(paymill.paymillToken);
+        Id customerId = pactas.createCustomer(paymill.paymillToken, setAddress.getAddress());
         Id billingId = pactas.createBillingGroup();
         Id contractId = pactas.createContract(billingId.Id, customerId.Id);
         pactas.createUsageData(contractId.Id, addToCart.productId, addToCart.variantId, addToCart.quantity);

@@ -24,9 +24,9 @@ public class NewUsageData {
     public static class Usage {
         public String ProductNumber;
         public double Amount;
-        public String Description = "Homer's donuts!";
+        public String Description = "Get them donuts!";
         public Usage(String productId, String variantId, Double price) {
-            ProductNumber = productId + "-" + variantId;
+            ProductNumber = productId + "_" + variantId;
             Amount = price;
         }
     }

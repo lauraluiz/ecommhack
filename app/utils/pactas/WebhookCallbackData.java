@@ -35,10 +35,10 @@ public class WebhookCallbackData {
         public int Quantity;
         public int VatPercentage;
         public String productId() {
-            return ProductNumber.split("-")[0];
+            return ProductNumber.split("_")[0];
         }
         public String variantId() {
-            return ProductNumber.split("-")[1];
+            return ProductNumber.split("_")[1];
         }
     }
 }
