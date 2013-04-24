@@ -78,6 +78,7 @@ public class Checkouts extends ShopController {
         Id billingId = pactas.createBillingGroup();
         Id contractId = pactas.createContract(billingId.Id, customerId.Id);
         pactas.createUsageData(contractId.Id, addToCart.productId, addToCart.variantId, addToCart.quantity);
+        pactas.lockContract(contractId.Id);
         return ok(views.html.success.render(unit));
     }
 
