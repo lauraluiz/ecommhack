@@ -45,7 +45,7 @@ public class PactasClient {
 
     public Id createContract(String billingGroupdId, String customerId) {
         return execute(this.<Id>createPost(
-                baseUrl + "/contact/" + customerId + "/contracts",
+                baseUrl + "/contacts/" + customerId + "/contracts",
                 new NewContract(billingGroupdId, customerId)), new TypeReference<Id>() {});
     }
 
