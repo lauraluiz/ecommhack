@@ -4,14 +4,9 @@ import java.math.BigDecimal;
 import java.util.*;
 
 import com.neovisionaries.i18n.CountryCode;
-import controllers.routes;
-import io.sphere.client.SphereClientConfig;
 import io.sphere.client.model.Money;
-import io.sphere.client.model.SearchResult;
-import forms.PaymentNetwork;
 import io.sphere.client.shop.model.*;
 import org.apache.commons.lang3.text.WordUtils;
-import play.mvc.Call;
 import play.mvc.Http;
 import sphere.Sphere;
 
