@@ -100,6 +100,7 @@ $ ->
         # Validate form client side
         return unless validateForm(form, false)
 
+        place.find('span[data-form=quantity]').text(form.find('input[name=quantity]').val())
         place.find('span[data-form=size]').text(form.find('label.selected .variant-size').text())
         place.find('span[data-form=price]').text(form.find('label.selected .variant-price').text())
 
