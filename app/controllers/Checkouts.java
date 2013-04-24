@@ -7,6 +7,7 @@ import io.sphere.client.shop.model.Variant;
 import play.data.Form;
 import play.mvc.Result;
 import sphere.ShopController;
+import utils.pactas.Id;
 import utils.pactas.PactasClient;
 
 import static play.data.Form.form;
@@ -66,6 +67,11 @@ public class Checkouts extends ShopController {
         }
         Paymill paymill = billingForm.get();
         System.out.println("Token: " + paymill.paymillToken);
+
+        Id customerId = pactas.createCustomer(paymill.paymillToken);
+        Id billingId = pactas.createBillingGroup();
+        Id contractId = pactas.createContract(billingId.Id, customerId.Id);
+        pactas.createUsageData(contractId.Id, addToCart.productId, addToCart.variantId, addToCart.quantity);
         return ok(views.html.success.render(unit));
     }
 
