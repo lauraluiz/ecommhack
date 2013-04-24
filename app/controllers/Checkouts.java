@@ -7,10 +7,13 @@ import io.sphere.client.shop.model.Variant;
 import play.data.Form;
 import play.mvc.Result;
 import sphere.ShopController;
+import utils.pactas.PactasClient;
 
 import static play.data.Form.form;
 
 public class Checkouts extends ShopController {
+
+    private static final PactasClient pactas = new PactasClient();
 
     public static Result show() {
         Product product = sphere().products.bySlug("pink-donuts-box").fetch().orNull();
