@@ -84,7 +84,8 @@ public class Checkouts extends ShopController {
     private static final ObjectMapper jsonMapper = new ObjectMapper().configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     public static Result pactas() {
-        String payload = request().body().asText();
+        // Pactas needs to send Content-Type: application/json for this to work.
+        String payload = request().body().asJson().toString();
         play.Logger.debug("------ Pactas webhook: " + payload);
         WebhookCallbackData callbackData;
         try {
