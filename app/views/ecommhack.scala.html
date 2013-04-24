@@ -16,7 +16,27 @@
             </div>
 
             <div class="step-body">
-                @form.product(product)
+                <div id="form-checkout-cart">
+                    @form.product(product)
+                </div>
+
+                <div class="hide">
+                    <ul id="checkout-cart-summary" class="form-summary">
+                        <li>
+                            <span data-form="quantity">
+
+                            </span>
+                            x
+                            <span data-form="size">
+
+                            </span>
+                            =
+                            <span data-form="price">
+
+                            </span>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
             <div class="step-footer">

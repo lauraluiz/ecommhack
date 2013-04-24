@@ -94,7 +94,16 @@ $ ->
 
     # Bind cart 'next step' click event to 'next step' functionality
     checkoutCart.find('.btn-next').click( ->
+        form = $('#form-checkout-cart')
+        place = $('#checkout-cart-summary')
 
+        # Validate form client side
+        return unless validateForm(form, false)
+
+        place.find('span[data-form=size]').text(form.find('label.selected .variant-size').text())
+        place.find('span[data-form=price]').text(form.find('label.selected .variant-price').text())
+
+        # Go to next section
         nextStep(checkoutCart)
     )
 
