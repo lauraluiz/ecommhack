@@ -3,45 +3,11 @@
 # ~~~~
 
 # Home
-GET     /                                                   controllers.Categories.home(page: Int ?= 1)
-
-GET     /product/list/                                      controllers.Categories.listProducts(category: String ?= "", page: Int ?= 1)
-
-# Cart
-GET     /cart                                               controllers.Carts.show()
-
-POST    /cart/add                                           controllers.Carts.add()
-POST    /cart/update                                        controllers.Carts.update()
-POST    /cart/remove                                        controllers.Carts.remove()
+GET     /                                                   controllers.Checkouts.show()
 
 # Checkout
-GET     /checkout                                           controllers.Checkouts.show()
-
-GET     /checkout/payment                                   controllers.Checkouts.notification(id: String)
-GET     /checkout/success                                   controllers.Checkouts.success()
-GET     /checkout/failure                                   controllers.Checkouts.failure()
-
-GET     /checkout/payment/network                           controllers.Checkouts.listPaymentNetworks(selected: String ?= "")
-POST    /checkout/submit/shipping                           controllers.Checkouts.submitShippingAddress()
-
 POST    /checkout/paymill                                   controllers.Checkouts.paymill()
 POST    /checkout/pactas                                    controllers.Checkouts.pactas()
 
-# Login
-GET     /user/login                                         controllers.Login.show()
-GET     /user/logout                                        controllers.Login.logOut()
-
-POST    /user/login                                         controllers.Login.logIn()
-POST    /user/register                                      controllers.Login.signUp()
-
-# Customer
-GET     /user                                               controllers.Customers.show()
-
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                       controllers.Assets.at(path="/public", file)
-
-# Product
-GET     /:product-$variant<[0-9]+>.html                     controllers.Products.select(product: String, variant: String)
-
-# Category
-GET     /*categoryPath                                      controllers.Categories.select(categoryPath: String, page: Int ?= 1)

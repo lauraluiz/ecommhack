@@ -1,0 +1,13 @@
+@(product: Product)
+
+<input type="hidden" name="productId" value="@product.getId"/>
+@for(variant <- product.getVariants.asList) {
+<label class="radio">
+    <input type="radio" name="variantId" id="addToCart-variant-@variant.getId" value="@variant.getId" checked>
+    <img src="@variant.getFeaturedImage.getSize(ImageSize.SMALL).getUrl" class="img-rounded"
+         title="@variant.getInt("unit")" />
+    @variant.getInt("unit") donuts box
+</label>
+}
+
+<input id="addToCart-quantity" type="number" name="quantity" value="1" min="1" max="10" class="input-mini" />

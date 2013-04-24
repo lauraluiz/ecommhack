@@ -15,23 +15,9 @@ public class AddToCart {
     @Constraints.Max(10)
     public int quantity;
 
-    public String size;
-
 
     public AddToCart() {
 
     }
 
-    public AddToCart(String productId, String variantId, int quantity) {
-        this.productId = productId;
-        this.variantId = variantId;
-        this.quantity = quantity;
-    }
-
-    public AddToCart(String productId, String variantId, int quantity, String size) {
-        this.productId = productId;
-        this.variantId = variantId;
-        this.quantity = quantity;
-        this.size = size;
-    }
 }

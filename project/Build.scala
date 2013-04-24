@@ -4,7 +4,7 @@ import play.Project._
 
 object ApplicationBuild extends Build {
 
-    val appName         = "sphere-snowflake"
+    val appName         = "ecommhack"
     val appVersion      = "1.0-SNAPSHOT"
     val appDependencies = Seq(javaCore, javaJdbc)
 
@@ -19,9 +19,7 @@ object ApplicationBuild extends Build {
             lessEntryPoints <<= baseDirectory(customLessEntryPoints),
             libraryDependencies ++= Seq(
                 Libs.sphereSDK,
-                Libs.jSoup,
-                Libs.pMock,
-                Libs.pMockAPI
+                Libs.jSoup
             ),
             templatesImport ++= Seq(
                 "utils.ViewHelper._",
@@ -38,4 +36,4 @@ object ApplicationBuild extends Build {
         lazy val pMock      = "org.powermock" % "powermock-module-junit4" % "1.5" % "test"
         lazy val pMockAPI   = "org.powermock" % "powermock-api-mockito" % "1.5" % "test"
     }
-}
+	}

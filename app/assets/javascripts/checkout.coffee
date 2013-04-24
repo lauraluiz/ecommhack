@@ -56,35 +56,6 @@ $ ->
             # Set submit button visible
             $('#checkout-footer button[type=submit]').not(':visible').fadeIn()
 
-    # Load the payment method list
-    loadPaymentNetworks = (listElement) ->
-        listElement.load("checkout/payment/network", ->
-
-            # Disable all form elements until selected
-            listElement.find('.payment-network-form :input').attr('disabled', 'disabled')
-
-            # Add events on change selected payment method
-            listElement.find('.payment-network').has('a[data-toggle=tab]').click( ->
-                active = listElement.find($(this).find('a[data-toggle=tab]').attr("href"))
-                inactive = active.siblings()
-
-                # Disable form elements of inactive networks
-                inactive.find(':input').attr('disabled', 'disabled')
-
-                # Enable form elements of selected network
-                active.find(':input').removeAttr('disabled')
-            )
-
-            # Show tooltip on hovering input with hint
-            listElement.find('.hint-message').hover( ->
-                id = $(this).parent().attr("for") + "-hint"
-                $('#' + id + '.hint').show()
-            , ->
-                id = $(this).parent().attr("for") + "-hint"
-                $('#' + id + '.hint').hide()
-            )
-        )
-
     # Bind 'change' button click event to allow editing a section form
     $('#checkout .btn-edit').click( ->
         selected = $(this).parentsUntil('.step').parent()
@@ -105,6 +76,7 @@ $ ->
 
     # Bind cart 'next step' click event to 'next step' functionality
     checkoutCart.find('.btn-next').click( ->
+
         nextStep(checkoutCart)
     )
 

@@ -14,6 +14,9 @@ public class Pactas {
     @Constraints.Min(1)
     public int quantity;
 
+    @Constraints.Required(message = "Customer required")
+    public String customerId;
+
 
     public Pactas() {
     }

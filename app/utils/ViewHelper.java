@@ -43,23 +43,6 @@ public class ViewHelper {
         return Sphere.getClient().categories.getRoots();
 	}
 
-    public static String getCategoryPath(Category category) {
-        String path = "";
-        int level = category.getPathInTree().size();
-        if (level > 1) {
-            // Add first 2 oldest ancestors separated by '-'
-            List<Category> ancestors = category.getPathInTree().subList(0, level - 1);
-            String ancestorsPath = ancestors.get(0).getSlug();
-            if (ancestors.size() > 1) {
-                ancestorsPath += "-" + ancestors.get(1).getSlug();
-            }
-            path += ancestorsPath + "/";
-        }
-        // Add current category
-        path += category.getPathInTree().get(level - 1).getSlug();
-        return path;
-    }
-
     public static String getReturnUrl() {
         return Http.Context.current().session().get("returnUrl");
     }
@@ -135,35 +118,6 @@ public class ViewHelper {
         return new Money(BigDecimal.valueOf(10), "EUR");
     }
 
-    /**
-     * Returns
-     *
-     */
-    public static Call getListProductsUrl(SearchResult<Product> search, Category category) {
-        if (search.getCurrentPage() >= search.getTotalPages() - 1) {
-            return null;
-        }
-        // Convert from 0..N-1 to 1..N
-        int nextPage = search.getCurrentPage() + 2;
-        String categorySlug = "";
-        if (category != null) {
-            categorySlug = category.getSlug();
-        }
-        return routes.Categories.listProducts(categorySlug, nextPage);
-    }
-
-    public static Call getCategoryUrl(Category category) {
-        return getCategoryUrl(category, 1);
-    }
-
-    public static Call getCategoryUrl(Category category, int page) {
-        return routes.Categories.select(getCategoryPath(category), page);
-    }
-
-    public static Call getProductUrl(Product product, Variant variant, Category category) {
-        return routes.Products.select(product.getSlug(), String.valueOf(variant.getId()));
-    }
-
     public static List<String> getPossibleSizes(Product product, Variant variant) {
         List<Variant> variants = getPossibleVariants(product, variant, "size");
         List<String> sizes = new ArrayList<String>();
@@ -192,18 +146,4 @@ public class ViewHelper {
         matchingVariantList.removeAll(Collections.singleton(null));
         return matchingVariantList;
     }
-
-	public static Map<String, List<PaymentNetwork>> groupPaymentNetworks(List<PaymentNetwork> networks) {
-		Map<String, List<PaymentNetwork>> groups = new HashMap<String, List<PaymentNetwork>>();
-		for (PaymentNetwork network : networks) {
-			if (groups.containsKey(network.grouping)) {
-				groups.get(network.grouping).add(network);
-			} else {
-				List<PaymentNetwork> group = new ArrayList<PaymentNetwork>();
-				group.add(network);
-				groups.put(network.grouping, group);
-			}
-		}
-		return groups;
-	}
 }
