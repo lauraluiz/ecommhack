@@ -18,16 +18,19 @@ package utils.pactas;
 //   "YourCustomerId":""
 //}
 
+import java.util.List;
+
 public class WebhookCallbackData {
     public double Amount;
     public String CustomerId;
     public boolean PaymentSuccess;
     public String PaymentTokenId;
     //public String YourCustomerId; // we are not creating a customer in Sphere.io
+    public List<LineItem> Items;
 
     public static class LineItem {
         public String Description;
-        public String PricePerUnit;
+        public Double PricePerUnit;
         public String ProductNumber;
         public int Quantity;
         public int VatPercentage;

@@ -49,10 +49,16 @@ public class PactasClient {
                 new NewContract(billingGroupdId, customerId)), new TypeReference<Id>() {});
     }
 
-    public Id createUsageData(String contractId, String productId, String variantId, double price) {
+    public Id createUsageData(String contractId, String productId, String variantId, double quantity) {
         return execute(this.<Id>createPost(
                 baseUrl + "/contracts/" + contractId + "/usage",
-                new NewUsageData(new NewUsageData.Usage(productId, variantId, price))), new TypeReference<Id>() {});
+                new NewUsageData(new NewUsageData.Usage(productId, variantId, quantity))), new TypeReference<Id>() {});
+    }
+
+    public void lockContract(String contractId) {
+        execute(this.<Object>createPost(
+                baseUrl + "/contracts/" + contractId + "/lock",
+                new Object()), new TypeReference<Object>() {});
     }
 
     public <T> RequestHolder<T> createGet(String url) {

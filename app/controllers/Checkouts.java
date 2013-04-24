@@ -4,11 +4,17 @@ import forms.*;
 import io.sphere.client.shop.model.PaymentState;
 import io.sphere.client.shop.model.Product;
 import io.sphere.client.shop.model.Variant;
+import org.codehaus.jackson.map.DeserializationConfig;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import play.data.Form;
 import play.mvc.Result;
 import sphere.ShopController;
 import utils.pactas.Id;
 import utils.pactas.PactasClient;
+import utils.pactas.WebhookCallbackData;
+
+import java.io.IOException;
 
 import static play.data.Form.form;
 
@@ -75,18 +81,24 @@ public class Checkouts extends ShopController {
         return ok(views.html.success.render(unit));
     }
 
-    public static Result pactas() {
-        Form<Pactas> form = form(Pactas.class).bindFromRequest();
-        if (form.hasErrors()) {
-            return badRequest("Some error during payment");
-        }
-        Pactas pactas = form.get();
-        sphere().currentCart().addLineItem(pactas.productId, pactas.variantId, pactas.quantity);
-        String checkoutId = sphere().currentCart().createCheckoutSummaryId();
-        sphere().currentCart().createOrder(checkoutId, PaymentState.Paid);
-        System.out.println("Order created!");
+    private static final ObjectMapper jsonMapper = new ObjectMapper().configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
+    public static Result pactas() {
+        String payload = request().body().asText();
+        play.Logger.debug("------ Pactas webhook: " + payload);
+        WebhookCallbackData callbackData;
+        try {
+            callbackData = jsonMapper.readValue(payload, new TypeReference<WebhookCallbackData>() {});
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (callbackData.Items.isEmpty()) {
+            return badRequest("No line items in callback data");
+        }
+        WebhookCallbackData.LineItem lineItemToOrder = callbackData.Items.get(0);
+        sphere().currentCart().addLineItem(lineItemToOrder.productId(), lineItemToOrder.variantId(), lineItemToOrder.Quantity);
+        sphere().currentCart().createOrder(sphere().currentCart().createCheckoutSummaryId(), PaymentState.Paid);
+        System.out.println("Order created!");
         return ok();
     }
-
 }
