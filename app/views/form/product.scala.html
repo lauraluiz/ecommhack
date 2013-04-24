@@ -5,7 +5,7 @@
 
     <input type="hidden" name="productId" value="@product.getId"/>
     @for(variant <- product.getVariants.asList) {
-    <label class="radio">
+    <label class="radio" data-price="@variant.getPrice.getValue.getAmount.setScale(2)">
         <input type="radio" name="variantId" id="addToCart-variant-@variant.getId" value="@variant.getId">
         <div class="variant-option">
             <img src="@variant.getFeaturedImage.getSize(ImageSize.MEDIUM).getUrl" class="img-rounded"

@@ -4,6 +4,20 @@ $ ->
     checkoutShipping = $('#checkout-shipping.step')
     checkoutBilling = $('#checkout-billing.step')
 
+    checkoutCart.find('label.radio').hover( ->
+        $(this).addClass('active')
+    , ->
+        $(this).removeClass('active')
+    )
+
+    checkoutCart.find('label.radio').click( ->
+        checkoutCart.find('label.radio').removeClass('selected')
+        $(this).addClass('selected')
+
+        # Update price
+        checkoutBilling.find('input.amount').val($(this).data("price"))
+    )
+
     # Validate form and mark incorrect fields as invalid
     validateForm = (form, allRequired) ->
         all = form.find(':input')
