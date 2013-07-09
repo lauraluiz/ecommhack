@@ -26,7 +26,7 @@ public class NewUsageData {
         public String ProductNumber;
         public double Amount;
         public String Description = "Get them donuts!";
-        public Usage(String productId, String variantId, Double price) {
+        public Usage(String productId, int variantId, Double price) {
             ProductNumber = productId + "-" + variantId;
             Amount = price;
         }

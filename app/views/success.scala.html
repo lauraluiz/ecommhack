@@ -5,14 +5,17 @@
 }{
 
     <div id="success">
-        <h1>Lucky you!</h1>
+        <h1>@flash.get("purchase-header")</h1>
         <br/>
-        <h3>Every month you will be receiving @unit</h3>
+        <h3>@flash.get("purchase-body")</h3>
+        @if(flash.containsKey("purchase-body2")) {
+            <h3>@flash.get("purchase-body2")</h3>
+        }
         <h5>tasty</h5>
         <h5>sweet</h5>
         <h5>round</h5>
         <h5>colorful</h5>
-        <h3>DONUTS!</h3>
+        <h3>DONUTS every DAY!</h3>
     </div>
 
 }{

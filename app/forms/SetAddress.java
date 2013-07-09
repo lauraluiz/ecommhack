@@ -62,7 +62,7 @@ public class SetAddress {
     }
 
     public SetAddress(Customer customer) {
-        this(null, customer.getFirstName(), customer.getLastName(), customer.getEmail(), null,
+        this(null, customer.getName().getFirstName(), customer.getName().getLastName(), customer.getEmail(), null,
                 null, null, null, null, null, null);
     }
 

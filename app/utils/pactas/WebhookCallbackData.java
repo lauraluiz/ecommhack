@@ -37,8 +37,8 @@ public class WebhookCallbackData {
         public String productId() {
             return ProductNumber.substring(0, 36);
         }
-        public String variantId() {
-            return ProductNumber.substring(37);
+        public int variantId() {
+            return Integer.parseInt(ProductNumber.substring(37));
         }
     }
 }

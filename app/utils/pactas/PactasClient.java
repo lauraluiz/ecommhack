@@ -6,10 +6,10 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.ning.http.client.AsyncCompletionHandler;
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.Response;
-import io.sphere.client.SphereException;
 import io.sphere.client.shop.model.Address;
 import io.sphere.internal.request.RequestHolder;
 import io.sphere.internal.request.RequestHolderImpl;
+import io.sphere.internal.request.SphereResultRaw;
 import io.sphere.internal.util.Log;
 import io.sphere.internal.util.Util;
 import org.codehaus.jackson.map.DeserializationConfig;
@@ -50,7 +50,7 @@ public class PactasClient {
                 new NewContract(billingGroupdId, customerId)), new TypeReference<Id>() {});
     }
 
-    public ValidFrom createUsageData(String contractId, String productId, String variantId, double quantity) {
+    public ValidFrom createUsageData(String contractId, String productId, int variantId, double quantity) {
         return execute(this.<ValidFrom>createPost(
                 baseUrl + "/contracts/" + contractId + "/recurringusage",
                 new NewUsageData(new NewUsageData.Usage(productId, variantId, quantity))), new TypeReference<ValidFrom>() {});
@@ -83,7 +83,8 @@ public class PactasClient {
 
     public <T> T execute(RequestHolder<T> request, TypeReference<T> jsonParserTypeRef) {
         try {
-            return executeAsync(request, jsonParserTypeRef).get();
+            System.out.println(executeAsync(request, jsonParserTypeRef).get().getValue());
+            return null;
         } catch(ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
@@ -91,17 +92,18 @@ public class PactasClient {
         }
     }
 
-    public <T> ListenableFuture<T> executeAsync(final RequestHolder<T> request, final TypeReference<T> jsonParserTypeRef) {
+    public <T> ListenableFuture<SphereResultRaw<T>> executeAsync(final RequestHolder<T> request, final TypeReference<T> jsonParserTypeRef) {
         try {
-            return request.executeRequest(new AsyncCompletionHandler<T>() {
-                public T onCompleted(Response response) throws Exception {
+            return request.executeRequest(new AsyncCompletionHandler<SphereResultRaw<T>>() {
+                @Override
+                public SphereResultRaw<T> onCompleted(Response response) throws Exception {
                     if (Log.isDebugEnabled()) {
                         Log.debug(requestHolderToString(request) + "=> " +
-                                  response.getStatusCode() + "\n" +
-                                  response.getResponseBody(Charsets.UTF_8.name()));
-                                  //Util.prettyPrintJsonStringSecure(response.getResponseBody(Charsets.UTF_8.name())));
+                                response.getStatusCode() + "\n" +
+                                response.getResponseBody(Charsets.UTF_8.name()));
+                        //Util.prettyPrintJsonStringSecure(response.getResponseBody(Charsets.UTF_8.name())));
                     }
-                    return jsonMapper.readValue(response.getResponseBody(Charsets.UTF_8.name()), jsonParserTypeRef);
+                    return SphereResultRaw.success((T)jsonMapper.readValue(response.getResponseBody(Charsets.UTF_8.name()), jsonParserTypeRef));
                 }
             });
         } catch (Exception e) {
@@ -118,7 +120,7 @@ public class PactasClient {
                            "\n" + Util.prettyPrintJsonStringSecure(requestHolder.getBody())) +
                    "\n";
         } catch(IOException e) {
-            throw new SphereException(e);
+            throw new RuntimeException(e);
         }
     }
 }
