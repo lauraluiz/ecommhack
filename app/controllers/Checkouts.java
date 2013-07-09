@@ -35,9 +35,6 @@ public class Checkouts extends ShopController {
             return badRequest();
         }
         AddToCart addToCart = cartForm.get();
-        System.out.println(":" + addToCart.productId);
-        System.out.println(":" + addToCart.variantId);
-        System.out.println(":" + addToCart.quantity);
         Product product = sphere().products.byId(addToCart.productId).fetch().orNull();
         if (product == null) {
             return badRequest("Missing product");
@@ -54,17 +51,6 @@ public class Checkouts extends ShopController {
             return badRequest();
         }
         SetAddress setAddress = shippingForm.get();
-        System.out.println(":" + setAddress.company);
-        System.out.println(":" + setAddress.firstName);
-        System.out.println(":" + setAddress.lastName);
-        System.out.println(":" + setAddress.street);
-        System.out.println(":" + setAddress.street2);
-        System.out.println(":" + setAddress.postalCode);
-        System.out.println(":" + setAddress.city);
-        System.out.println(":" + setAddress.country);
-        System.out.println(":" + setAddress.phone);
-        System.out.println(":" + setAddress.mobile);
-        System.out.println(":" + setAddress.email);
 
         // Get billing information
         Form<Paymill> billingForm = form(Paymill.class).bindFromRequest();
@@ -72,13 +58,13 @@ public class Checkouts extends ShopController {
             return badRequest("Some error during payment");
         }
         Paymill paymill = billingForm.get();
-        System.out.println("Token: " + paymill.paymillToken);
 
         Id customerId = pactas.createCustomer(paymill.paymillToken, setAddress.getAddress());
         Id billingId = pactas.createBillingGroup();
         Id contractId = pactas.createContract(billingId.Id, customerId.Id);
         pactas.createUsageData(contractId.Id, addToCart.productId, addToCart.variantId, addToCart.quantity);
         pactas.lockContract(contractId.Id);
+
         return ok(views.html.success.render(unit));
     }
 
@@ -97,6 +83,7 @@ public class Checkouts extends ShopController {
         if (callbackData.Items.isEmpty()) {
             return badRequest("No line items in callback data");
         }
+
         WebhookCallbackData.LineItem lineItemToOrder = callbackData.Items.get(0);
         Cart cart = sphere().client().carts().createCart(Currency.getInstance("EUR"), CountryCode.DE, Cart.InventoryMode.None).execute();
         CartUpdate cartUpdate = new CartUpdate();
