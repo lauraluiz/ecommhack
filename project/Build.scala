@@ -4,7 +4,7 @@ import play.Project._
 
 object ApplicationBuild extends Build {
 
-    val appName         = "ecommhack"
+    val appName         = "donut-store"
     val appVersion      = "1.0-SNAPSHOT"
     val appDependencies = Seq(javaCore, javaJdbc)
 
@@ -17,10 +17,8 @@ object ApplicationBuild extends Build {
         Seq(
             resolvers += "sphere" at "http://public-repo.ci.cloud.commercetools.de/content/repositories/releases",
             lessEntryPoints <<= baseDirectory(customLessEntryPoints),
-            libraryDependencies ++= Seq(
-                Libs.sphereSDK,
-                Libs.jSoup
-            ),
+            libraryDependencies ++= Libs.appDependencies,
+            libraryDependencies ++= Libs.testDependencies,
             templatesImport ++= Seq(
                 "utils.ViewHelper._",
                 "forms._",
@@ -31,9 +29,12 @@ object ApplicationBuild extends Build {
     )
 
     object Libs {
-        lazy val sphereSDK  = "io.sphere" %% "sphere-play-sdk" % "0.31.1" withSources()
-        lazy val jSoup      = "org.jsoup" % "jsoup" % "1.7.1"
-        lazy val pMock      = "org.powermock" % "powermock-module-junit4" % "1.5" % "test"
-        lazy val pMockAPI   = "org.powermock" % "powermock-api-mockito" % "1.5" % "test"
+        val appDependencies = Seq(
+            "io.sphere"             %%  "sphere-play-sdk"   %   "0.37.0",
+            "org.jsoup"             %   "jsoup"             %   "1.7.1"
+        )
+        val testDependencies = Seq(
+            "org.mockito"   %   "mockito-all"       %       "1.9.5"     %   "test"
+        )
     }
-	}
+}
