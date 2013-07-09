@@ -15,6 +15,7 @@ import utils.pactas.WebhookCallbackData;
 
 import java.io.IOException;
 import java.util.Currency;
+import java.util.Locale;
 
 import static play.data.Form.form;
 
@@ -23,7 +24,7 @@ public class Checkouts extends ShopController {
     private static final PactasClient pactas = new PactasClient();
 
     public static Result show() {
-        Product product = sphere().products().bySlug("pink-donuts-box", lang().toLocale()).fetch().orNull();
+        Product product = sphere().products().bySlug("pink-donuts-box", Locale.ENGLISH).fetch().orNull();
         Form<SetAddress> addressForm = form(SetAddress.class);
         return ok(views.html.ecommhack.render(product, addressForm));
     }
