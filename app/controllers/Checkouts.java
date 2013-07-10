@@ -44,7 +44,7 @@ public class Checkouts extends ShopController {
         if (variant == null) {
             return badRequest("Missing variant");
         }
-        int unit = variant.getInt("unit");
+        int unit = variant.getInt("unit") * addToCart.quantity;
 
         // Get shipping information
         Form<SetAddress> shippingForm = form(SetAddress.class).bindFromRequest();
