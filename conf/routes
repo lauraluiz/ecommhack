@@ -4,9 +4,9 @@
 
 # Home
 GET     /                                                   controllers.Checkouts.show()
+POST    /	                                            controllers.Checkouts.submit()
 
-# Checkout
-POST    /checkout                                           controllers.Checkouts.submit()
+# Pactas
 POST    /checkout/pactas                                    controllers.Checkouts.pactas()
 
 # Map static resources from the /public folder to the /assets URL path
