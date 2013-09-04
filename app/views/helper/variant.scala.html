@@ -1,0 +1,7 @@
+@(variant: Variant)
+
+<div class="variant">
+    <h5>@variant.getString("box")</h5>
+    <img src="@variant.getFeaturedImage.getSize(ImageSize.SMALL).getUrl" alt="@variant.getString("box")" />
+    <h6>@variant.getPrice.getValue</h6>
+</div>

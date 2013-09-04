@@ -1,183 +1,54 @@
-@(product: Product, addressForm: Form[SetAddress])
+@(product: Product)
 
-@main("I want donuts!", "checkout"){
+@main("I want donuts!", "product"){
 
 }{
-<div id="checkout">
-    <form id="payment-form" action="@routes.Application.submit" method="post">
+<form id="product-form" action="@routes.Application.submitProduct" method="post">
+    <section id="product-header">
+        <div class="container">
+            <img src="@routes.Assets.at("images/header.png")" alt="I want donuts!" />
+            <h2>THE GREATEST DONUTS SHOP EVER</h2>
+        </div>
+    </section>
 
-        <div id="checkout-cart" class="step current clearfix">
-            <div class="step-header">
-                <span class="step-number">1</span>
-                <h3>Select your donut box</h3>
-                <button type="button" class="btn btn-edit hide">
-                    Change <i class="icon-edit"></i>
-                </button>
-            </div>
-
-            <div class="step-body">
-                <div id="form-checkout-cart" class="show">
-                    @form.product(product)
-                </div>
-
-                <div class="hide">
-                    <ul id="checkout-cart-summary" class="form-summary">
-                        <li>
-                            <span data-form="quantity">
-
-                            </span>
-                            x
-                            <span data-form="size">
-
-                            </span>
-                            =
-                            <span data-form="price">
-
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="step-footer">
-                <button type="button" class="btn btn-success btn-next">
-                    Continue <i class="icon-chevron-right icon-white"></i>
-                </button>
+    <section id="product-box">
+        <div class="container">
+            <img src="@routes.Assets.at("images/separator-black.png")" alt="-" />
+            <h2>CHOOSE YOUR <span class="highlight">taaasty</span> PASSION</h2>
+            @for(variant <- product.getVariants.asList) {
+            <div class="radio">
+                <label>
+                    <input type="radio" name="variantId" id="product-variantId-@variant.getId" value="@variant.getId">
+                    @helper.variant(variant)
+                    <div>BOX WITH @variant.getInt("quantity") DONUTS</div>
+                    <div>ADD THIS ONE!</div>
+                </label>
             </div>
         </div>
+        }
+    </section>
 
-        <div id="checkout-shipping" class="step disabled clearfix">
-            <div class="step-header">
-                <span class="step-number">2</span>
-                <h3>Enter shipping details</h3>
-                <button type="button" class="btn btn-edit hide">
-                    Change <i class="icon-edit"></i>
-                </button>
-            </div>
-
-            <div class="step-body">
-                <div id="form-shipping-address" class="show">
-                    @form.setAddress(addressForm)
-                </div>
-
-                <div class="address hide">
-                    <ul id="shipping-address-summary" class="form-summary">
-                        <li>
-                                <span data-form="firstName" class="first-name">
-                                    @addressForm.field("firstName").value
-                                </span>
-                                <span data-form="lastName" class="last-name">
-                                    @addressForm.field("lastName").value
-                                </span>
-                                <span data-form="company" class="company">
-                                    @addressForm.field("company").value
-                                </span>
-                        </li>
-                        <li>
-                                <span data-form="street" class="street">
-                                    @addressForm.field("street").value
-                                </span>
-                        </li>
-                        <li>
-                                <span data-form="street2" class="street">
-                                    @addressForm.field("street2").value
-                                </span>
-                        </li>
-                        <li>
-                                <span data-form="postalCode" class="postal-code">
-                                    @addressForm.field("postalCode").value
-                                </span>
-                                <span data-form="city" class="city">
-                                    @addressForm.field("city").value
-                                </span>
-                                <span data-form="country" class="country">
-                                    @addressForm.field("country").value
-                                </span>
-                        </li>
-                        <li>
-                                <span data-form="phone" class="phone">
-                                    @addressForm.field("phone").value
-                                </span>
-                        </li>
-                        <li>
-                                <span data-form="mobile" class="mobile">
-                                    @addressForm.field("mobile").value
-                                </span>
-                        </li>
-                        <li>
-                                <span data-form="email" class="email">
-                                    @addressForm.field("email").value
-                                </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="step-footer">
-                <button type="button" class="btn btn-success btn-next">
-                    Continue <i class="icon-chevron-right icon-white"></i>
-                </button>
-            </div>
+    <section id="product-often">
+        <h2>CHOOSE HOW OFTEN</h2>
+        <div class="radio">
+            <label>
+                <input type="radio" name="howOften" id="product-howOften-4" value="4">
+                Once a week
+            </label>
+            <label>
+                <input type="radio" name="howOften" id="product-howOften-2" value="2">
+                Every two weeks
+            </label>
+            <label>
+                <input type="radio" name="howOften" id="product-howOften-1" value="1">
+                Once a month
+            </label>
         </div>
 
-        <div id="checkout-billing" class="step disabled clearfix">
-            <div class="step-header">
-                <span class="step-number">3</span>
-                <h3>Enter payment details</h3>
-                <button type="button" class="btn btn-edit hide">
-                    Change <i class="icon-edit"></i>
-                </button>
-            </div>
+        <button type="submit">VIEW CART AND CONFIRM THIS PARADISE</button>
+    </section>
 
-            <div class="step-body">
-                <input class="amount" type="hidden" value="@product.getPrice.getValue.getAmount.setScale(2)"/>
-                <input class="currency" type="hidden" value="@product.getPrice.getValue.getCurrencyCode"/>
-                <div id="form-billing-method" class="show">
-                    <input type="hidden" name="network" value="Credit Card"/>
-                    @form.paymill()
-                </div>
-                <div class="hide">
-                    <ul id="billing-method-summary" class="form-summary">
-                        <li>
-                            <span data-form="network" class="network">
-                            </span>
-                        </li>
-                        <li>
-                            <span data-form="card-holdername">
-                            </span>
-                        </li>
-                        <li>
-                            <span data-form="card-number">
-                            </span>
-
-                            (<span data-form="card-cvc">
-                            </span>)
-                        </li>
-                        <li>
-                            <span data-form="card-expiry-month">
-                            </span>
-                            /
-                            <span data-form="card-expiry-year">
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="step-footer">
-                <button type="button" class="btn btn-success btn-next">
-                    Continue <i class="icon-chevron-right icon-white"></i>
-                </button>
-            </div>
-        </div>
-
-        <div id="checkout-footer" class="footer">
-                <button type="submit" class="btn btn-large submit-button">
-                    Complete payment <i class="icon-shopping-cart"></i>
-                </button>
-        </div>
-    </form>
-</div>
+</form>
 }{
 
 

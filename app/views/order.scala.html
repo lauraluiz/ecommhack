@@ -1,0 +1,32 @@
+@(cart: Cart, item: LineItem, addressForm: Form[SetAddress])
+
+@main("I want donuts!", "order"){
+
+}{
+<form id="order-form" action="@routes.Application.submitOrder" method="post">
+
+    <div id="checkout-shipping" class="step disabled clearfix">
+        <div id="form-shipping-address" class="show">
+            @form.setAddress(addressForm)
+        </div>
+    </div>
+
+    <div id="checkout-billing" class="step disabled clearfix">
+        <input class="amount" type="hidden" value="@item.getPrice.getValue.getAmount.setScale(2)"/>
+        <input class="currency" type="hidden" value="@item.getPrice.getValue.getCurrencyCode"/>
+        <div id="form-billing-method" class="show">
+            <input type="hidden" name="network" value="Credit Card"/>
+            @form.paymill()
+        </div>
+    </div>
+
+    <div id="checkout-footer" class="footer">
+        <button type="submit" class="btn btn-large submit-button">
+            Complete payment <i class="icon-shopping-cart"></i>
+        </button>
+    </div>
+
+</form>
+}{
+
+}
