@@ -1,10 +1,10 @@
 @(product: Product, addressForm: Form[SetAddress])
 
-@main("Checkout", "checkout"){
+@main("I want donuts!", "checkout"){
 
 }{
 <div id="checkout">
-    <form id="payment-form" action="@routes.Checkouts.submit" method="post">
+    <form id="payment-form" action="@routes.Application.submit" method="post">
 
         <div id="checkout-cart" class="step current clearfix">
             <div class="step-header">

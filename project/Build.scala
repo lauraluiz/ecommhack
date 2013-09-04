@@ -4,7 +4,7 @@ import play.Project._
 
 object ApplicationBuild extends Build {
 
-    val appName         = "donut-store"
+    val appName         = "sphere-donut"
     val appVersion      = "1.0-SNAPSHOT"
     val appDependencies = Seq(javaCore, javaJdbc)
 
@@ -15,7 +15,6 @@ object ApplicationBuild extends Build {
 
     lazy val main = play.Project(appName, appVersion, appDependencies).settings(
         Seq(
-            resolvers += "sphere" at "http://public-repo.ci.cloud.commercetools.de/content/repositories/releases",
             lessEntryPoints <<= baseDirectory(customLessEntryPoints),
             libraryDependencies ++= Libs.appDependencies,
             libraryDependencies ++= Libs.testDependencies,
@@ -30,7 +29,7 @@ object ApplicationBuild extends Build {
 
     object Libs {
         val appDependencies = Seq(
-            "io.sphere"             %%  "sphere-play-sdk"   %   "0.37.0",
+            "io.sphere"             %%  "sphere-play-sdk"   %   "0.42.0",
             "org.jsoup"             %   "jsoup"             %   "1.7.1"
         )
         val testDependencies = Seq(

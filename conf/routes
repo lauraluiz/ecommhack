@@ -3,11 +3,11 @@
 # ~~~~
 
 # Home
-GET     /                                                   controllers.Checkouts.show()
-POST    /	                                            controllers.Checkouts.submit()
+GET     /                                                   controllers.Application.show()
+POST    /	                                                controllers.Application.submit()
 
 # Pactas
-POST    /checkout/pactas                                    controllers.Checkouts.pactas()
+POST    /checkout/pactas                                    controllers.Application.pactas()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                       controllers.Assets.at(path="/public", file)

@@ -15,18 +15,17 @@ import utils.pactas.WebhookCallbackData;
 
 import java.io.IOException;
 import java.util.Currency;
-import java.util.Locale;
 
 import static play.data.Form.form;
 
-public class Checkouts extends ShopController {
+public class Application extends ShopController {
 
     private static final PactasClient pactas = new PactasClient();
 
     public static Result show() {
-        Product product = sphere().products().bySlug("pink-donuts-box", Locale.ENGLISH).fetch().orNull();
+        Product product = sphere().products().bySlug("pink-donuts-box").fetch().orNull();
         Form<SetAddress> addressForm = form(SetAddress.class);
-        return ok(views.html.ecommhack.render(product, addressForm));
+        return ok(views.html.index.render(product, addressForm));
     }
 
     public static Result submit() {
@@ -60,6 +59,7 @@ public class Checkouts extends ShopController {
         }
         Paymill paymill = billingForm.get();
         try {
+            // TODO Fix Pactas
             Id customerId = pactas.createCustomer(paymill.paymillToken, setAddress.getAddress());
             Id billingId = pactas.createBillingGroup();
             Id contractId = pactas.createContract(billingId.Id, customerId.Id);
@@ -82,6 +82,8 @@ public class Checkouts extends ShopController {
         // Pactas needs to send Content-Type: application/json for this to work.
         String payload = request().body().asJson().toString();
         play.Logger.debug("------ Pactas webhook: " + payload);
+
+        // Read order data from Pactas
         WebhookCallbackData callbackData;
         try {
             callbackData = jsonMapper.readValue(payload, new TypeReference<WebhookCallbackData>() {});
@@ -91,18 +93,21 @@ public class Checkouts extends ShopController {
         if (callbackData.Items.isEmpty()) {
             return badRequest("No line items in callback data");
         }
-
         WebhookCallbackData.LineItem lineItemToOrder = callbackData.Items.get(0);
-        Cart cart = sphere().client().carts().createCart(Currency.getInstance("EUR"), CountryCode.DE, Cart.InventoryMode.None).execute();
-        CartUpdate cartUpdate = new CartUpdate();
+        // TODO Read address and other information from Pactas
         Address address = new Address(CountryCode.DE);
-        cartUpdate.setShippingAddress(address);
-        cartUpdate.addLineItem(1, lineItemToOrder.productId(), lineItemToOrder.variantId());
+
+        // Create cart with Pactas data
+        Cart cart = sphere().client().carts().createCart(Currency.getInstance("EUR"), CountryCode.DE, Cart.InventoryMode.None).execute();
+        CartUpdate cartUpdate = new CartUpdate()
+                .setShippingAddress(address)
+                .addLineItem(1, lineItemToOrder.productId(), lineItemToOrder.variantId());
         cart = sphere().client().carts().updateCart(cart.getIdAndVersion(), cartUpdate).execute();
+
+        // Create order from cart
         sphere().client().orders().createOrder(cart.getIdAndVersion(), PaymentState.Paid).execute();
-        //sphere().currentCart().addLineItem(lineItemToOrder.productId(), lineItemToOrder.variantId(), lineItemToOrder.Quantity);
-        //sphere().currentCart().createOrder(sphere().currentCart().createCheckoutSummaryId(), PaymentState.Paid);
-        System.out.println("Order created!");
+
+        play.Logger.debug("------ Order created!");
         return ok("Order created!");
     }
 }
