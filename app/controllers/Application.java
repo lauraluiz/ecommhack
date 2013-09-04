@@ -12,6 +12,9 @@ import sphere.ShopController;
 import utils.pactas.Id;
 import utils.pactas.PactasClient;
 import utils.pactas.WebhookCallbackData;
+import views.html.index;
+import views.html.order;
+import views.html.success;
 
 import java.io.IOException;
 import java.util.Currency;
@@ -21,69 +24,97 @@ import static play.data.Form.form;
 public class Application extends ShopController {
 
     private static final PactasClient pactas = new PactasClient();
+    private static final ObjectMapper jsonMapper = new ObjectMapper()
+            .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-    public static Result show() {
-        Product product = sphere().products().bySlug("pink-donuts-box").fetch().orNull();
-        Form<SetAddress> addressForm = form(SetAddress.class);
-        return ok(views.html.index.render(product, addressForm));
+    final static Form<AddToCart> addToCartForm = form(AddToCart.class);
+    final static Form<SetAddress> setAddressForm = form(SetAddress.class);
+    final static Form<Paymill> setPaymentForm = form(Paymill.class);
+
+
+    private static Product getProduct() {
+        return sphere().products().bySlug("donut-box").fetch().orNull();
     }
 
-    public static Result submit() {
-        // Get product information
-        Form<AddToCart> cartForm = form(AddToCart.class).bindFromRequest();
+    public static Result showProduct() {
+        return ok(index.render(getProduct()));
+    }
+
+    public static Result submitProduct() {
+        // Case missing or invalid product form
+        Form<AddToCart> cartForm = addToCartForm.bindFromRequest();
         if (cartForm.hasErrors()) {
-            return badRequest();
+            flash("error", "Please select a box and how often you want it.");
+            return showProduct();
         }
+        // Case invalid product
         AddToCart addToCart = cartForm.get();
-        Product product = sphere().products().byId(addToCart.productId).fetch().orNull();
-        if (product == null) {
-            return badRequest("Missing product");
-        }
-        Variant variant = product.getVariants().byId(addToCart.variantId).orNull();
+        Variant variant = getProduct().getVariants().byId(addToCart.variantId).orNull();
         if (variant == null) {
-            return badRequest("Missing variant");
+            flash("error", "Product not found. Please try again.");
+            return showProduct();
         }
-        int unit = variant.getInt("unit") * addToCart.quantity;
+        /* Let us use quantity, not useful in this scenario, as frequency */
+        sphere().currentCart().addLineItem(getProduct().getId(), variant.getId(), addToCart.howOften);
+        return showOrder();
+    }
 
-        // Get shipping information
-        Form<SetAddress> shippingForm = form(SetAddress.class).bindFromRequest();
+    public static Result showOrder() {
+        Cart cart = sphere().currentCart().fetch();
+        // Case no product selected
+        if (cart.getLineItems().size() < 1) {
+            return showProduct();
+        }
+        // Case product in cart
+        LineItem item = cart.getLineItems().get(0);
+        Form<SetAddress> addressForm = setAddressForm.fill(new SetAddress(cart.getShippingAddress()));
+        return ok(order.render(cart, item, addressForm));
+    }
+
+    public static Result submitOrder() {
+        Cart cart = sphere().currentCart().fetch();
+        // Case no product selected
+        if (cart.getLineItems().size() < 1) {
+            return showProduct();
+        }
+        // Case missing or invalid shipping address form
+        Form<SetAddress> shippingForm = setAddressForm.bindFromRequest();
         if (shippingForm.hasErrors()) {
-            return badRequest();
+            flash("error", "Please correct the shipping address form.");
+            return showOrder();
         }
+        // Case missing or invalid payment form
+        Form<Paymill> paymillForm = setPaymentForm.bindFromRequest();
+        if (paymillForm.hasErrors()) {
+            flash("error", "There was some error during payment. Please try again.");
+            return showOrder();
+        }
+        // Case correct address and payment data
+        LineItem item = cart.getLineItems().get(0);
         SetAddress setAddress = shippingForm.get();
-
-        // Get billing information
-        Form<Paymill> billingForm = form(Paymill.class).bindFromRequest();
-        if (billingForm.hasErrors()) {
-            return badRequest("Some error during payment");
-        }
-        Paymill paymill = billingForm.get();
+        Paymill paymill = paymillForm.get();
         try {
             // TODO Fix Pactas
             Id customerId = pactas.createCustomer(paymill.paymillToken, setAddress.getAddress());
             Id billingId = pactas.createBillingGroup();
             Id contractId = pactas.createContract(billingId.Id, customerId.Id);
-            pactas.createUsageData(contractId.Id, addToCart.productId, addToCart.variantId, addToCart.quantity);
+            pactas.createUsageData(contractId.Id, item.getProductId(), item.getVariant().getId(), item.getQuantity());
             pactas.lockContract(contractId.Id);
-            flash("purchase-header", "Lucky you!");
-            flash("purchase-body", "Every month you will be receiving " + unit);
-        } catch (Exception e) {
-            flash("purchase-header", "Ohhh we're sorry...!");
-            flash("purchase-body", "We don't offer our services anymore...");
-            flash("purchase-body2", " But imagine what would it be to receive " + unit);
-        }
+            flash("success", "Thank you for your order. Please keep in mind that this shop is for demonstration only." +
+                    "Therefore we don't ship donuts in reality. Don't worry, no payments will be charged." +
+                    "If we ship donuts someday in the future you'll be the first that will be informed.");
+        } catch (Exception e) { }
 
-        return ok(views.html.success.render(unit));
+        return ok(success.render());
     }
 
-    private static final ObjectMapper jsonMapper = new ObjectMapper().configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    /* Method called by Pactas every time an order must be placed (weekly, monthly...) */
+    public static Result executeSubscription() {
 
-    public static Result pactas() {
-        // Pactas needs to send Content-Type: application/json for this to work.
+        // Read order data from Pactas
         String payload = request().body().asJson().toString();
         play.Logger.debug("------ Pactas webhook: " + payload);
 
-        // Read order data from Pactas
         WebhookCallbackData callbackData;
         try {
             callbackData = jsonMapper.readValue(payload, new TypeReference<WebhookCallbackData>() {});

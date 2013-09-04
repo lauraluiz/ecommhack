@@ -3,11 +3,16 @@
 # ~~~~
 
 # Home
-GET     /                                                   controllers.Application.show()
-POST    /	                                                controllers.Application.submit()
+GET     /                                                   controllers.Application.showProduct()
+POST    /	                                                controllers.Application.submitProduct()
+
+# Home
+GET     /order                                              controllers.Application.showOrder()
+POST    /order                                              controllers.Application.submitOrder()
+
 
 # Pactas
-POST    /checkout/pactas                                    controllers.Application.pactas()
+POST    /order/execute                                      controllers.Application.executeSubscription()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                       controllers.Assets.at(path="/public", file)

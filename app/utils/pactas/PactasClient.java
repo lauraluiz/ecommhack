@@ -50,10 +50,10 @@ public class PactasClient {
                 new NewContract(billingGroupdId, customerId)), new TypeReference<Id>() {});
     }
 
-    public ValidFrom createUsageData(String contractId, String productId, int variantId, double quantity) {
+    public ValidFrom createUsageData(String contractId, String productId, int variantId, double frequency) {
         return execute(this.<ValidFrom>createPost(
                 baseUrl + "/contracts/" + contractId + "/recurringusage",
-                new NewUsageData(new NewUsageData.Usage(productId, variantId, quantity))), new TypeReference<ValidFrom>() {});
+                new NewUsageData(new NewUsageData.Usage(productId, variantId, frequency))), new TypeReference<ValidFrom>() {});
     }
 
     public void lockContract(String contractId) {
