@@ -10,6 +10,8 @@ import org.apache.commons.lang3.text.WordUtils;
 import play.mvc.Http;
 import sphere.Sphere;
 
+import static java.util.Currency.*;
+
 public class ViewHelper {
 
 	/**
@@ -52,6 +54,10 @@ public class ViewHelper {
         } catch (Exception e) {
             return "";
         }
+    }
+
+    public static String getPrice(Money money) {
+        return money.getAmount().toString() + " " + getInstance(money.getCurrencyCode()).getSymbol(Locale.GERMANY);
     }
 
     public static BigDecimal getPercentage(double amount) {

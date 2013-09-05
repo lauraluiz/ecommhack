@@ -6,46 +6,75 @@
 <form id="product-form" action="@routes.Application.submitProduct" method="post">
     <section id="product-header">
         <div class="container">
-            <img src="@routes.Assets.at("images/header.png")" alt="I want donuts!" />
-            <h2>THE GREATEST DONUTS SHOP EVER</h2>
+            <div class="body">
+                <img src="@routes.Assets.at("images/header.png")" alt="I want donuts! The greatest donuts shop ever" />
+            </div>
         </div>
     </section>
 
     <section id="product-box">
         <div class="container">
-            <img src="@routes.Assets.at("images/separator-black.png")" alt="-" />
-            <h2>CHOOSE YOUR <span class="highlight">taaasty</span> PASSION</h2>
-            @for(variant <- product.getVariants.asList) {
-            <div class="radio">
-                <label>
-                    <input type="radio" name="variantId" id="product-variantId-@variant.getId" value="@variant.getId">
-                    @helper.variant(variant)
-                    <div>BOX WITH @variant.getInt("quantity") DONUTS</div>
-                    <div>ADD THIS ONE!</div>
-                </label>
+            <div class="head">
+                <img src="@routes.Assets.at("images/separator-black.png")" alt="-" />
+                <h2>CHOOSE YOUR <span class="highlight">taaasty</span> PASSION</h2>
+            </div>
+            <div class="body">
+                <div class="variant-boxes clearfix">
+                    @for(variant <- product.getVariants.asList) {
+                    <div class="variant-box">
+                        <label>
+                            <input type="radio" name="variantId" id="product-variantId-@variant.getId" value="@variant.getId">
+                            <div class="checked"><img src="@routes.Assets.at("images/checked.png")" ></div>
+                            @helper.variant(variant)
+                            <div class="description">BOX WITH <span class="stress">@variant.getInt("quantity")</span> DONUTS</div>
+                            <div class="add-to-cart">
+                                <div class="button" style="-webkit-filter:
+                                hue-rotate(@variant.getString("hue")deg)
+                                brightness(@variant.getString("brightness"))
+                                saturate(@variant.getString("saturation"))
+                                contrast(@variant.getString("contrast"));"></div>
+                                <span class="add">ADD THIS ONE!</span>
+                                <span class="added">ADDED</span>
+                            </div>
+                        </label>
+                    </div>
+                    }
+                </div>
             </div>
         </div>
-        }
     </section>
 
     <section id="product-often">
-        <h2>CHOOSE HOW OFTEN</h2>
-        <div class="radio">
-            <label>
-                <input type="radio" name="howOften" id="product-howOften-4" value="4">
-                Once a week
-            </label>
-            <label>
-                <input type="radio" name="howOften" id="product-howOften-2" value="2">
-                Every two weeks
-            </label>
-            <label>
-                <input type="radio" name="howOften" id="product-howOften-1" value="1">
-                Once a month
-            </label>
-        </div>
+        <div class="container">
+            <div class="head">
+                <img src="@routes.Assets.at("images/separator-white.png")" alt="-" />
+                <h2>CHOOSE HOW OFTEN</h2>
+            </div>
+            <div class="body">
+                <div class="often-boxes clearfix">
+                    <div class="often-box">
+                        <label>
+                            <input type="radio" name="howOften" id="product-howOften-4" value="4">
+                            <div class="text"><span class="check"></span> Once a week</div>
+                        </label>
+                    </div>
+                    <div class="often-box">
+                        <label>
+                            <input type="radio" name="howOften" id="product-howOften-2" value="2">
+                            <div class="text"><span class="check"></span> Every two weeks</div>
+                        </label>
+                    </div>
+                    <div class="often-box">
+                        <label>
+                            <input type="radio" name="howOften" id="product-howOften-1" value="1">
+                            <div class="text"><span class="check"></span> Once a month</div>
+                        </label>
+                    </div>
+                </div>
 
-        <button type="submit">VIEW CART AND CONFIRM THIS PARADISE</button>
+                <button type="submit">VIEW CART AND CONFIRM THIS PARADISE</button>
+            </div>
+        </div>
     </section>
 
 </form>

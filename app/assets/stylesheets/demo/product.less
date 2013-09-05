@@ -1,13 +1,10 @@
 body.product {
     background-color: @yellow;
-    text-align: center;
 
     #product-header {
-        background: @green url("../images/background-green.png") repeat top left;
+        background: @green url("../images/background-green.jpg") repeat top left;
 
         .container {
-            h2 { color: @white; text-shadow: 0px 2px 1px @green-dark; }
-            padding: 100px 10px;
             background: transparent url("../images/border-green.png") repeat-x top left;
         }
     }
@@ -15,13 +12,101 @@ body.product {
     #product-box {
         .container {
             h2 span.highlight { color: @green; font-size: 82px; }
-            padding: 100px 10px;
             background: transparent url("../images/border-yellow.png") repeat-x top left;
+
+            .variant-box {
+                float: left; position: relative; padding: 30px 60px;
+                .checked { display: none; position: absolute; top: 100px; right: 130px; z-index: 75; }
+                .variant { padding: 35px 10px; }
+                .variant-body {
+                    position: relative;
+                    color: @white;
+                    width: 404px; height: 400px;
+                    img { position: relative; top: 120px; z-index: 50; }
+                    .stamp {
+                        position: absolute; width: 100%; height: 100%;
+                        background: transparent url('../images/stamp.png') no-repeat 0 0;
+                    }
+                    .name, .price { position: absolute; width: 100%; z-index: 100; }
+                    .name {
+                        top: 70px;
+                        font-family: 'Pacifico', cursive; font-size: 48px; text-shadow: 1px 1px 5px @grey;
+                    }
+                    .price {
+                        top: 330px;
+                        font-size: 36px; font-weight: 700; text-align: center;
+                    }
+                }
+                .description {
+                    float: left;
+                    font-weight: 700; font-size: 22px;
+                    line-height: 44px; border-top: 1px solid @black; border-bottom: 1px solid @black;
+                    .stress { background-color: @green; padding: 0 2px; }
+                }
+                .add-to-cart {
+                    position: relative; float: right; width: 213px; height: 50px;
+                    color: @white; font-weight: 700; font-size: 20px; line-height: 44px; text-shadow: 1px 1px 5px @grey;
+                    .button {
+                        position: absolute; width: 100%; height: 100%;
+                        background: transparent url('../images/button-small.png') no-repeat 0 0;
+                    }
+                    .add, .added { position: relative; z-index: 100; }
+                    .added { display: none; }
+                }
+                input[type=radio] {
+                    display: none;
+                    &:checked {
+                        ~.variant .stamp { background-position: 0 -399px; }
+                        ~.checked { display: block; }
+                        ~.add-to-cart {
+                            line-height: 48px;
+                            .button { background-position: 0 -50px; }
+                            .add { display: none; }
+                            .added { display: block; }
+                        }
+                    }
+                }
+                &:hover {
+                    .stamp { background-position: 0 -399px; }
+                    .add-to-cart {
+                        line-height: 48px;
+                        .button { background-position: 0 -50px; }
+                    }
+                }
+            }
         }
     }
 
     #product-often {
+        background: @red;
 
+        .container {
+            h2 { color: @white; }
+            background: transparent url("../images/border-yellow.png") repeat-x bottom left;
+        }
+
+        .often-box {
+            float: left; margin: 100px 0 200px;
+            &:last-child label { padding-right: 0; }
+            label {
+                padding-right: 60px;
+                .text {
+                    padding-right: 10px;
+                    font-family: 'Pacifico', cursive; font-size: 48px; color: @white; opacity: 0.5;
+                    .check{
+                        float: left; width: 35px; height: 33px; margin-right: 10px;
+                        background: transparent url('../images/dot.png') no-repeat;
+                    }
+                }
+                input[type=radio] {
+                    display: none;
+                    &:checked {
+                        ~.text { opacity: 1.5; }
+                    }
+                }
+                &:hover .text { opacity: 1.5; }
+            }
+        }
     }
 
 }
