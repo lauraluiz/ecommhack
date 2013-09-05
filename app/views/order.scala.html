@@ -4,26 +4,51 @@
 
 }{
 <form id="order-form" action="@routes.Application.submitOrder" method="post">
+    <div class="checkout">
+        <section id="order-cart">
+            <div class="container">
+                <div class="head">
+                    <h1>Order details</h1>
+                </div>
+                <div class="body">
+                    @helper.variant(cart.getLineItems.get(0).getVariant)
+                </div>
+            </div>
+        </section>
 
-    <div id="checkout-shipping" class="step disabled clearfix">
-        <div id="form-shipping-address" class="show">
-            @form.setAddress(addressForm)
-        </div>
-    </div>
+        <section id="order-shipping">
+            <div class="container">
+                <div class="head">
+                    <h3>SHIPPING INFORMATION</h3>
+                </div>
+                <div class="body">
+                    <div id="form-shipping-address" class="show">
+                        @form.setAddress(addressForm)
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <div id="checkout-billing" class="step disabled clearfix">
-        <input class="amount" type="hidden" value="@item.getPrice.getValue.getAmount.setScale(2)"/>
-        <input class="currency" type="hidden" value="@item.getPrice.getValue.getCurrencyCode"/>
-        <div id="form-billing-method" class="show">
-            <input type="hidden" name="network" value="Credit Card"/>
-            @form.paymill()
-        </div>
-    </div>
+        <section id="order-billing">
+            <div class="container">
+                    <div class="head">
+                    <h3>BILLING INFORMATION</h3>
+                </div>
+                <div class="body">
+                    <input class="amount" type="hidden" value="@item.getPrice.getValue.getAmount.setScale(2)"/>
+                    <input class="currency" type="hidden" value="@item.getPrice.getValue.getCurrencyCode"/>
+                    <div id="form-billing-method" class="show">
+                        <input type="hidden" name="network" value="Credit Card"/>
+                        @form.paymill()
+                    </div>
 
-    <div id="checkout-footer" class="footer">
-        <button type="submit" class="btn btn-large submit-button">
-            Complete payment <i class="icon-shopping-cart"></i>
-        </button>
+                    <div class="footer">
+                        <button type="submit">CONFIRM ORDER!</button>
+                        <a href="@routes.Application.showProduct">[Or modify order]</a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
 </form>
