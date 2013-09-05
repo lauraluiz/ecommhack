@@ -21,6 +21,20 @@ public class ViewHelper {
 		return Sphere.getInstance().currentCart().fetch();
 	}
 
+    public static int getOften(Cart cart) {
+        if (cart.getLineItems().size() < 1) {
+            return 0;
+        }
+        return cart.getLineItems().get(0).getQuantity();
+    }
+
+    public static int getVariant(Cart cart) {
+        if (cart.getLineItems().size() < 1) {
+            return 0;
+        }
+        return cart.getLineItems().get(0).getVariant().getId();
+    }
+
     public static Customer getCurrentCustomer() {
         Customer customer = null;
         if (Sphere.getInstance().isLoggedIn()) {

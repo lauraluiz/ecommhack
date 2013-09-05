@@ -2,13 +2,10 @@
 
 <div class="variant">
     <div class="variant-body">
-        <div class="stamp" style="-webkit-filter:
-            hue-rotate(@variant.getString("hue")deg)
-            brightness(@variant.getString("brightness"))
-            saturate(@variant.getString("saturation"))
-            contrast(@variant.getString("contrast"));"></div>
+        <div class="stamp" style="@helper.color(variant)"></div>
         <div class="name">@variant.getString("box")</div>
         <img src="@variant.getFeaturedImage.getSize(ImageSize.LARGE).getUrl" alt="@variant.getString("box")" />
         <div class="price">@getPrice(variant.getPrice.getValue)</div>
     </div>
 </div>
+<div class="description">BOX WITH <span class="stress">@variant.getInt("quantity")</span> DONUTS</div>

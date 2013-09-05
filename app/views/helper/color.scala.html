@@ -1,0 +1,26 @@
+@(variant: Variant)
+filter:
+hue-rotate(@variant.getString("hue")deg)
+brightness(@variant.getString("brightness"))
+saturate(@variant.getString("saturation"))
+contrast(@variant.getString("contrast"));
+-webkit-filter:
+hue-rotate(@variant.getString("hue")deg)
+brightness(@variant.getString("brightness"))
+saturate(@variant.getString("saturation"))
+contrast(@variant.getString("contrast"));
+-moz-filter:
+hue-rotate(@variant.getString("hue")deg)
+brightness(@variant.getString("brightness"))
+saturate(@variant.getString("saturation"))
+contrast(@variant.getString("contrast"));
+-o-filter:
+hue-rotate(@variant.getString("hue")deg)
+brightness(@variant.getString("brightness"))
+saturate(@variant.getString("saturation"))
+contrast(@variant.getString("contrast"));
+-ms-filter:
+hue-rotate(@variant.getString("hue")deg)
+brightness(@variant.getString("brightness"))
+saturate(@variant.getString("saturation"))
+contrast(@variant.getString("contrast"));

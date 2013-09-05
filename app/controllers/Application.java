@@ -37,7 +37,8 @@ public class Application extends ShopController {
     }
 
     public static Result showProduct() {
-        return ok(index.render(getProduct()));
+        Cart cart = sphere().currentCart().fetch();
+        return ok(index.render(cart, getProduct()));
     }
 
     public static Result submitProduct() {
@@ -54,9 +55,14 @@ public class Application extends ShopController {
             flash("error", "Product not found. Please try again.");
             return showProduct();
         }
+        /* Clean cart because we only allow a single product */
+        Cart cart = sphere().currentCart().fetch();
+        for (LineItem item : cart.getLineItems()) {
+            sphere().currentCart().removeLineItem(item.getId());
+        }
         /* Let us use quantity, not useful in this scenario, as frequency */
         sphere().currentCart().addLineItem(getProduct().getId(), variant.getId(), addToCart.howOften);
-        return showOrder();
+        return redirect(routes.Application.showOrder());
     }
 
     public static Result showOrder() {
@@ -100,10 +106,12 @@ public class Application extends ShopController {
             Id contractId = pactas.createContract(billingId.Id, customerId.Id);
             pactas.createUsageData(contractId.Id, item.getProductId(), item.getVariant().getId(), item.getQuantity());
             pactas.lockContract(contractId.Id);
-            flash("success", "Thank you for your order. Please keep in mind that this shop is for demonstration only." +
+            flash("order-info", "Thank you for your order. Please keep in mind that this shop is for demonstration only." +
                     "Therefore we don't ship donuts in reality. Don't worry, no payments will be charged." +
                     "If we ship donuts someday in the future you'll be the first that will be informed.");
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            flash("order-info", "Everything went correct but the subscription could not be saved...");
+        }
 
         return ok(success.render());
     }
