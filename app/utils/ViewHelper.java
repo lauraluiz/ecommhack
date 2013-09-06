@@ -35,6 +35,18 @@ public class ViewHelper {
         return cart.getLineItems().get(0).getVariant().getId();
     }
 
+    public static String getOftenName(Cart cart) {
+        if (cart.getLineItems().size() < 1) {
+            return "";
+        }
+        switch (cart.getLineItems().get(0).getQuantity()) {
+            case 1: return "ONCE A MONTH";
+            case 2: return "EVERY TWO WEEKS";
+            case 4: return "ONCE A WEEK";
+        }
+        return "UNKNOWN FREQUENCY";
+    }
+
     public static Customer getCurrentCustomer() {
         Customer customer = null;
         if (Sphere.getInstance().isLoggedIn()) {
@@ -97,68 +109,8 @@ public class ViewHelper {
         return cart.getShippingAddress() != null;
     }
 
-	/**
-	 * Check whether the given product has more than one attribute value
-	 * 
-	 * @param product
-     * @param attributeName
-	 * @return true if the product has more than one attribute value, false otherwise
-	 */
-	public static boolean hasMoreAttributeValues(Product product, String attributeName) {
-        return product.getVariants().getAvailableAttributes(attributeName).size() > 1;
-    }
-
-    /**
-     * Check whether the given Product has more than one 'color' attribute
-     *
-     * @param product
-     * @return true if the product has more than one color, false otherwise
-     */
-    public static boolean hasMoreColors(Product product) {
-        return hasMoreAttributeValues(product, "color");
-    }
-
-    /**
-     * Check whether the given Product has more than one 'size' attribute
-     *
-     * @param product
-     * @return true if the product has more than one size, false otherwise
-     */
-    public static boolean hasMoreSizes(Product product) {
-        return hasMoreAttributeValues(product, "size");
-    }
-
     public static Money getShippingCost() {
         // TODO Implement correct shipping cost
         return new Money(BigDecimal.valueOf(10), "EUR");
-    }
-
-    public static List<String> getPossibleSizes(Product product, Variant variant) {
-        List<Variant> variants = getPossibleVariants(product, variant, "size");
-        List<String> sizes = new ArrayList<String>();
-        for (Variant matchedVariant : variants) {
-            sizes.add(matchedVariant.getString("size"));
-        }
-        return sizes;
-    }
-
-    public static List<Variant> getPossibleVariants(Product product, Variant variant, String selectedAttribute) {
-        List<Variant> matchingVariantList = new ArrayList<Variant>();
-        List<Attribute> desiredAttributes = new ArrayList<Attribute>();
-        for (Attribute attribute : variant.getAttributes()) {
-            if (!selectedAttribute.equals(attribute.getName()) && hasMoreAttributeValues(product, attribute.getName())) {
-                desiredAttributes.add(attribute);
-            }
-        }
-        VariantList variantList = product.getVariants().byAttributes(desiredAttributes);
-        for (Attribute attr : product.getVariants().getAvailableAttributes(selectedAttribute)) {
-            if (variantList.byAttributes(attr).size() < 1) {
-                matchingVariantList.add((product.getVariants().byAttributes(attr).first()).orNull());
-            } else {
-                matchingVariantList.add((variantList.byAttributes(attr).first()).orNull());
-            }
-        }
-        matchingVariantList.removeAll(Collections.singleton(null));
-        return matchingVariantList;
     }
 }

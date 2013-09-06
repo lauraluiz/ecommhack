@@ -12,6 +12,8 @@
                 </div>
                 <div class="body">
                     @helper.variant(cart.getLineItems.get(0).getVariant)
+                    <div class="often">How much often: <span class="value">@getOftenName(cart)</span></div>
+                    <div class="price">Total price: <span class="value">@getPrice(cart.getTotalPrice)</span> (yearly)</div>
                 </div>
             </div>
         </section>
