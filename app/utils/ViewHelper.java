@@ -1,6 +1,7 @@
 package utils;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.*;
 
 import com.neovisionaries.i18n.CountryCode;
@@ -83,7 +84,9 @@ public class ViewHelper {
     }
 
     public static String getPrice(Money money) {
-        return money.getAmount().toString() + " " + getInstance(money.getCurrencyCode()).getSymbol(Locale.GERMANY);
+        String price = NumberFormat.getInstance(Locale.GERMANY).format(money.getAmount());
+        String currency = getInstance(money.getCurrencyCode()).getSymbol(Locale.GERMANY);
+        return price + " " + currency;
     }
 
     public static BigDecimal getPercentage(double amount) {
