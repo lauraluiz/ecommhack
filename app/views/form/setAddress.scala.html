@@ -3,11 +3,12 @@
 <div class="form">
     <div class="form-inline">
         <div class="control-group">
+            <label for="shipping-address-firstName" class="control-label">Name <span class="required">*</span></label>
             <div class="controls">
-                <label for="shipping-address-firstName">Name <span class="required">*</span></label>
+                <label for="shipping-address-firstName">First Name</label>
                 <input type="text" name="firstName" id="shipping-address-firstName" placeholder="First Name" required
                        class="form-control" value="@addressForm.field("firstName").value" />
-                <label for="shipping-address-lastName" class="sr-only">Last Name <span class="required">*</span></label>
+                <label for="shipping-address-lastName" class="sr-only">Last Name</label>
                 <input type="text" name="lastName" id="shipping-address-lastName" placeholder="Last Name" required
                        class="form-control" value="@addressForm.field("lastName").value"/>
             </div>

@@ -5,6 +5,16 @@
 }
 
 .transition(@property, @duration) {
-    transition: @property @duration;
+    transition:         @property @duration;
     -webkit-transition: @property @duration;
+}
+
+.zoom(@scale) {
+    zoom:               @scale;         /* IE, Chrome and Safari */
+
+    -moz-transform:     scale(@scale);  /* Firefox */
+    -moz-transform-origin: 0 0;
+
+    -o-transform:       scale(@scale);  /* Opera */
+    -o-transform-origin: 0 0;
 }
