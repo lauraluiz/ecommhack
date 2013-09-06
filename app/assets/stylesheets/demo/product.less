@@ -2,7 +2,7 @@ body.product {
     background-color: @yellow;
     min-width: 1024px; padding: 0;
 
-    #container section > .container {
+    #container section > .space > .inner {
         width: 100%; padding-top: 150px; padding-bottom: 190px;
         &> .head, &> .body {
             width: 1024px; margin: 0 auto;
@@ -12,16 +12,15 @@ body.product {
 
     #product-header {
         background: @green url("../images/background-green.jpg") repeat top left;
-
-        .container {
-            background: transparent url("../images/border-green.png") repeat-x top left;
+        .space {
+            background: transparent url("../images/border-top.png") repeat-x bottom left;
+            .inner { background: transparent url("../images/border-green.jpg") repeat-x top left; }
         }
     }
 
     #product-box {
-        .container {
+        .inner {
             h2 span.highlight { color: @green; font-size: 82px; }
-            background: transparent url("../images/border-yellow.png") repeat-x top left;
 
             .variant-box {
                 float: left; position: relative; padding: 30px 44px;
@@ -59,10 +58,12 @@ body.product {
 
     #product-often {
         background: @red;
+        margin-bottom: 70px;
 
-        .container {
+        .space {
             h2 { color: @white; }
-            background: transparent url("../images/border-yellow.png") repeat-x bottom left;
+            background: transparent url("../images/border-bottom.png") repeat-x top left;
+            .inner { background: transparent url("../images/border-top.png") repeat-x bottom left; }
         }
 
         .often-box {
@@ -74,15 +75,18 @@ body.product {
                 .text {
                     padding-right: 10px;
                     font-family: 'Pacifico', cursive; font-size: 43px; color: @white; opacity: 0.5;
-                    .check{
+                    .check {
                         float: left; width: 35px; height: 33px; margin-right: 10px;
-                        background: transparent url('../images/dot.png') no-repeat;
+                        background: transparent url('../images/dot.png') no-repeat top left;
                     }
                 }
                 input[type=radio] {
                     display: none;
                     &:checked {
-                        ~.text { opacity: 1.5; }
+                        ~.text {
+                            opacity: 1.5;
+                            .check { background-position: 0 -40px; }
+                        }
                     }
                 }
                 &:hover .text { opacity: 1.5; }

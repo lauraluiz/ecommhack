@@ -5,73 +5,79 @@
 }{
 <form id="product-form" action="@routes.Application.submitProduct" method="post">
     <section id="product-header">
-        <div class="container">
-            <div class="body">
-                <img src="@routes.Assets.at("images/header.png")" alt="I want donuts! The greatest donuts shop ever" />
+        <div class="space">
+            <div class="inner">
+                <div class="body">
+                    <img src="@routes.Assets.at("images/header.png")" alt="I want donuts! The greatest donuts shop ever" />
+                </div>
             </div>
         </div>
     </section>
 
     <section id="product-box">
-        <div class="container">
-            <div class="head">
-                <img src="@routes.Assets.at("images/separator-black.png")" alt="-" />
-                <h2>CHOOSE YOUR <span class="highlight">taaasty</span> PASSION</h2>
-            </div>
-            <div class="body">
-                <div class="variant-boxes clearfix">
-                    @for(variant <- product.getVariants.asList) {
-                    <div class="variant-box">
-                        <label>
-                            <input type="radio" name="variantId" id="product-variantId-@variant.getId"
-                                   value="@variant.getId" @if(getVariant(cart) == variant.getId){checked} />
-                            <div class="checked"><img src="@routes.Assets.at("images/checked.png")" ></div>
-                            @helper.variant(variant)
-                            <div class="add-to-cart">
-                                <div class="button" style="@helper.color(variant)"></div>
-                                <span class="add">ADD THIS ONE!</span>
-                                <span class="added">ADDED</span>
-                            </div>
-                        </label>
+        <div class="space">
+            <div class="inner">
+                <div class="head">
+                    <img src="@routes.Assets.at("images/separator-black.png")" alt="-" />
+                    <h2>CHOOSE YOUR <span class="highlight">taaasty</span> PASSION</h2>
+                </div>
+                <div class="body">
+                    <div class="variant-boxes clearfix">
+                        @for(variant <- product.getVariants.asList) {
+                        <div class="variant-box">
+                            <label>
+                                <input type="radio" name="variantId" id="product-variantId-@variant.getId"
+                                       value="@variant.getId" @if(getVariant(cart) == variant.getId){checked} />
+                                <div class="checked"><img src="@routes.Assets.at("images/checked.png")" ></div>
+                                @helper.variant(variant)
+                                <div class="add-to-cart">
+                                    <div class="button" style="@helper.color(variant)"></div>
+                                    <span class="add">ADD THIS ONE!</span>
+                                    <span class="added">ADDED</span>
+                                </div>
+                            </label>
+                        </div>
+                        }
                     </div>
-                    }
                 </div>
             </div>
         </div>
     </section>
 
     <section id="product-often">
-        <div class="container">
-            <div class="head">
-                <img src="@routes.Assets.at("images/separator-white.png")" alt="-" />
-                <h2>CHOOSE HOW OFTEN</h2>
-            </div>
-            <div class="body">
-                <div class="often-boxes clearfix">
-                    <div class="often-box">
-                        <label>
-                            <input type="radio" name="howOften" id="product-howOften-4" value="4"
-                                @if(getOften(cart) == 4){checked}>
-                            <div class="text"><span class="check"></span> Once a week</div>
-                        </label>
-                    </div>
-                    <div class="often-box">
-                        <label>
-                            <input type="radio" name="howOften" id="product-howOften-2" value="2"
-                                @if(getOften(cart) == 2){checked}>
-                            <div class="text"><span class="check"></span> Every two weeks</div>
-                        </label>
-                    </div>
-                    <div class="often-box">
-                        <label>
-                            <input type="radio" name="howOften" id="product-howOften-1" value="1"
-                                @if(getOften(cart) == 1){checked}>
-                            <div class="text"><span class="check"></span> Once a month</div>
-                        </label>
-                    </div>
+        <div class="space">
+            <div class="inner">
+                <div class="head">
+                    <img src="@routes.Assets.at("images/separator-white.png")" alt="-" />
+                    <h2>CHOOSE HOW OFTEN</h2>
                 </div>
+                <div class="body">
+                    <div class="often-boxes clearfix">
+                        <div class="often-box">
+                            <label>
+                                <input type="radio" name="howOften" id="product-howOften-4" value="4"
+                                    @if(getOften(cart) == 4){checked}>
+                                <div class="text"><span class="check"></span> Once a week</div>
+                            </label>
+                        </div>
+                        <div class="often-box">
+                            <label>
+                                <input type="radio" name="howOften" id="product-howOften-2" value="2"
+                                    @if(getOften(cart) == 2){checked}>
+                                <div class="text"><span class="check"></span> Every two weeks</div>
+                            </label>
+                        </div>
+                        <div class="often-box">
+                            <label>
+                                <input type="radio" name="howOften" id="product-howOften-1" value="1"
+                                    @if(getOften(cart) == 1){checked}>
+                                <div class="text"><span class="check"></span> Once a month</div>
+                            </label>
+                        </div>
+                    </div>
 
-                <button type="submit">VIEW CART AND CONFIRM THIS PARADISE</button>
+                    <button type="submit">VIEW CART AND CONFIRM THIS PARADISE</button>
+                </div>
             </div>
         </div>
     </section>

@@ -6,20 +6,20 @@
 <form id="order-form" action="@routes.Application.submitOrder" method="post">
     <div class="checkout">
         <section id="order-cart">
-            <div class="container">
+            <div class="space">
                 <div class="head">
                     <h1>Order details</h1>
                 </div>
                 <div class="body">
                     @helper.variant(cart.getLineItems.get(0).getVariant)
-                    <div class="often">How much often: <span class="value">@getOftenName(cart)</span></div>
+                    <div class="often">How often: <span class="value">@getOftenName(cart)</span></div>
                     <div class="price">Total price: <span class="value">@getPrice(cart.getTotalPrice)</span> (yearly)</div>
                 </div>
             </div>
         </section>
 
         <section id="order-shipping">
-            <div class="container">
+            <div class="space">
                 <div class="head">
                     <h3>SHIPPING INFORMATION</h3>
                 </div>
@@ -32,7 +32,7 @@
         </section>
 
         <section id="order-billing">
-            <div class="container">
+            <div class="space">
                     <div class="head">
                     <h3>BILLING INFORMATION</h3>
                 </div>
