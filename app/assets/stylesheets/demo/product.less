@@ -1,11 +1,11 @@
 body.product {
     background-color: @yellow;
+    min-width: 1024px; padding: 0;
 
     #container section > .container {
-        padding-top: 150px; padding-bottom: 190px;
-        width: 100%;
+        width: 100%; padding-top: 150px; padding-bottom: 190px;
         &> .head, &> .body {
-            width: 1100px; margin: 0px auto;
+            width: 1024px; margin: 0 auto;
         }
         &> .head { padding-bottom: 50px; }
     }
@@ -24,7 +24,7 @@ body.product {
             background: transparent url("../images/border-yellow.png") repeat-x top left;
 
             .variant-box {
-                float: left; position: relative; padding: 30px 60px;
+                float: left; position: relative; padding: 30px 44px;
                 .checked { display: none; position: absolute; top: 100px; right: 130px; z-index: 75; }
                 .add-to-cart {
                     position: relative; float: right; width: 213px; height: 50px;
@@ -43,7 +43,7 @@ body.product {
                         ~.checked { display: block; }
                         ~.add-to-cart {
                             line-height: 48px;
-                            .button { background-position: 0 -50px; }
+                            .button { background-position: 0 -53px; }
                             .add { display: none; }
                             .added { display: block; }
                         }
@@ -51,10 +51,7 @@ body.product {
                 }
                 &:hover {
                     .stamp { background-position: 0 -399px; }
-                    .add-to-cart {
-                        line-height: 48px;
-                        .button { background-position: 0 -50px; }
-                    }
+                    .add-to-cart .button { background-position: 0 -53px; }
                 }
             }
         }
@@ -72,10 +69,10 @@ body.product {
             float: left; margin: 100px 0 200px;
             &:last-child label { padding-right: 0; }
             label {
-                padding-right: 60px;
+                padding-right: 36px;
                 .text {
                     padding-right: 10px;
-                    font-family: 'Pacifico', cursive; font-size: 48px; color: @white; opacity: 0.5;
+                    font-family: 'Pacifico', cursive; font-size: 46px; color: @white; opacity: 0.5;
                     .check{
                         float: left; width: 35px; height: 33px; margin-right: 10px;
                         background: transparent url('../images/dot.png') no-repeat;
