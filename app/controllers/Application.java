@@ -2,6 +2,7 @@ package controllers;
 
 import com.neovisionaries.i18n.CountryCode;
 import forms.*;
+import io.sphere.client.model.CustomObject;
 import io.sphere.client.shop.model.*;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -60,8 +61,11 @@ public class Application extends ShopController {
         for (LineItem item : cart.getLineItems()) {
             sphere().currentCart().removeLineItem(item.getId());
         }
-        /* Let us use quantity, not useful in this scenario, as frequency */
-        sphere().currentCart().addLineItem(getProduct().getId(), variant.getId(), addToCart.howOften);
+        sphere().currentCart().addLineItem(getProduct().getId(), variant.getId(), 1);
+        /* Store frequency in a custom object related to current cart */
+        System.out.println("id" + cart.getId());
+        System.out.println("idversion" + cart.getIdAndVersion());
+        sphere().customObjects().set("cart-frequency", cart.getId(), addToCart.howOften);
         return redirect(routes.Application.showOrder());
     }
 
@@ -71,16 +75,28 @@ public class Application extends ShopController {
         if (cart.getLineItems().size() < 1) {
             return showProduct();
         }
+        // Case missing frequency
+        CustomObject frequency = sphere().customObjects().get("cart-frequency", cart.getId()).fetch().orNull();
+        if (frequency == null) {
+            flash("error", "Missing frequency of delivery. Please try selecting it again.");
+            return showProduct();
+        }
         // Case product in cart
         LineItem item = cart.getLineItems().get(0);
         Form<SetAddress> addressForm = setAddressForm.fill(new SetAddress(cart.getShippingAddress()));
-        return ok(order.render(cart, item, addressForm));
+        return ok(order.render(cart, item, frequency.getValue().asInt(), addressForm));
     }
 
     public static Result submitOrder() {
         Cart cart = sphere().currentCart().fetch();
         // Case no product selected
         if (cart.getLineItems().size() < 1) {
+            return showProduct();
+        }
+        // Case missing frequency
+        CustomObject frequency = sphere().customObjects().get("cart-frequency", cart.getId()).fetch().orNull();
+        if (frequency == null) {
+            flash("error", "Missing frequency of delivery. Please try selecting it again.");
             return showProduct();
         }
         // Case missing or invalid shipping address form
@@ -99,21 +115,26 @@ public class Application extends ShopController {
         LineItem item = cart.getLineItems().get(0);
         SetAddress setAddress = shippingForm.get();
         Paymill paymill = paymillForm.get();
+        boolean successful = true;
+        String text;
         try {
             // TODO Fix Pactas
             Id customerId = pactas.createCustomer(paymill.paymillToken, setAddress.getAddress());
             Id billingId = pactas.createBillingGroup();
             Id contractId = pactas.createContract(billingId.Id, customerId.Id);
-            pactas.createUsageData(contractId.Id, item.getProductId(), item.getVariant().getId(), item.getQuantity());
+            pactas.createUsageData(contractId.Id, item.getProductId(), item.getVariant().getId(), frequency.getValue().asInt());
             pactas.lockContract(contractId.Id);
-            flash("order-info", "Thank you for your order. Please keep in mind that this shop is for demonstration only." +
+            text = "Thank you for your order. Please keep in mind that this shop is for demonstration only." +
                     "Therefore we don't ship donuts in reality. Don't worry, no payments will be charged." +
-                    "If we ship donuts someday in the future you'll be the first that will be informed.");
+                    "If we ship donuts someday in the future you'll be the first that will be informed.";
         } catch (Exception e) {
-            flash("order-info", "Everything went correct but the subscription could not be saved...");
+            successful = true;
+            text = "Everything went correct but the subscription could not be saved...";
         }
-
-        return ok(success.render());
+        text = "Order is done. Please keep in mind that this shop is for demonstration only." +
+                "Therefore we don't ship donuts in reality. Don't worry, no payments will be charged." +
+                "If we ship donuts someday in the future you'll be the first that will be informed.";
+        return ok(success.render(successful, text));
     }
 
     /* Method called by Pactas every time an order must be placed (weekly, monthly...) */

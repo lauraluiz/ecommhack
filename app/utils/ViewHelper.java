@@ -36,11 +36,8 @@ public class ViewHelper {
         return cart.getLineItems().get(0).getVariant().getId();
     }
 
-    public static String getOftenName(Cart cart) {
-        if (cart.getLineItems().size() < 1) {
-            return "";
-        }
-        switch (cart.getLineItems().get(0).getQuantity()) {
+    public static String getFrequencyName(int frequency) {
+        switch (frequency) {
             case 1: return "ONCE A MONTH";
             case 2: return "EVERY TWO WEEKS";
             case 4: return "ONCE A WEEK";

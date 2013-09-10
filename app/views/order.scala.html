@@ -1,4 +1,4 @@
-@(cart: Cart, item: LineItem, addressForm: Form[SetAddress])
+@(cart: Cart, item: LineItem, frequency: Int, addressForm: Form[SetAddress])
 
 @main("I want donuts!", "order"){
 
@@ -13,7 +13,7 @@
                 </div>
                 <div class="body">
                     @helper.variant(cart.getLineItems.get(0).getVariant)
-                    <div class="often">How often: <span class="value">@getOftenName(cart)</span></div>
+                    <div class="often">How often: <span class="value">@getFrequencyName(frequency)</span></div>
                     <div class="total">Total price: <span class="value">@getPrice(cart.getTotalPrice)</span> (yearly)</div>
                 </div>
             </div>
