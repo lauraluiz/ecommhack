@@ -1,12 +1,15 @@
-@()
+@(successful: Boolean, text: String)
 
 @main("I want donuts!", "success"){
 
 }{
 
-<div class="checkout">
-    <h1>@flash.get("order-info")</h1>
-</div>
+<div class="top"></div>
+<section id="order-result">
+    <h1>@if(successful) {<img src="@routes.Assets.at("images/checked.png")"/> All right!} else {Oops...!}</h1>
+    <h4>@text</h4>
+</section>
+<div class="bottom"></div>
 
 }{
 
