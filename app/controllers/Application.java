@@ -61,10 +61,8 @@ public class Application extends ShopController {
         for (LineItem item : cart.getLineItems()) {
             sphere().currentCart().removeLineItem(item.getId());
         }
-        sphere().currentCart().addLineItem(getProduct().getId(), variant.getId(), 1);
+        cart = sphere().currentCart().addLineItem(getProduct().getId(), variant.getId(), 1);
         /* Store frequency in a custom object related to current cart */
-        System.out.println("id" + cart.getId());
-        System.out.println("idversion" + cart.getIdAndVersion());
         sphere().customObjects().set("cart-frequency", cart.getId(), addToCart.howOften);
         return redirect(routes.Application.showOrder());
     }
