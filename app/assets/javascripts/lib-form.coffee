@@ -40,6 +40,11 @@ class window.Form
 
         # Check incorrect fields
         invalid = required.filter -> return not $(this).val()
+        radio = required.filter(":checkbox, :radio")
+        invalid = invalid.add( radio.filter ->
+            name = $(this).attr("name")
+            return not radio.filter("[name='#{name}']:checked").length > 0
+        )
         return true unless invalid.length > 0
 
         # Mark incorrect fields as invalid

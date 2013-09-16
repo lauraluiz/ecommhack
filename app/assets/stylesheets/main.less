@@ -56,11 +56,19 @@ form { margin: 0; }
     .stress { background-color: @green; padding: 0 2px; }
 }
 
+.button-disabled {
+    position: relative; margin: 0 auto;
+    [data-toggle=tooltip] {
+        position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    }
+}
+
 button[type=submit] {
     width: 723px; height: 190px;
     background: url('../images/button.png') no-repeat 0 0; border: 0;
     font-family: 'Oswald', sans-serif; font-size: 35px; font-weight: 700; color: @white; text-shadow: 2px 2px 2px @grey;
     &:hover { background-position: 0 -204px; }
+    &[disabled] { opacity: 0.7; }
 }
 
 input[aria-invalid=true], textarea[aria-invalid=true], select[aria-invalid=true] {

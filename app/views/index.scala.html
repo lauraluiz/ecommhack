@@ -8,7 +8,8 @@
         <div class="space">
             <div class="inner">
                 <div class="body">
-                    <img src="@routes.Assets.at("images/header.png")" alt="I want donuts! The greatest donuts shop ever" />
+                    <img id="image-header" alt="I want donuts! The greatest donuts shop ever"
+                         src="@routes.Assets.at("images/header.png")"/>
                 </div>
             </div>
         </div>
@@ -26,7 +27,7 @@
                         @for(variant <- product.getVariants.asList) {
                         <div class="variant-box">
                             <label>
-                                <input type="radio" name="variantId" id="product-variantId-@variant.getId"
+                                <input type="radio" name="variantId" id="product-variantId-@variant.getId" required
                                        value="@variant.getId" @if(getVariant(cart) == variant.getId){checked} />
                                 <div class="checked"><img src="@routes.Assets.at("images/checked.png")" ></div>
                                 @helper.variant(variant)
@@ -55,28 +56,33 @@
                     <div class="often-boxes clearfix">
                         <div class="often-box">
                             <label>
-                                <input type="radio" name="howOften" id="product-howOften-4" value="4"
+                                <input type="radio" name="howOften" id="product-howOften-4" value="4" required
                                     @if(getOften(cart) == 4){checked}>
                                 <div class="text"><span class="check"></span> Once a week</div>
                             </label>
                         </div>
                         <div class="often-box">
                             <label>
-                                <input type="radio" name="howOften" id="product-howOften-2" value="2"
+                                <input type="radio" name="howOften" id="product-howOften-2" value="2" required
                                     @if(getOften(cart) == 2){checked}>
                                 <div class="text"><span class="check"></span> Every two weeks</div>
                             </label>
                         </div>
                         <div class="often-box">
                             <label>
-                                <input type="radio" name="howOften" id="product-howOften-1" value="1"
+                                <input type="radio" name="howOften" id="product-howOften-1" value="1" required
                                     @if(getOften(cart) == 1){checked}>
                                 <div class="text"><span class="check"></span> Once a month</div>
                             </label>
                         </div>
                     </div>
 
-                    <button type="submit">VIEW CART AND CONFIRM THIS PARADISE</button>
+
+                    <div id="go-to-cart" class="button-disabled">
+                        <button type="submit" disabled>VIEW CART AND CONFIRM THIS PARADISE</button>
+                        <div data-toggle="tooltip" data-placement="top"
+                         data-original-title="Please select your desired donut box and how often you want it"></div>
+                    </div>
                 </div>
             </div>
         </div>
