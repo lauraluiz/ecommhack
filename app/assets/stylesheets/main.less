@@ -2,6 +2,7 @@
 @import "demo/mixins";
 @import "demo/product";
 @import "demo/order";
+@import "demo/responsive";
 
 body {
     font-family: 'Oswald', sans-serif;
@@ -14,7 +15,7 @@ body {
 /* FONTS */
 
 h1 { font-family: 'Pacifico', cursive; font-size: 50px; font-weight: 300; padding-bottom: 20px; }
-h2 { font-size: 62px; padding-top: 20px; }
+h2 { font-size: 4em; padding-top: 20px; }
 h3 { font-size: 22px; letter-spacing: 1px; }
 h4 { font-size: 22px; text-transform:uppercase; }
 
@@ -66,7 +67,7 @@ form { margin: 0; }
 button[type=submit] {
     width: 723px; height: 190px;
     background: url('../images/button.png') no-repeat 0 0; border: 0;
-    font-family: 'Oswald', sans-serif; font-size: 35px; font-weight: 700; color: @white; text-shadow: 2px 2px 2px @grey;
+    font-family: 'Oswald', sans-serif; font-size: 2.2em; font-weight: 700; color: @white; text-shadow: 2px 2px 2px @grey;
     &:hover { background-position: 0 -204px; }
     &[disabled] { opacity: 0.7; }
 }
@@ -74,5 +75,3 @@ button[type=submit] {
 input[aria-invalid=true], textarea[aria-invalid=true], select[aria-invalid=true] {
     background-color: @yellow;
 }
-
-/* RESPONSIVE */
