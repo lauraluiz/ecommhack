@@ -3,12 +3,10 @@ $ ->
     cartButton = $("#go-to-cart")
 
     enableSubmit = (place) ->
-        console.debug "enable submit!"
         place.find("[data-toggle=tooltip]").hide()
         place.find("button[type=submit]").removeProp("disabled")
 
     disableSubmit = (place) ->
-        console.debug "disable submit!"
         place.find("[data-toggle=tooltip]").show()
         place.find("button[type=submit]").prop("disabled")
 

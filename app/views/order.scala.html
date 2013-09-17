@@ -3,10 +3,6 @@
 @main("I want donuts!", "order"){
 
 }{
-<div>
-    <iframe width="800" height="1600" frameborder="0" scrolling="no" style="border: none;"
-            src="https://sandbox.pactas.com/signup-iframe/5231dfec1d8dd00f389dc547"></iframe>
-</div>
 <form id="order-form" action="@routes.Application.submitOrder" method="post">
     <div class="top"></div>
     <section id="order-cart">
@@ -28,29 +24,11 @@
         <div class="space">
             <div class="inner">
                 <div class="head">
-                    <h3>SHIPPING INFORMATION</h3>
+                    <h3>YOUR INFORMATION</h3>
                 </div>
                 <div class="body">
                     <div id="form-shipping-address" class="show">
-                        @form.setAddress(addressForm)
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="order-billing">
-        <div class="space">
-            <div class="inner">
-                <div class="head">
-                    <h3>BILLING INFORMATION</h3>
-                </div>
-                <div class="body">
-                    <input class="amount" type="hidden" value="@item.getPrice.getValue.getAmount.setScale(2)"/>
-                    <input class="currency" type="hidden" value="@item.getPrice.getValue.getCurrencyCode"/>
-                    <div id="form-billing-method" class="show">
-                        <input type="hidden" name="network" value="Credit Card"/>
-                        @form.paymill()
+                        <iframe src="https://sandbox.pactas.com/signup-iframe/@getPactasID(item, frequency)?language=en"></iframe>
                     </div>
                 </div>
             </div>
@@ -61,7 +39,6 @@
         <div class="space">
             <div class="inner">
                 <div class="head">
-                    <button type="submit">CONFIRM ORDER!</button>
                     <a href="@routes.Application.showProduct#product-box">[Or modify order]</a>
                 </div>
             </div>

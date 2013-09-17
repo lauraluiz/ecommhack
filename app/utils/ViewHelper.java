@@ -45,6 +45,10 @@ public class ViewHelper {
         return "UNKNOWN FREQUENCY";
     }
 
+    public static String getPactasID(LineItem item, int frequency) {
+        return item.getVariant().getString("pactas" + frequency);
+    }
+
     public static Customer getCurrentCustomer() {
         Customer customer = null;
         if (Sphere.getInstance().isLoggedIn()) {
