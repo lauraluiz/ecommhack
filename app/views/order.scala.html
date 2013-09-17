@@ -20,26 +20,15 @@
         </div>
     </section>
 
-    <section id="order-shipping">
+    <section id="order-purchase">
         <div class="space">
             <div class="inner">
                 <div class="head">
                     <h3>YOUR INFORMATION</h3>
                 </div>
                 <div class="body">
-                    <div id="form-shipping-address" class="show">
-                        <iframe src="https://sandbox.pactas.com/signup-iframe/@getPactasID(item, frequency)?language=en"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="order-purchase">
-        <div class="space">
-            <div class="inner">
-                <div class="head">
-                    <a href="@routes.Application.showProduct#product-box">[Or modify order]</a>
+                    <iframe src="https://sandbox.pactas.com/signup-iframe/@getPactasID(item, frequency)?language=en"></iframe>
+                    <a id="back-button" href="@routes.Application.showProduct#product-box">[Or modify order]</a>
                 </div>
             </div>
         </div>
