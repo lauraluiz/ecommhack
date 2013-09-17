@@ -129,10 +129,19 @@ public class Application extends ShopController {
             successful = true;
             text = "Everything went correct but the subscription could not be saved...";
         }
-        text = "Order is done. Please keep in mind that this shop is for demonstration only." +
+        return ok(success.render(successful, text));
+    }
+
+    public static Result success() {
+        String text = "Order is done. Please keep in mind that this shop is for demonstration only." +
                 "Therefore we don't ship donuts in reality. Don't worry, no payments will be charged." +
                 "If we ship donuts someday in the future you'll be the first that will be informed.";
-        return ok(success.render(successful, text));
+        return ok(success.render(true, text));
+    }
+
+    public static Result failure() {
+        String text = "Something went wrong. Please try again later.";
+        return ok(success.render(false, text));
     }
 
     /* Method called by Pactas every time an order must be placed (weekly, monthly...) */
