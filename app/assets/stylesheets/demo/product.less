@@ -1,13 +1,13 @@
 body.product {
     background-color: @yellow;
-    min-width: 1024px; padding: 0;
+    padding: 0;
 
     #container section > .space > .inner {
-        padding-top: 150px; padding-bottom: 190px;
+        padding-top: 7%; padding-bottom: 7%;
         &> .head, &> .body {
             width: 1024px; margin: 0 auto;
         }
-        &> .head { padding-bottom: 50px; }
+        &> .head { padding-bottom: 2%; }
     }
 
     #product-header {
@@ -23,12 +23,14 @@ body.product {
         .inner {
             h2 span.highlight { color: @green; font-size: 1.3em; }
 
+            .variant-boxes .variant-box:nth-child(odd) { float: left; }
+            .variant-boxes .variant-box:nth-child(even) { float: right; }
             .variant-box {
-                float: left; position: relative; padding: 30px 44px;
-                .checked { display: none; position: absolute; top: 100px; right: 130px; z-index: 75; }
+                position: relative; padding: 7% 1% 0;
+                .checked { display: none; position: absolute; top: 18%; right: 20%; z-index: 75; }
                 .add-to-cart {
-                    position: relative; float: right; width: 213px; height: 50px;
-                    color: @white; font-weight: 700; font-size: 1.4em; line-height: 44px; text-shadow: 1px 1px 5px @grey;
+                    position: relative; float: right; width: 215px; height: 50px;
+                    color: @white; font-weight: 700; font-size: 1.3em; line-height: 230%; text-shadow: 1px 1px 5px @grey;
                     .button {
                         position: absolute; width: 100%; height: 100%;
                         background: transparent url('../images/button-small.png') no-repeat 0 0;
@@ -39,10 +41,9 @@ body.product {
                 input[type=radio] {
                     display: none;
                     &:checked {
-                        ~.variant .stamp { background-position: 0 -399px; }
+                        ~.variant .stamp { background-position: 0 -395px; }
                         ~.checked { display: block; }
                         ~.add-to-cart {
-                            line-height: 48px;
                             .button { background-position: 0 -53px; }
                             .add { display: none; }
                             .added { display: block; }
@@ -50,7 +51,7 @@ body.product {
                     }
                 }
                 &:hover {
-                    .stamp { background-position: 0 -399px; }
+                    .stamp { background-position: 0 -395px; }
                     .add-to-cart .button { background-position: 0 -53px; }
                 }
             }
@@ -59,7 +60,7 @@ body.product {
 
     #product-often {
         background: @red;
-        margin-bottom: 70px;
+        margin-bottom: 5%;
 
         .space {
             h2 { color: @white; }
@@ -67,17 +68,18 @@ body.product {
             .inner { background: transparent url("../images/border-top.png") repeat-x bottom left; }
         }
 
+        .often-boxes {
+            padding: 3% 0 10%;
+        }
         .often-box {
-            padding: 0 10px;
-            float: left; margin: 100px 0 200px;
-            &:last-child label { padding-right: 0; }
+            display: inline-block; padding-right: 3.5%;
+            &:last-child { padding-right: 0; }
             label {
-                padding-right: 36px;
                 .text {
-                    padding-right: 10px;
-                    font-family: 'Pacifico', cursive; font-size: 3em; color: @white; opacity: 0.5;
+                    text-align: left;
+                    .pacifico; font-size: 2.8em; color: @white; opacity: 0.5;
                     .check {
-                        float: left; width: 35px; height: 33px; margin-right: 10px;
+                        float: left; width: 35px; height: 40px; margin: 20px 15px 0 0;
                         background: transparent url('../images/dot.png') no-repeat top left;
                     }
                 }

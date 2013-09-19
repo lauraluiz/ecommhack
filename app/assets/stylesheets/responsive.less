@@ -1,0 +1,75 @@
+@import "demo/colors";
+@import "demo/mixins";
+
+/* RESPONSIVE */
+@media (max-height: 920px) {
+    #product-header {
+        #image-header { max-width: 80%; }
+    }
+}
+
+/* Tablet landscape */
+@media (max-width: 1024px) {
+    h1 { font-size: 2.9em; }
+    h2 { font-size: 2.8em; }
+    h3 { font-size: 1.2em; }
+    h4 { font-size: 1.2em; }
+    .separator { max-width: 80%; }
+    .variant-small;
+
+    button[type=submit] {
+        width: 578px; height: 152px;
+        background-size: 578px auto;
+        font-size: 1.8em;
+        &:hover { background-position: 0 -162px; }
+    }
+
+    body.product {
+        #container section > .space > .inner {
+            &> .head, &> .body { width: 768px; }
+        }
+
+        #product-header {
+            #image-header { max-width: 80%; }
+        }
+
+        #product-box .inner {
+            .variant-box {
+                .add-to-cart {
+                    width: 172px; height: 40px;
+                    font-size: 1em;
+                    .button { background-size: 172px auto; }
+                }
+                input[type=radio] {
+                    &:checked {
+                        ~.variant .stamp { background-position: 0 -316px; }
+                        ~.add-to-cart .button { background-position: 0 -42.5px; }
+                    }
+                }
+                &:hover {
+                    .stamp { background-position: 0 -316px; }
+                    .add-to-cart .button { background-position: 0 -42.5px; }
+                }
+            }
+        }
+
+        #product-often {
+            .often-box {
+                display: block; padding-left: 34%;
+                label {
+                    padding-right: 0;
+                    .text {
+                        font-size: 2.5em;
+                        .check {
+                            width: 28px; height: 32px;
+                            background-size: 28px auto;
+                        }
+                    }
+                    input[type=radio] {
+                        &:checked ~.text .check { background-position: 0 -33.5px; }
+                    }
+                }
+            }
+        }
+    }
+}

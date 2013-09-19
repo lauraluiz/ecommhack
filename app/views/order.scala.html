@@ -12,7 +12,9 @@
                     <h1>Order details</h1>
                 </div>
                 <div class="body">
-                    @helper.variant(cart.getLineItems.get(0).getVariant)
+                    <div class="variant-smallest">
+                        @helper.variant(cart.getLineItems.get(0).getVariant)
+                    </div>
                     <div class="often">How often: <span class="value">@getFrequencyName(frequency)</span></div>
                     <div class="total">Total price: <span class="value">@getPrice(cart.getTotalPrice)</span> (yearly)</div>
                 </div>
