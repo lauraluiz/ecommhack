@@ -49,6 +49,20 @@ public class ViewHelper {
         return item.getVariant().getString("pactas" + frequency);
     }
 
+    public static String getProductStampImage(Variant variant) {
+        if (variant.getImages().size() > 2) {
+            return "background-image: url('"+ variant.getImages().get(1).getSize(ImageSize.ORIGINAL).getUrl() +"')";
+        }
+        return "";
+    }
+
+    public static String getAddToCartImage(Variant variant) {
+        if (variant.getImages().size() > 2) {
+            return "background-image: url('"+ variant.getImages().get(2).getSize(ImageSize.ORIGINAL).getUrl() +"')";
+        }
+        return "";
+    }
+
     public static Customer getCurrentCustomer() {
         Customer customer = null;
         if (Sphere.getInstance().isLoggedIn()) {
