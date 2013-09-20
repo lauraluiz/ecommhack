@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Donut small / commercetools</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="stylesheet" type="text/css" href="/SelfService/Css/523074fe1d8dd007f822ed62" />
+    <script type="text/javascript" src="/scripts/angular.min.js"></script>
+        <script type="text/javascript" src="/scripts/i18n/angular-locale_en.js"></script>
+</head>
+<body>
+
+
+
+
+
+<script type="text/javascript">
+    var VAT_ID_REGEX = {"AT":"^ATU[A-Z0-9]{8,8}$","BE":"^BE[0-9]{10,10}$|^BE[0]{1,1}[0-9]{9,9}$","BG":"^BG[0-9]{9,10}$","CH":"^CHE-.*$","CY":"^CY[0-9]{8,8}[A-Z]{1,1}$","CZ":"^CZ[0-9]{8,10}$","DE":"^DE[0-9]{9,9}$","DK":"^DK[0-9]{8,8}$","EE":"^EE[0-9]{9,9}$","EL":"^EL[0-9]{9,9}$","ES":"^ES[A-Z0-9]{1,1}[0-9]{7,7}[A-Z0-9]{1,1}$","FI":"^FI[0-9]{8,8}$","FR":"^FR[A-Z0-9]{2,2}[0-9]{9,9}$","GB":"^GB[0-9]{9,9}$|^GB[0-9]{12,12}$|^GBGD[0-9]{3,3}$|^GBHA[0-9]{3,3}$","HR":"^HR[0-9]{11,11}$","HU":"^HU[0-9]{8,8}$","IE":"^IE[0-9]{1,1}[A-Z0-9]{1,1}[0-9]{5,5}[A-Z]{1,1}$|^IE[0-9]{7,7}[A-W]{1,1}[A-I]{1,1}$","IT":"^IT[0-9]{11,11}$","LT":"^LT[0-9]{9,9}$|^LT[0-9]{12,12}$","LU":"^LU[0-9]{8,8}$","LV":"^LV[0-9]{11,11}$","MT":"^MT[0-9]{8,8}$","NL":"^NL[A-Z0-9]{9,9}B[A-Z0-9]{2,2}$","PL":"^PL[0-9]{10,10}$","PT":"^PT[0-9]{9,9}$","RO":"^RO[1-9]{1,1}[0-9]{1,9}$","SE":"^SE[0-9]{10,10}01$","SI":"^SI[0-9]{8,8}$","SK":"^SK[0-9]{10,10}$"};
+    var signupData =  {};
+    signupData.availablePaymentMethods = [{"Selected":false,"Text":"Credit Card","Value":"CreditCard:Paymill"}];
+    signupData.paymentPeriod = {"Quantity":1,"Unit":"Week"};
+    signupData.availableCountries = [{"TwoLetterCode":"AF","ThreeLetterCode":"AFG","Name":"Afghanistan"},{"TwoLetterCode":"EG","ThreeLetterCode":"EGY","Name":"\u00C4gypten"},{"TwoLetterCode":"AX","ThreeLetterCode":"ALA","Name":"\u00C5land Inseln"},{"TwoLetterCode":"AL","ThreeLetterCode":"ALB","Name":"Albanien"},{"TwoLetterCode":"DZ","ThreeLetterCode":"DZA","Name":"Algerien"},{"TwoLetterCode":"AS","ThreeLetterCode":"ASM","Name":"Amerikanisch Samoa"},{"TwoLetterCode":"VI","ThreeLetterCode":"VIR","Name":"Amerikanische Jungferninseln"},{"TwoLetterCode":"AD","ThreeLetterCode":"AND","Name":"Andorra"},{"TwoLetterCode":"AO","ThreeLetterCode":"AGO","Name":"Angola"},{"TwoLetterCode":"AI","ThreeLetterCode":"AIA","Name":"Anguilla"},{"TwoLetterCode":"AQ","ThreeLetterCode":"ATA","Name":"Antarktis"},{"TwoLetterCode":"AG","ThreeLetterCode":"ATG","Name":"Antigua und Barbuda"},{"TwoLetterCode":"GQ","ThreeLetterCode":"GNQ","Name":"\u00C4quatorialguinea"},{"TwoLetterCode":"AR","ThreeLetterCode":"ARG","Name":"Argentinien"},{"TwoLetterCode":"AM","ThreeLetterCode":"ARM","Name":"Armenien"},{"TwoLetterCode":"AW","ThreeLetterCode":"ABW","Name":"Aruba"},{"TwoLetterCode":"AZ","ThreeLetterCode":"AZE","Name":"Aserbaidschan"},{"TwoLetterCode":"ET","ThreeLetterCode":"ETH","Name":"\u00C4thiopien"},{"TwoLetterCode":"AU","ThreeLetterCode":"AUS","Name":"Australien"},{"TwoLetterCode":"BS","ThreeLetterCode":"BHS","Name":"Bahamas"},{"TwoLetterCode":"BH","ThreeLetterCode":"BHR","Name":"Bahrain"},{"TwoLetterCode":"BD","ThreeLetterCode":"BGD","Name":"Bangladesch"},{"TwoLetterCode":"BB","ThreeLetterCode":"BRB","Name":"Barbados"},{"TwoLetterCode":"BE","ThreeLetterCode":"BEL","Name":"Belgien"},{"TwoLetterCode":"BZ","ThreeLetterCode":"BLZ","Name":"Belize"},{"TwoLetterCode":"BJ","ThreeLetterCode":"BEN","Name":"Benin"},{"TwoLetterCode":"BM","ThreeLetterCode":"BMU","Name":"Bermuda"},{"TwoLetterCode":"BT","ThreeLetterCode":"BTN","Name":"Bhutan"},{"TwoLetterCode":"BO","ThreeLetterCode":"BOL","Name":"Bolivien"},{"TwoLetterCode":"BA","ThreeLetterCode":"BIH","Name":"Bosnien und Herzegowina"},{"TwoLetterCode":"BW","ThreeLetterCode":"BWA","Name":"Botsuana"},{"TwoLetterCode":"BV","ThreeLetterCode":"BVT","Name":"Bouvetinsel"},{"TwoLetterCode":"BR","ThreeLetterCode":"BRA","Name":"Brasilien"},{"TwoLetterCode":"VG","ThreeLetterCode":"VGB","Name":"Britische Jungferninseln"},{"TwoLetterCode":"IO","ThreeLetterCode":"IOT","Name":"Britische Territorien im Indischen Ozean"},{"TwoLetterCode":"BN","ThreeLetterCode":"BRN","Name":"Brunei Darussalam"},{"TwoLetterCode":"BG","ThreeLetterCode":"BGR","Name":"Bulgarien"},{"TwoLetterCode":"BF","ThreeLetterCode":"BFA","Name":"Burkina Faso"},{"TwoLetterCode":"BI","ThreeLetterCode":"BDI","Name":"Burundi"},{"TwoLetterCode":"CL","ThreeLetterCode":"CHL","Name":"Chile"},{"TwoLetterCode":"CN","ThreeLetterCode":"CHN","Name":"China"},{"TwoLetterCode":"CK","ThreeLetterCode":"COK","Name":"Cookinseln"},{"TwoLetterCode":"CR","ThreeLetterCode":"CRI","Name":"Costa Rica"},{"TwoLetterCode":"CI","ThreeLetterCode":"CIV","Name":"C\u00F4te d\u00B4Ivoire"},{"TwoLetterCode":"DK","ThreeLetterCode":"DNK","Name":"D\u00E4nemark"},{"TwoLetterCode":"DE","ThreeLetterCode":"DEU","Name":"Deutschland"},{"TwoLetterCode":"DM","ThreeLetterCode":"DMA","Name":"Dominica"},{"TwoLetterCode":"DO","ThreeLetterCode":"DOM","Name":"Dominikanische Republik"},{"TwoLetterCode":"EC","ThreeLetterCode":"ECU","Name":"Ecuador"},{"TwoLetterCode":"SV","ThreeLetterCode":"SLV","Name":"El Salvador"},{"TwoLetterCode":"ER","ThreeLetterCode":"ERI","Name":"Eritrea"},{"TwoLetterCode":"EE","ThreeLetterCode":"EST","Name":"Estland"},{"TwoLetterCode":"FK","ThreeLetterCode":"FLK","Name":"Falklandinseln"},{"TwoLetterCode":"FO","ThreeLetterCode":"FRO","Name":"F\u00E4r\u00F6er"},{"TwoLetterCode":"FJ","ThreeLetterCode":"FJI","Name":"Fidschi"},{"TwoLetterCode":"FI","ThreeLetterCode":"FIN","Name":"Finnland"},{"TwoLetterCode":"FR","ThreeLetterCode":"FRA","Name":"Frankreich"},{"TwoLetterCode":"GF","ThreeLetterCode":"GUF","Name":"Franz\u00F6sisch Guiana"},{"TwoLetterCode":"PF","ThreeLetterCode":"PYF","Name":"Franz\u00F6sisch Polynesien"},{"TwoLetterCode":"TF","ThreeLetterCode":"ATF","Name":"Franz\u00F6sische S\u00FCdgebiete"},{"TwoLetterCode":"GA","ThreeLetterCode":"GAB","Name":"Gabun"},{"TwoLetterCode":"GM","ThreeLetterCode":"GMB","Name":"Gambia"},{"TwoLetterCode":"GE","ThreeLetterCode":"GEO","Name":"Georgien"},{"TwoLetterCode":"GH","ThreeLetterCode":"GHA","Name":"Ghana"},{"TwoLetterCode":"GI","ThreeLetterCode":"GIB","Name":"Gibraltar"},{"TwoLetterCode":"GD","ThreeLetterCode":"GRD","Name":"Grenada"},{"TwoLetterCode":"GR","ThreeLetterCode":"GRC","Name":"Griechenland"},{"TwoLetterCode":"GL","ThreeLetterCode":"GRL","Name":"Gr\u00F6nland"},{"TwoLetterCode":"GP","ThreeLetterCode":"GLP","Name":"Guadeloupe"},{"TwoLetterCode":"GU","ThreeLetterCode":"GUM","Name":"Guam"},{"TwoLetterCode":"GT","ThreeLetterCode":"GTM","Name":"Guatemala"},{"TwoLetterCode":"GG","ThreeLetterCode":"GGY","Name":"Guernsey"},{"TwoLetterCode":"GN","ThreeLetterCode":"GIN","Name":"Guinea"},{"TwoLetterCode":"GW","ThreeLetterCode":"GNB","Name":"Guinea-Bissau"},{"TwoLetterCode":"GY","ThreeLetterCode":"GUY","Name":"Guyana"},{"TwoLetterCode":"HT","ThreeLetterCode":"HTI","Name":"Haiti"},{"TwoLetterCode":"HM","ThreeLetterCode":"HMD","Name":"Heard Insel und McDonald Inseln"},{"TwoLetterCode":"VA","ThreeLetterCode":"VAT","Name":"Heiliger Stuhl"},{"TwoLetterCode":"HN","ThreeLetterCode":"HND","Name":"Honduras"},{"TwoLetterCode":"HK","ThreeLetterCode":"HKG","Name":"Hong Kong"},{"TwoLetterCode":"IN","ThreeLetterCode":"IND","Name":"Indien"},{"TwoLetterCode":"ID","ThreeLetterCode":"IDN","Name":"Indonesien"},{"TwoLetterCode":"IQ","ThreeLetterCode":"IRQ","Name":"Irak"},{"TwoLetterCode":"IR","ThreeLetterCode":"IRN","Name":"Iran, Islam. Rep."},{"TwoLetterCode":"IE","ThreeLetterCode":"IRL","Name":"Irland"},{"TwoLetterCode":"IS","ThreeLetterCode":"ISL","Name":"Island"},{"TwoLetterCode":"IM","ThreeLetterCode":"IMN","Name":"Isle of Man"},{"TwoLetterCode":"IL","ThreeLetterCode":"ISR","Name":"Israel"},{"TwoLetterCode":"IT","ThreeLetterCode":"ITA","Name":"Italien"},{"TwoLetterCode":"JM","ThreeLetterCode":"JAM","Name":"Jamaika"},{"TwoLetterCode":"JP","ThreeLetterCode":"JPN","Name":"Japan"},{"TwoLetterCode":"YE","ThreeLetterCode":"YEM","Name":"Jemen"},{"TwoLetterCode":"JE","ThreeLetterCode":"JEY","Name":"Jersey"},{"TwoLetterCode":"JO","ThreeLetterCode":"JOR","Name":"Jordanien"},{"TwoLetterCode":"KY","ThreeLetterCode":"CYM","Name":"Kaimaninseln"},{"TwoLetterCode":"KH","ThreeLetterCode":"KHM","Name":"Kambodscha"},{"TwoLetterCode":"CM","ThreeLetterCode":"CMR","Name":"Kamerun"},{"TwoLetterCode":"CA","ThreeLetterCode":"CAN","Name":"Kanada"},{"TwoLetterCode":"CV","ThreeLetterCode":"CPV","Name":"Kap Verde"},{"TwoLetterCode":"KZ","ThreeLetterCode":"KAZ","Name":"Kasachstan"},{"TwoLetterCode":"QA","ThreeLetterCode":"QAT","Name":"Katar"},{"TwoLetterCode":"KE","ThreeLetterCode":"KEN","Name":"Kenia"},{"TwoLetterCode":"KG","ThreeLetterCode":"KGZ","Name":"Kirgisistan"},{"TwoLetterCode":"KI","ThreeLetterCode":"KIR","Name":"Kiribati"},{"TwoLetterCode":"CC","ThreeLetterCode":"CCK","Name":"Kokosinseln"},{"TwoLetterCode":"CO","ThreeLetterCode":"COL","Name":"Kolumbien"},{"TwoLetterCode":"KM","ThreeLetterCode":"COM","Name":"Komoren"},{"TwoLetterCode":"CG","ThreeLetterCode":"COG","Name":"Kongo"},{"TwoLetterCode":"CD","ThreeLetterCode":"COD","Name":"Kongo, Dem. Rep."},{"TwoLetterCode":"KP","ThreeLetterCode":"PRK","Name":"Korea, Dem. Volksrep."},{"TwoLetterCode":"KR","ThreeLetterCode":"KOR","Name":"Korea, Rep."},{"TwoLetterCode":"HR","ThreeLetterCode":"HRV","Name":"Kroatien"},{"TwoLetterCode":"CU","ThreeLetterCode":"CUB","Name":"Kuba"},{"TwoLetterCode":"KW","ThreeLetterCode":"KWT","Name":"Kuwait"},{"TwoLetterCode":"LA","ThreeLetterCode":"LAO","Name":"Laos, Dem. Volksrep."},{"TwoLetterCode":"LS","ThreeLetterCode":"LSO","Name":"Lesotho"},{"TwoLetterCode":"LV","ThreeLetterCode":"LVA","Name":"Lettland"},{"TwoLetterCode":"LB","ThreeLetterCode":"LBN","Name":"Libanon"},{"TwoLetterCode":"LR","ThreeLetterCode":"LBR","Name":"Liberia"},{"TwoLetterCode":"LY","ThreeLetterCode":"LBY","Name":"Libysch-Arabische Dschamahirija"},{"TwoLetterCode":"LI","ThreeLetterCode":"LIE","Name":"Liechtenstein"},{"TwoLetterCode":"LT","ThreeLetterCode":"LTU","Name":"Litauen"},{"TwoLetterCode":"LU","ThreeLetterCode":"LUX","Name":"Luxemburg"},{"TwoLetterCode":"MO","ThreeLetterCode":"MAC","Name":"Macao"},{"TwoLetterCode":"MG","ThreeLetterCode":"MDG","Name":"Madagaskar"},{"TwoLetterCode":"MW","ThreeLetterCode":"MWI","Name":"Malawi"},{"TwoLetterCode":"MY","ThreeLetterCode":"MYS","Name":"Malaysia"},{"TwoLetterCode":"MV","ThreeLetterCode":"MDV","Name":"Malediven"},{"TwoLetterCode":"ML","ThreeLetterCode":"MLI","Name":"Mali"},{"TwoLetterCode":"MT","ThreeLetterCode":"MLT","Name":"Malta"},{"TwoLetterCode":"MA","ThreeLetterCode":"MAR","Name":"Marokko"},{"TwoLetterCode":"MH","ThreeLetterCode":"MHL","Name":"Marshallinseln"},{"TwoLetterCode":"MQ","ThreeLetterCode":"MTQ","Name":"Martinique"},{"TwoLetterCode":"MR","ThreeLetterCode":"MRT","Name":"Mauretanien"},{"TwoLetterCode":"MU","ThreeLetterCode":"MUS","Name":"Mauritius"},{"TwoLetterCode":"YT","ThreeLetterCode":"MYT","Name":"Mayotte"},{"TwoLetterCode":"MK","ThreeLetterCode":"MKD","Name":"Mazedonien, ehemalige jugoslawische Republik "},{"TwoLetterCode":"MX","ThreeLetterCode":"MEX","Name":"Mexiko"},{"TwoLetterCode":"FM","ThreeLetterCode":"FSM","Name":"Mikronesien, F\u00F6derierte Staaten von"},{"TwoLetterCode":"MD","ThreeLetterCode":"MDA","Name":"Moldau, Rep."},{"TwoLetterCode":"MC","ThreeLetterCode":"MCO","Name":"Monaco"},{"TwoLetterCode":"MN","ThreeLetterCode":"MNG","Name":"Mongolei"},{"TwoLetterCode":"ME","ThreeLetterCode":"MNE","Name":"Montenegro"},{"TwoLetterCode":"MS","ThreeLetterCode":"MSR","Name":"Montserrat"},{"TwoLetterCode":"MZ","ThreeLetterCode":"MOZ","Name":"Mosambik"},{"TwoLetterCode":"MM","ThreeLetterCode":"MMR","Name":"Myanmar"},{"TwoLetterCode":"NA","ThreeLetterCode":"NAM","Name":"Namibia"},{"TwoLetterCode":"NR","ThreeLetterCode":"NRU","Name":"Nauru"},{"TwoLetterCode":"NP","ThreeLetterCode":"NPL","Name":"Nepal"},{"TwoLetterCode":"NC","ThreeLetterCode":"NCL","Name":"Neukaledonien"},{"TwoLetterCode":"NZ","ThreeLetterCode":"NZL","Name":"Neuseeland"},{"TwoLetterCode":"NI","ThreeLetterCode":"NIC","Name":"Nicaragua"},{"TwoLetterCode":"NL","ThreeLetterCode":"NLD","Name":"Niederlande"},{"TwoLetterCode":"AN","ThreeLetterCode":"ANT","Name":"Niederl\u00E4ndische Antillen"},{"TwoLetterCode":"NE","ThreeLetterCode":"NER","Name":"Niger"},{"TwoLetterCode":"NG","ThreeLetterCode":"NGA","Name":"Nigeria"},{"TwoLetterCode":"NU","ThreeLetterCode":"NIU","Name":"Niue"},{"TwoLetterCode":"MP","ThreeLetterCode":"MNP","Name":"N\u00F6rdliche Marianen"},{"TwoLetterCode":"NF","ThreeLetterCode":"NFK","Name":"Norfolk Insel"},{"TwoLetterCode":"NO","ThreeLetterCode":"NOR","Name":"Norwegen"},{"TwoLetterCode":"OM","ThreeLetterCode":"OMN","Name":"Oman"},{"TwoLetterCode":"AT","ThreeLetterCode":"AUT","Name":"\u00D6sterreich"},{"TwoLetterCode":"PK","ThreeLetterCode":"PAK","Name":"Pakistan"},{"TwoLetterCode":"PS","ThreeLetterCode":"PSE","Name":"Pal\u00E4stinische Gebiete"},{"TwoLetterCode":"PW","ThreeLetterCode":"PLW","Name":"Palau"},{"TwoLetterCode":"PA","ThreeLetterCode":"PAN","Name":"Panama"},{"TwoLetterCode":"PG","ThreeLetterCode":"PNG","Name":"Papua-Neuguinea"},{"TwoLetterCode":"PY","ThreeLetterCode":"PRY","Name":"Paraguay"},{"TwoLetterCode":"PE","ThreeLetterCode":"PER","Name":"Peru"},{"TwoLetterCode":"PH","ThreeLetterCode":"PHL","Name":"Philippinen"},{"TwoLetterCode":"PN","ThreeLetterCode":"PCN","Name":"Pitcairn"},{"TwoLetterCode":"PL","ThreeLetterCode":"POL","Name":"Polen"},{"TwoLetterCode":"PT","ThreeLetterCode":"PRT","Name":"Portugal"},{"TwoLetterCode":"PR","ThreeLetterCode":"PRI","Name":"Puerto Rico"},{"TwoLetterCode":"DJ","ThreeLetterCode":"DJI","Name":"Republik Dschibuti"},{"TwoLetterCode":"RE","ThreeLetterCode":"REU","Name":"R\u00E9union"},{"TwoLetterCode":"RW","ThreeLetterCode":"RWA","Name":"Ruanda"},{"TwoLetterCode":"RO","ThreeLetterCode":"ROU","Name":"Rum\u00E4nien"},{"TwoLetterCode":"RU","ThreeLetterCode":"RUS","Name":"Russische F\u00F6deration"},{"TwoLetterCode":"SH","ThreeLetterCode":"SHN","Name":"Saint Helena"},{"TwoLetterCode":"PM","ThreeLetterCode":"SPM","Name":"Saint Pierre und Miquelon"},{"TwoLetterCode":"SB","ThreeLetterCode":"SLB","Name":"Salomonen"},{"TwoLetterCode":"ZM","ThreeLetterCode":"ZMB","Name":"Sambia"},{"TwoLetterCode":"WS","ThreeLetterCode":"WSM","Name":"Samoa"},{"TwoLetterCode":"SM","ThreeLetterCode":"SMR","Name":"San Marino"},{"TwoLetterCode":"ST","ThreeLetterCode":"STP","Name":"S\u00E3o Tom\u00E9 und Pr\u00EDncipe"},{"TwoLetterCode":"SA","ThreeLetterCode":"SAU","Name":"Saudi-Arabien"},{"TwoLetterCode":"SE","ThreeLetterCode":"SWE","Name":"Schweden"},{"TwoLetterCode":"CH","ThreeLetterCode":"CHE","Name":"Schweiz"},{"TwoLetterCode":"SN","ThreeLetterCode":"SEN","Name":"Senegal"},{"TwoLetterCode":"RS","ThreeLetterCode":"SRB","Name":"Serbien"},{"TwoLetterCode":"SC","ThreeLetterCode":"SYC","Name":"Seychellen"},{"TwoLetterCode":"SL","ThreeLetterCode":"SLE","Name":"Sierra Leone"},{"TwoLetterCode":"ZW","ThreeLetterCode":"ZWE","Name":"Simbabwe"},{"TwoLetterCode":"SG","ThreeLetterCode":"SGP","Name":"Singapur"},{"TwoLetterCode":"SK","ThreeLetterCode":"SVK","Name":"Slowakei"},{"TwoLetterCode":"SI","ThreeLetterCode":"SVN","Name":"Slowenien"},{"TwoLetterCode":"SO","ThreeLetterCode":"SOM","Name":"Somalia"},{"TwoLetterCode":"ES","ThreeLetterCode":"ESP","Name":"Spanien"},{"TwoLetterCode":"LK","ThreeLetterCode":"LKA","Name":"Sri Lanka"},{"TwoLetterCode":"BL","ThreeLetterCode":"BLM","Name":"St. Barth\u00E9lemy"},{"TwoLetterCode":"KN","ThreeLetterCode":"KNA","Name":"St. Kitts und Nevis"},{"TwoLetterCode":"LC","ThreeLetterCode":"LCA","Name":"St. Lucia"},{"TwoLetterCode":"MF","ThreeLetterCode":"MAF","Name":"St. Martin"},{"TwoLetterCode":"VC","ThreeLetterCode":"VCT","Name":"St. Vincent und die Grenadinen"},{"TwoLetterCode":"ZA","ThreeLetterCode":"ZAF","Name":"S\u00FCdafrika"},{"TwoLetterCode":"SD","ThreeLetterCode":"SDN","Name":"Sudan"},{"TwoLetterCode":"GS","ThreeLetterCode":"SGS","Name":"S\u00FCdgeorgien und die S\u00FCdlichen Sandwichinseln"},{"TwoLetterCode":"SR","ThreeLetterCode":"SUR","Name":"Suriname"},{"TwoLetterCode":"SJ","ThreeLetterCode":"SJM","Name":"Svalbard und Jan Mayen"},{"TwoLetterCode":"SZ","ThreeLetterCode":"SWZ","Name":"Swasiland"},{"TwoLetterCode":"SY","ThreeLetterCode":"SYR","Name":"Syrien, Arab. Rep."},{"TwoLetterCode":"TJ","ThreeLetterCode":"TJK","Name":"Tadschikistan"},{"TwoLetterCode":"TW","ThreeLetterCode":"TWN","Name":"Taiwan"},{"TwoLetterCode":"TZ","ThreeLetterCode":"TZA","Name":"Tansania, Vereinigte Rep."},{"TwoLetterCode":"TH","ThreeLetterCode":"THA","Name":"Thailand"},{"TwoLetterCode":"TL","ThreeLetterCode":"TLS","Name":"Timor-Leste"},{"TwoLetterCode":"TG","ThreeLetterCode":"TGO","Name":"Togo"},{"TwoLetterCode":"TK","ThreeLetterCode":"TKL","Name":"Tokelau"},{"TwoLetterCode":"TO","ThreeLetterCode":"TON","Name":"Tonga"},{"TwoLetterCode":"TT","ThreeLetterCode":"TTO","Name":"Trinidad und Tobago"},{"TwoLetterCode":"TD","ThreeLetterCode":"TCD","Name":"Tschad"},{"TwoLetterCode":"CZ","ThreeLetterCode":"CZE","Name":"Tschechische Republik"},{"TwoLetterCode":"TN","ThreeLetterCode":"TUN","Name":"Tunesien"},{"TwoLetterCode":"TR","ThreeLetterCode":"TUR","Name":"T\u00FCrkei"},{"TwoLetterCode":"TM","ThreeLetterCode":"TKM","Name":"Turkmenistan"},{"TwoLetterCode":"TC","ThreeLetterCode":"TCA","Name":"Turks- und Caicosinseln"},{"TwoLetterCode":"TV","ThreeLetterCode":"TUV","Name":"Tuvalu"},{"TwoLetterCode":"UG","ThreeLetterCode":"UGA","Name":"Uganda"},{"TwoLetterCode":"UA","ThreeLetterCode":"UKR","Name":"Ukraine"},{"TwoLetterCode":"HU","ThreeLetterCode":"HUN","Name":"Ungarn"},{"TwoLetterCode":"UM","ThreeLetterCode":"UMI","Name":"United States Minor Outlying Islands"},{"TwoLetterCode":"UY","ThreeLetterCode":"URY","Name":"Uruguay"},{"TwoLetterCode":"UZ","ThreeLetterCode":"UZB","Name":"Usbekistan"},{"TwoLetterCode":"VU","ThreeLetterCode":"VUT","Name":"Vanuatu"},{"TwoLetterCode":"VE","ThreeLetterCode":"VEN","Name":"Venezuela"},{"TwoLetterCode":"AE","ThreeLetterCode":"ARE","Name":"Vereinigte Arabische Emirate"},{"TwoLetterCode":"US","ThreeLetterCode":"USA","Name":"Vereinigte Staaten von Amerika"},{"TwoLetterCode":"GB","ThreeLetterCode":"GBR","Name":"Vereinigtes K\u00F6nigreich"},{"TwoLetterCode":"VN","ThreeLetterCode":"VNM","Name":"Vietnam"},{"TwoLetterCode":"WF","ThreeLetterCode":"WLF","Name":"Wallis und Futuna"},{"TwoLetterCode":"CX","ThreeLetterCode":"CXR","Name":"Weihnachtsinsel"},{"TwoLetterCode":"BY","ThreeLetterCode":"BLR","Name":"Wei\u00DFrussland"},{"TwoLetterCode":"EH","ThreeLetterCode":"ESH","Name":"Westsahara"},{"TwoLetterCode":"CF","ThreeLetterCode":"CAF","Name":"Zentralafrikanische Republik"},{"TwoLetterCode":"CY","ThreeLetterCode":"CYP","Name":"Zypern"}];
+    signupData.maxDebitAmounts = [{"Provider":"Paymill","DefaultAmount":null,"MinAmount":null}];
+    signupData.language = "en";
+    signupData.isIFrame = "True" === "True";
+    signupData.planVariantId =  "5231dfec1d8dd00f389dc547";
+    signupData.customerData = {"ExternalCustomerId":null,"Tag":null,"EmailAddress":null,"FirstName":null,"LastName":null,"CompanyName":null,"VatId":null,"Address":null,"CustomerName":", "};
+    signupData.rates = {"Components":[],"RecurringFee":{"ComponentType":"OnOff","PreventModification":true,"Period":{"Quantity":1,"Unit":"Week"},"Name":"Donut small","PricePerUnit":5.87,"LineItems":null,"TotalNet":5.87,"TotalVat":1.12,"Id":"5231dfec1d8dd00f389dc547","Quantity":1},"SetupFee":null,"Total":5.87,"TotalVat":1.12};
+    signupData.hash = "brfnGHSKtoVeBGyxxAk0xrdRPrM=";
+    signupData.timestamp = "1379666027";
+    signupData.currency = "EUR";
+</script>
+<script type="text/javascript" src="/portal-js/signup.js"></script>
+
+<div ng-app="iteroSignup">
+    <div class="header">
+
+        <div id="companylogo"></div>
+        <h2>Purchase Information</h2>
+    </div>
+    <div class="purchase">
+        <div ng-controller="SignupController">
+            <form ng-submit="signup()" name="form">
+                <span class="signup-plan-text">Your Plan: </span>
+                <span class="signup-plan">Donut small</span>
+
+                <span class="signup-plan-text" ng-show="Components.length > 0">including components: </span>
+                <br />
+                <br />
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th id="table-heading-description">
+                                    Description
+                                </th>
+                                <th id="table-heading-price">
+                                    Price
+                                </th>
+                                <th id="table-heading-quantity">
+                                    Quantity
+                                </th>
+                                <th id="table-heading-total">
+                                    Total
+                                </th>
+                                <th id="table-heading-vat">
+                                    VAT
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-show="Order.Rates.RecurringFee">
+                                <td>{{Order.Rates.RecurringFee.Name}}
+                                                <span class="line-item-period">
+                                                    <br />
+                                                    {{Order.Rates.RecurringFee.Period | period:language}}</span>
+                                </td>
+                                <td class="accounting">{{Order.Rates.RecurringFee.PricePerUnit | number:2}}
+                                </td>
+                                <td class="accounting">{{Order.Rates.RecurringFee.Quantity}}
+                                </td>
+                                <td class="accounting">{{Order.Rates.RecurringFee.TotalNet | number:2}}
+                                </td>
+                                <td class="accounting">{{Order.Rates.RecurringFee.TotalVat | number:2}}
+                                </td>
+                            </tr>
+
+                            <tr ng-show="Order.Rates.SetupFee">
+                                <td>{{Order.Rates.SetupFee.Name}}
+                                </td>
+                                <td class="accounting">{{Order.Rates.SetupFee.PricePerUnit | number:2}}
+                                </td>
+                                <td class="accounting">{{Order.Rates.SetupFee.Quantity}}
+                                </td>
+                                <td class="accounting">{{Order.Rates.SetupFee.TotalNet | number:2}}
+                                </td>
+                                <td class="accounting">{{Order.Rates.SetupFee.TotalVat | number:2}}
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody ng-repeat="component in Components">
+                            <tr>
+                                <td>{{component.Name}}
+                                                <span ng-show="component.Period" class="line-item-period">
+                                                    <br />
+                                                    {{component.Period | period:language}}</span>
+                                    
+                                </td>
+                                <td class="accounting">
+                                    <span ng-show="component.PricePerUnit!=null">{{component.PricePerUnit | number:2}}</span>
+                                    <span ng-show="component.PricePerUnit==null && component.LineItems.length ==1">{{component.LineItems[0].PricePerUnit | number:2}}</span>
+                                </td>
+                                <td class="accounting">
+                                    <input type="number" id="quantity" ng-change="preRateDelayed()" ng-model="component.Quantity" ng-hide="component.PreventModification" ng-disabled="component.PreventModification" />
+                                    <div ng-show="component.PreventModification">{{component.Quantity}}</div>
+                                </td>
+                                <td class="accounting">{{component.TotalNet | number:2}}
+                                </td>
+                                <td class="accounting">{{component.TotalVat| number:2}}
+                                </td>
+                            </tr>
+                            <tr ng-repeat="subitem in component.LineItems" ng-show="component.LineItems.length > 1" class="sub-component">
+                                <td></td>
+                                <td class="accounting">{{subitem.PricePerUnit | number:2}}</td>
+                                <td class="accounting">{{subitem.Quantity}}</td>
+                                <td class="accounting">{{subitem.TotalNet | number:2 }}</td>
+                                <td class="accounting">{{subitem.TotalVat | number:2 }}</td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td class="subtotals" colspan="4">{{Order.Rates.Total | number:2}}</td>
+                                <td class="subtotals">{{Order.Rates.TotalVat | number:2}}</td>
+                            </tr>
+                            <tr>
+                                <td class="totals" colspan="5">{{Order.Currency}} {{Order.Rates.Total + Order.Rates.TotalVat | number:2}}</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+                
+                <div class="abo-hint">This service causes recurring costs.</div>
+                <h2>Your Data for the Subscription</h2>
+
+                <span id="aft-wrapper">
+                    <input name="__RequestVerificationToken" type="hidden" value="bErcuguMo2EotZ8Wdvc4wWBjpc97TTBAeY0j99YTc_Yy1Umzed9SNCjTBcQgTvZEtnXxPXOibsJlRPYi5luAZlRohzjKY34l4zII06tuYaoStExTTfw8QQLhwwVgZ0Y_VGNW9O-McWqm3Ltn0DpPtFO09GuYbWULp_FFix14EOc1" />
+                </span>
+                
+
+                <div class="form-group">
+                    <label id="form-label-first-name">
+                        First Name
+                    </label>
+                    <div class="editor-field">
+                        <input type="text" id="first-name" class="form-control" ng-model="Order.CustomerData.FirstName" required="required" />
+                    </div>
+                </div>
+                
+                <div class="form-group" id="form-section-middle-name">
+                    <label id="form-label-middle-name">
+                        Middle Name
+                    </label>
+                    <div class="editor-field">
+                        <input type="text" id="middle-name" class="form-control" ng-model="Order.MiddleName" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label id="form-label-last-name">
+                        Last Name
+                    </label>
+                    <div class="editor-field">
+                        <input type="text" id="last-name" class="form-control" ng-model="Order.CustomerData.LastName" required="required" />
+                    </div>
+                </div>
+
+
+                                    <div class="form-group">
+                        <label id="form-label-address-line1">
+                            Address Line 1
+                        </label>
+                        <div class="editor-field">
+                            <input type="text" id="address-line1" class="form-control" ng-model="Order.CustomerData.Address.AddressLine1" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label id="form-label-address-line2">
+                            Address Line 2
+                        </label>
+                        <div class="editor-field">
+                            <input type="text" id="address-line2" class="form-control" ng-model="Order.CustomerData.Address.AddressLine2" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label id="form-label-address-street">
+                            Street
+                        </label>
+                        <div class="editor-field">
+                            <input type="text" id="address-street" class="form-control" ng-model="Order.CustomerData.Address.Street" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label id="form-label-address-house-number">
+                            House Number
+                        </label>
+                        <div class="editor-field">
+                            <input type="text" id="address-house-number" class="form-control" ng-model="Order.CustomerData.Address.HouseNumber" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label id="form-label-address-city">
+                            City
+                        </label>
+                        <div class="editor-field">
+                            <input type="text" id="address-city" class="form-control" ng-model="Order.CustomerData.Address.City" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label id="form-label-address-postal-code">
+                            Postal Code
+                        </label>
+                        <div class="editor-field">
+                            <input type="text" id="address-postal-code" class="form-control" ng-model="Order.CustomerData.Address.PostalCode" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label id="form-label-address-country">
+                            Country
+                        </label>
+
+                        <div class="editor-field">
+                            <select ng-model="Order.CustomerData.Address.Country" id="address-country" class="form-control" required="required" ng-init="Order.CustomerData.Address.Country='DE'">
+                                <option></option>
+                                <option ng-repeat="country in AvailableCountries" value="{{country.TwoLetterCode}}" ng-selected="country.TwoLetterCode=='DE'">{{country.Name}}</option>
+                            </select>
+
+                            
+                        </div>
+                    </div>
+                <div class="form-group">
+                    <label id="form-label-payment-method">
+                        Payment Method
+                    </label>
+                    <div class="editor-field">
+                        <select name="SelectedPaymentMethod" id="payment-method" class="form-control"
+                            ng-model="Order.SelectedPaymentMethod" required="required"
+                            ng-options="obj.Value as obj.Text for obj in AvailablePaymentMethods">
+                            <option></option>
+                        </select>
+                    </div>
+                </div>
+                
+                
+                <div id="form-section-captcha">
+                    <div class="editor-label" id="form-label-captcha">
+                        What is 2 + 5?
+                    </div>
+                    <div class="editor-field">
+                        <input type="text" ng-model="Order.CaptchaValidate" />
+                    </div>
+                </div>
+
+                <div>
+                    <button ng-disabled="form.$invalid" type="submit" id="submit-button" class="btn btn-primary btn-block">Signup</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    
+</body>
+</html>
