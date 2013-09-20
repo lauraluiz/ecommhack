@@ -70,11 +70,8 @@
 }
 
 /* Small tablet */
-@media screen and (max-width: 650px) {
-    h1 { font-size: 2.9em; }
+@media screen and (max-width: 768px) {
     h2 { font-size: 2.3em; }
-    h3 { font-size: 1.2em; }
-    h4 { font-size: 1.2em; }
     .variant-smallest;
 
     body.product {
@@ -117,7 +114,74 @@
 
         section > .space > .inner {
             padding: 5% 0;
-            &> .head { padding-bottom: 20px; }
+        }
+
+        .top { display: none; }
+        .bottom { display: none; }
+    }
+
+}
+
+/* Mobile */
+@media screen and (max-width: 590px) {
+    h1 { font-size: 2.9em; }
+    h2 { font-size: 2.3em; }
+    h3 { font-size: 1.2em; }
+    h4 { font-size: 1.2em; }
+    .separator { display: none; }
+    .variant-smallest;
+    .variant { margin: 0 auto; }
+
+    button[type=submit] {
+        width: 289px; height: 76px; border: 0;
+        background-size: 289px auto;
+        font-size: 1.5em;
+        span { display: none; }
+        &:after { content: "VIEW CART AND CONFIRM"; }
+        &:hover { background-position: 0 -81px; }
+    }
+
+    body.product {
+        #product-box .inner {
+            .variant-boxes .variant-box:nth-child(odd) { float: none; }
+            .variant-boxes .variant-box:nth-child(even) { float: none; }
+            .variant-box {
+                .variant-body { margin: 0 auto; }
+                margin: 0 auto;
+                .description {
+                    float: none; margin: 0 auto;
+                    font-size: 1.5em;
+                }
+                .add-to-cart {
+                    float: none; width: 215px; height: 50px; margin: 5% auto;
+                    font-size: 1.3em;
+                    .button { background-size: 100% auto; }
+                }
+                input[type=radio] {
+                    &:checked {
+                        ~.add-to-cart .button { background-position: 0 -53px; }
+                    }
+                }
+                &:hover {
+                    .add-to-cart .button { background-position: 0 -53px; }
+                }
+            }
+        }
+
+        #product-often .inner {
+            .often-box {
+                padding-left: 10%;
+                label .text { font-size: 2em; }
+            }
+        }
+    }
+
+    body.order, body.success {
+        background: @yellow-dark;
+        #container { width: 100%; }
+
+        section > .space > .inner {
+            padding: 5% 0;
         }
 
         .top { display: none; }
