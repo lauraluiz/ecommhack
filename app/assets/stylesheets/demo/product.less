@@ -2,8 +2,8 @@ body.product {
     background-color: @yellow;
     padding: 0;
 
-    #container section > .space > .inner {
-        padding-top: 7%; padding-bottom: 7%;
+    section > .space > .inner {
+        padding-top: 5%; padding-bottom: 5%;
         &> .head, &> .body {
             width: 1024px; margin: 0 auto;
         }
@@ -15,7 +15,10 @@ body.product {
         background: @green url("../images/background-green.jpg") repeat top left;
         .space {
             background: transparent url("../images/border-top.png") repeat-x bottom left;
-            .inner { background: transparent url("../images/border-green.jpg") repeat-x top left; }
+            .inner {
+                padding-bottom: 7%;
+                background: transparent url("../images/border-green.jpg") repeat-x top left;
+            }
         }
     }
 
@@ -65,34 +68,39 @@ body.product {
         .space {
             h2 { color: @white; }
             background: transparent url("../images/border-bottom.png") repeat-x top left;
-            .inner { background: transparent url("../images/border-top.png") repeat-x bottom left; }
+            .inner {
+                padding-top: 7%;
+                background: transparent url("../images/border-top.png") repeat-x bottom left;
+            }
         }
 
-        .often-boxes {
-            padding: 3% 0 10%;
-        }
-        .often-box {
-            display: inline-block; padding-right: 3.5%;
-            &:last-child { padding-right: 0; }
-            label {
-                .text {
-                    text-align: left;
-                    .pacifico; font-size: 2.8em; color: @white; opacity: 0.5;
-                    .check {
-                        float: left; width: 35px; height: 40px; margin: 20px 15px 0 0;
-                        background: transparent url('../images/dot.png') no-repeat top left;
-                    }
-                }
-                input[type=radio] {
-                    display: none;
-                    &:checked {
-                        ~.text {
-                            opacity: 1.5;
-                            .check { background-position: 0 -40px; }
+        .inner {
+            .often-boxes {
+                padding: 3% 0 10%;
+            }
+            .often-box {
+                display: inline-block; padding-right: 3.5%;
+                &:last-child { padding-right: 0; }
+                label {
+                    .text {
+                        text-align: left;
+                        .pacifico; font-size: 2.8em; color: @white; opacity: 0.5;
+                        .check {
+                            float: left; width: 35px; height: 40px; margin: 20px 15px 0 0;
+                            background: transparent url('../images/dot.png') no-repeat top left;
                         }
                     }
+                    input[type=radio] {
+                        display: none;
+                        &:checked {
+                            ~.text {
+                                opacity: 1.5;
+                                .check { background-position: 0 -40px; }
+                            }
+                        }
+                    }
+                    &:hover .text { opacity: 1.5; }
                 }
-                &:hover .text { opacity: 1.5; }
             }
         }
     }
