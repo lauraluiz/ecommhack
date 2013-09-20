@@ -1,27 +1,24 @@
 body.order, body.success {
 
-    #container {
-        width: 768px; margin: 0 auto 100px;
+    #container { width: 768px; margin: 0 auto 5%; }
 
-        section {
-            background: @yellow-dark;
-            &> .space > .inner {
-                padding: 15px 100px 50px;
-                &> .head { padding-bottom: 20px; }
-            }
-        }
-
-        .top {
-            height: 105px;
-            background: transparent url('../images/notebook-top.png') no-repeat top left;
-        }
-
-        .bottom {
-            width: 768px; height: 30px;
-            background: transparent url('../images/notebook-bottom.png') no-repeat top left;
+    section {
+        background: @yellow-dark;
+        &> .space > .inner {
+            padding: 15px 100px 50px;
+            &> .head { padding-bottom: 20px; }
         }
     }
 
+    .top {
+        height: 105px;
+        background: transparent url('../images/notebook-top.png') no-repeat top left;
+    }
+
+    .bottom {
+        width: 768px; height: 30px;
+        background: transparent url('../images/notebook-bottom.png') no-repeat top left;
+    }
 }
 
 body.order {
