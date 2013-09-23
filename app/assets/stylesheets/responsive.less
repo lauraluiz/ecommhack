@@ -49,8 +49,8 @@
         }
 
         #product-often .inner {
-            .often-boxes { float: right; right: 50%; position: relative; }
-            .often-boxes-inner { float: right; right: -55%; position: relative; }
+            .often-boxes { text-align: center; }
+            .often-boxes-inner { display: inline-block; padding-left: 2%; }
             .often-box {
                 display: block;
                 label {
@@ -148,16 +148,27 @@
         }
 
         #product-box .inner {
-            .variant-boxes { float: right; right: 50%; position: relative; }
-            .variant-boxes-inner { float: right; right: -50%; position: relative; }
+            .variant-boxes { text-align: center; }
+            .variant-boxes-inner { display: inline-block; }
             .variant-boxes .variant-box:nth-child(odd) { float: none; }
             .variant-boxes .variant-box:nth-child(even) { float: none; }
-            .variant-box { margin: 20% 0; }
+            .variant-box { margin: 10% 0 25%; }
         }
 
         #product-often .inner {
             .often-box {
-                label .text { font-size: 2em; }
+                label {
+                    .text {
+                        font-size: 1.8em;
+                        .check {
+                            width: 22px; height: 25px;
+                            background-size: 22px auto;
+                        }
+                    }
+                    input[type=radio] {
+                        &:checked ~.text .check { background-position: 0 -24.5px; }
+                    }
+                }
             }
         }
     }
@@ -187,6 +198,7 @@
             .variant-boxes .variant-box:nth-child(odd) { float: none; }
             .variant-boxes .variant-box:nth-child(even) { float: none; }
             .variant-box {
+                margin: 10% 0;
                 .description {
                     float: none; margin: 0 auto;
                     font-size: 1.5em;
