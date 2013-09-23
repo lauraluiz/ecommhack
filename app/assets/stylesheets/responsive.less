@@ -83,6 +83,7 @@
 
         #product-box .inner {
             .variant-box {
+                .checked { top: 15%; right: 15%; }
                 .description { font-size: 0.95em; }
                 .add-to-cart {
                     width: 137px; height: 32px;
@@ -185,6 +186,27 @@
         .bottom { display: none; }
     }
 
+    body.order {
+        #order-cart {
+            .inner {
+                .variant-smallest { text-align: center; margin-bottom: 10%; }
+                .variant { display: inline-block; float: none; }
+                .description {
+                    float: none; display: inline-block; margin: 0;
+                    font-size: 1.5em;
+                }
+            }
+        }
+
+        #order-purchase {
+            .inner {
+                #back-button { font-size: 1.2em; }
+            }
+        }
+
+        iframe { height: 600px; }
+    }
+
 }
 
 /* Mobile portrait */
@@ -216,6 +238,13 @@
                 &:hover {
                     .add-to-cart .button { background-position: 0 -53px; }
                 }
+            }
+        }
+    }
+    body.order {
+        #order-cart {
+            .inner {
+                .often, .total { font-size: 1.2em; }
             }
         }
     }
