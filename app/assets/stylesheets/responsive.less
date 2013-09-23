@@ -148,29 +148,11 @@
         }
 
         #product-box .inner {
+            .variant-boxes { float: right; right: 50%; position: relative; }
+            .variant-boxes-inner { float: right; right: -50%; position: relative; }
             .variant-boxes .variant-box:nth-child(odd) { float: none; }
             .variant-boxes .variant-box:nth-child(even) { float: none; }
-            .variant-box {
-                .variant-body { margin: 0 auto; }
-                margin: 0 auto;
-                .description {
-                    float: none; margin: 0 auto;
-                    font-size: 1.5em;
-                }
-                .add-to-cart {
-                    float: none; width: 215px; height: 50px; margin: 5% auto;
-                    font-size: 1.3em;
-                    .button { background-size: 100% auto; }
-                }
-                input[type=radio] {
-                    &:checked {
-                        ~.add-to-cart .button { background-position: 0 -53px; }
-                    }
-                }
-                &:hover {
-                    .add-to-cart .button { background-position: 0 -53px; }
-                }
-            }
+            .variant-box { margin: 20% 0; }
         }
 
         #product-often .inner {
@@ -199,6 +181,30 @@
     body.product {
         #product-header .inner {
             h2 { font-size: 1.2em; }
+        }
+
+        #product-box .inner {
+            .variant-boxes .variant-box:nth-child(odd) { float: none; }
+            .variant-boxes .variant-box:nth-child(even) { float: none; }
+            .variant-box {
+                .description {
+                    float: none; margin: 0 auto;
+                    font-size: 1.5em;
+                }
+                .add-to-cart {
+                    float: none; width: 215px; height: 50px; margin: 5% auto;
+                    font-size: 1.3em;
+                    .button { background-size: 100% auto; }
+                }
+                input[type=radio] {
+                    &:checked {
+                        ~.add-to-cart .button { background-position: 0 -53px; }
+                    }
+                }
+                &:hover {
+                    .add-to-cart .button { background-position: 0 -53px; }
+                }
+            }
         }
     }
 }
