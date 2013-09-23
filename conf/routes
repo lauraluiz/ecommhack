@@ -16,7 +16,7 @@ GET     /order/clear                                        controllers.Applicat
 # Pactas
 GET     /order/success                                      controllers.Application.success()
 GET     /order/failure                                      controllers.Application.failure()
-POST    /order/execute                                      controllers.Application.executeSubscription()
+GET     /order/execute                                      controllers.Application.executeSubscription()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                       controllers.Assets.at(path="/public", file)
