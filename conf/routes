@@ -2,13 +2,15 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home
+# Product page
 GET     /                                                   controllers.Application.showProduct()
 POST    /	                                                controllers.Application.submitProduct()
 
-# Home
+# Order page
 GET     /order                                              controllers.Application.showOrder()
-POST    /order                                              controllers.Application.submitOrder()
+
+# Clear order
+GET     /order/clear                                        controllers.Application.clearOrder()
 
 
 # Pactas

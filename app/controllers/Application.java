@@ -85,51 +85,15 @@ public class Application extends ShopController {
         return ok(order.render(cart, item, frequency.getValue().asInt(), addressForm));
     }
 
-    public static Result submitOrder() {
+    public static Result clearOrder() {
+        // Remove box item
         Cart cart = sphere().currentCart().fetch();
-        // Case no product selected
-        if (cart.getLineItems().size() < 1) {
-            return showProduct();
+        for (LineItem item : cart.getLineItems()) {
+            sphere().currentCart().removeLineItem(item.getId());
         }
-        // Case missing frequency
-        CustomObject frequency = sphere().customObjects().get("cart-frequency", cart.getId()).fetch().orNull();
-        if (frequency == null) {
-            flash("error", "Missing frequency of delivery. Please try selecting it again.");
-            return showProduct();
-        }
-        // Case missing or invalid shipping address form
-        Form<SetAddress> shippingForm = setAddressForm.bindFromRequest();
-        if (shippingForm.hasErrors()) {
-            flash("error", "Please correct the shipping address form.");
-            return showOrder();
-        }
-        // Case missing or invalid payment form
-        Form<Paymill> paymillForm = setPaymentForm.bindFromRequest();
-        if (paymillForm.hasErrors()) {
-            flash("error", "There was some error during payment. Please try again.");
-            return showOrder();
-        }
-        // Case correct address and payment data
-        LineItem item = cart.getLineItems().get(0);
-        SetAddress setAddress = shippingForm.get();
-        Paymill paymill = paymillForm.get();
-        boolean successful = true;
-        String text;
-        try {
-            // TODO Fix Pactas
-            Id customerId = pactas.createCustomer(paymill.paymillToken, setAddress.getAddress());
-            Id billingId = pactas.createBillingGroup();
-            Id contractId = pactas.createContract(billingId.Id, customerId.Id);
-            pactas.createUsageData(contractId.Id, item.getProductId(), item.getVariant().getId(), frequency.getValue().asInt());
-            pactas.lockContract(contractId.Id);
-            text = "Thank you for your order. Please keep in mind that this shop is for demonstration only." +
-                    "Therefore we don't ship donuts in reality. Don't worry, no payments will be charged." +
-                    "If we ship donuts someday in the future you'll be the first that will be informed.";
-        } catch (Exception e) {
-            successful = true;
-            text = "Everything went correct but the subscription could not be saved...";
-        }
-        return ok(success.render(successful, text));
+        // Remove frequency
+        sphere().customObjects().delete("cart-frequency", cart.getId()).execute();
+        return redirect(routes.Application.showProduct());
     }
 
     public static Result success() {

@@ -3,7 +3,6 @@
 @main("I want donuts!", "order"){
 
 }{
-<form id="order-form" action="@routes.Application.submitOrder" method="post">
     <div class="top"></div>
     <section id="order-cart">
         <div class="space">
@@ -37,7 +36,7 @@
         </div>
     </section>
     <div class="bottom"></div>
-</form>
+    <a id="clear-order" href="@routes.Application.clearOrder">Clear order</a>
 }{
 
 }
