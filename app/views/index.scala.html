@@ -8,8 +8,9 @@
         <div class="space">
             <div class="inner">
                 <div class="body">
-                    <img id="image-header" alt="I want donuts! The greatest donuts shop ever"
-                         src="@routes.Assets.at("images/header.png")"/>
+                    <img id="image-header" alt="I want donuts!" src="@routes.Assets.at("images/header.png")"/>
+                    <img class="separator" src="@routes.Assets.at("images/separator-grey.png")" alt="-" />
+                    <h2>THE GREATEST DONUT SHOP EVER</h2>
                 </div>
             </div>
         </div>
@@ -54,29 +55,30 @@
                 </div>
                 <div class="body">
                     <div class="often-boxes clearfix">
-                        <div class="often-box">
-                            <label>
-                                <input type="radio" name="howOften" id="product-howOften-4" value="4" required
-                                    @if(getOften(cart) == 4){checked}>
-                                <div class="text"><span class="check"></span> Once a week</div>
-                            </label>
-                        </div>
-                        <div class="often-box">
-                            <label>
-                                <input type="radio" name="howOften" id="product-howOften-2" value="2" required
-                                    @if(getOften(cart) == 2){checked}>
-                                <div class="text"><span class="check"></span> Every two weeks</div>
-                            </label>
-                        </div>
-                        <div class="often-box">
-                            <label>
-                                <input type="radio" name="howOften" id="product-howOften-1" value="1" required
-                                    @if(getOften(cart) == 1){checked}>
-                                <div class="text"><span class="check"></span> Once a month</div>
-                            </label>
+                        <div class="often-boxes-inner">
+                            <div class="often-box">
+                                <label>
+                                    <input type="radio" name="howOften" id="product-howOften-4" value="4" required
+                                        @if(getOften(cart) == 4){checked}>
+                                    <div class="text"><span class="check"></span> Once a week</div>
+                                </label>
+                            </div>
+                            <div class="often-box">
+                                <label>
+                                    <input type="radio" name="howOften" id="product-howOften-2" value="2" required
+                                        @if(getOften(cart) == 2){checked}>
+                                    <div class="text"><span class="check"></span> Every two weeks</div>
+                                </label>
+                            </div>
+                            <div class="often-box">
+                                <label>
+                                    <input type="radio" name="howOften" id="product-howOften-1" value="1" required
+                                        @if(getOften(cart) == 1){checked}>
+                                    <div class="text"><span class="check"></span> Once a month</div>
+                                </label>
+                            </div>
                         </div>
                     </div>
-
 
                     <div id="go-to-cart" class="button-disabled">
                         <button type="submit" disabled><span>VIEW CART AND CONFIRM THIS PARADISE</span></button>

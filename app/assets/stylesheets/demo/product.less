@@ -3,22 +3,27 @@ body.product {
     padding: 0;
 
     section > .space > .inner {
-        padding-top: 5%; padding-bottom: 5%;
+        padding-top: 6%; padding-bottom: 6%;
         &> .head, &> .body {
             width: 1024px; margin: 0 auto;
         }
-        &> .head { padding-bottom: 2%; }
+        &> .head { padding-bottom: 3%; }
     }
 
     #product-header {
-        #image-header { cursor: pointer; }
         background: @green url("../images/background-green.jpg") repeat top left;
         .space {
             background: transparent url("../images/border-top.png") repeat-x bottom left;
             .inner {
                 padding-bottom: 7%;
                 background: transparent url("../images/border-green.jpg") repeat-x top left;
+                .body { padding-bottom: 22px; }
             }
+        }
+
+        .inner {
+            #image-header { margin-bottom: 2%; cursor: pointer; }
+            h2 { color: @white; text-shadow: 0px 2px @grey-dark; }
         }
     }
 
@@ -69,15 +74,14 @@ body.product {
             h2 { color: @white; }
             background: transparent url("../images/border-bottom.png") repeat-x top left;
             .inner {
-                padding-top: 7%;
                 background: transparent url("../images/border-top.png") repeat-x bottom left;
+                .head { padding-top: 22px; }
+                .body { padding-bottom: 22px; }
             }
         }
 
         .inner {
-            .often-boxes {
-                padding: 3% 0 10%;
-            }
+            .often-boxes { padding: 3% 0 10%; }
             .often-box {
                 display: inline-block; padding-right: 3.5%;
                 &:last-child { padding-right: 0; }
