@@ -49,8 +49,10 @@
         }
 
         #product-often .inner {
+            .often-boxes { float: right; right: 50%; position: relative; }
+            .often-boxes-inner { float: right; right: -55%; position: relative; }
             .often-box {
-                display: block; padding-left: 34%;
+                display: block;
                 label {
                     padding-right: 0;
                     .text {
@@ -102,7 +104,6 @@
 
         #product-often .inner {
             .often-box {
-                padding-left: 30%;
                 label .text { font-size: 2em; }
             }
         }
@@ -128,7 +129,7 @@
     h2 { font-size: 2.3em; }
     h3 { font-size: 1.2em; }
     h4 { font-size: 1.2em; }
-    .separator { display: none; }
+    #product-box .separator, #product-often .separator { display: none; }
     .variant-smallest;
     .variant { margin: 0 auto; }
 
@@ -142,6 +143,10 @@
     }
 
     body.product {
+        #product-header .inner {
+            h2 { font-size: 1.9em; }
+        }
+
         #product-box .inner {
             .variant-boxes .variant-box:nth-child(odd) { float: none; }
             .variant-boxes .variant-box:nth-child(even) { float: none; }
@@ -170,7 +175,6 @@
 
         #product-often .inner {
             .often-box {
-                padding-left: 10%;
                 label .text { font-size: 2em; }
             }
         }
@@ -188,4 +192,13 @@
         .bottom { display: none; }
     }
 
+}
+
+/* Mobile portrait */
+@media screen and (max-width: 470px) {
+    body.product {
+        #product-header .inner {
+            h2 { font-size: 1.2em; }
+        }
+    }
 }
