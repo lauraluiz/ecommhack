@@ -93,18 +93,12 @@ public class Application extends ShopController {
         Util.clearCart();
 
         // Read webhook data from Pactas
-        String contractId = "";
+        String contractId = null;
         if (request().body().asJson() != null) {
             JsonNode webhook = request().body().asJson();
-            System.out.println("------ Pactas webhook: " + webhook.toString());
             if (webhook.get("Event").getTextValue().equals("AccountCreated")) {
-                System.out.println("------ Subscription succeeded!!");
                 contractId = webhook.get("ContractId").getTextValue();
-            } else {
-                System.out.println("------ No idea what is it...");
             }
-        } else {
-            System.out.println("------ No pactas received!!");
         }
 
         // Get additional information from Pactas

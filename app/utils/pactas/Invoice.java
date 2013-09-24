@@ -14,22 +14,24 @@ import java.util.List;
 public class Invoice extends Pactas {
 
     public Invoice(String id) {
-        authenticate();
-        String url = API_URL + "/invoices/" + id;
-        try {
-            // Send request
-            F.Promise<WS.Response> promise = WS.url(url)
-                    .setContentType("application/x-www-form-urlencoded")
-                    .setQueryParameter("access_token", access_token)
-                    .get();
+        if (id != null) {
+            authenticate();
+            String url = API_URL + "/invoices/" + id;
+            try {
+                // Send request
+                F.Promise<WS.Response> promise = WS.url(url)
+                        .setContentType("application/x-www-form-urlencoded")
+                        .setQueryParameter("access_token", access_token)
+                        .get();
 
-            // Read request
-            System.out.println(promise.get().getBody());
-            response = Json.parse(promise.get().getBody());
-        } catch (Exception e) {
-            play.Logger.error("Error on requesting contract");
+                // Read request
+                System.out.println(promise.get().getBody());
+                response = Json.parse(promise.get().getBody());
+            } catch (Exception e) {
+                play.Logger.error("Error on requesting contract");
+            }
+            checkResponse();
         }
-        checkResponse();
     }
 
     public Variant getVariant() {

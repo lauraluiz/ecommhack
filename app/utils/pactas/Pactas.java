@@ -39,7 +39,7 @@ public class Pactas {
 
     public void checkResponse() {
         if (response.has("message")) {
-            System.out.println(response.get("message").getTextValue());
+            play.Logger.error("PACTAS: " + response.get("message").getTextValue());
         }
     }
 }

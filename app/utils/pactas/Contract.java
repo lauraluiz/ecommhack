@@ -12,22 +12,23 @@ import java.util.List;
 public class Contract extends Pactas {
 
     public Contract(String id) {
-        authenticate();
-        String url = API_URL + "/contracts/" + id;
-        try {
-            // Send request
-            F.Promise<WS.Response> promise = WS.url(url)
-                    .setContentType("application/x-www-form-urlencoded")
-                    .setQueryParameter("access_token", access_token)
-                    .get();
+        if (id != null) {
+            authenticate();
+            String url = API_URL + "/contracts/" + id;
+            try {
+                // Send request
+                F.Promise<WS.Response> promise = WS.url(url)
+                        .setContentType("application/x-www-form-urlencoded")
+                        .setQueryParameter("access_token", access_token)
+                        .get();
 
-            // Read request
-            System.out.println(promise.get().getBody());
-            response = Json.parse(promise.get().getBody());
-        } catch (Exception e) {
-            play.Logger.error("Error on requesting invoice");
+                // Read request
+                response = Json.parse(promise.get().getBody());
+            } catch (Exception e) {
+                play.Logger.error("Error on requesting invoice");
+            }
+            checkResponse();
         }
-        checkResponse();
     }
 
     public Variant getVariant() {
@@ -45,7 +46,7 @@ public class Contract extends Pactas {
         if (response.has("CustomerId")) {
             return response.get("CustomerId").getTextValue();
         }
-        return "";
+        return null;
     }
 
 }

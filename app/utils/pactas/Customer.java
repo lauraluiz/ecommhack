@@ -10,26 +10,23 @@ import play.libs.WS;
 public class Customer extends Pactas {
 
     public Customer(String id) {
-        authenticate();
-        String url = API_URL + "/customers/" + id;
-        try {
-            // Send request
-            F.Promise<WS.Response> promise = WS.url(url)
-                    .setContentType("application/x-www-form-urlencoded")
-                    .setQueryParameter("access_token", access_token)
-                    .get();
+        if (id != null) {
+            authenticate();
+            String url = API_URL + "/customers/" + id;
+            try {
+                // Send request
+                F.Promise<WS.Response> promise = WS.url(url)
+                        .setContentType("application/x-www-form-urlencoded")
+                        .setQueryParameter("access_token", access_token)
+                        .get();
 
-            // Read request
-            System.out.println(promise.get().getBody());
-            response = Json.parse(promise.get().getBody());
-        } catch (Exception e) {
-            play.Logger.error("Error on requesting customer");
+                // Read request
+                response = Json.parse(promise.get().getBody());
+            } catch (Exception e) {
+                play.Logger.error("Error on requesting customer");
+            }
+            checkResponse();
         }
-        checkResponse();
-    }
-
-    public String getCustomerId() {
-        return response.get("CustomerId").getTextValue();
     }
 
     public Address getAddress() {
