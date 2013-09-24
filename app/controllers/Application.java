@@ -10,7 +10,10 @@ import org.codehaus.jackson.type.TypeReference;
 import play.data.Form;
 import play.mvc.Result;
 import sphere.ShopController;
+import sphere.Sphere;
+import utils.Util;
 import utils.pactas.Id;
+import utils.pactas.Invoice;
 import utils.pactas.PactasClient;
 import utils.pactas.WebhookCallbackData;
 import views.html.index;
@@ -29,17 +32,11 @@ public class Application extends ShopController {
             .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     final static Form<AddToCart> addToCartForm = form(AddToCart.class);
-    final static Form<SetAddress> setAddressForm = form(SetAddress.class);
-    final static Form<Paymill> setPaymentForm = form(Paymill.class);
 
-
-    private static Product getProduct() {
-        return sphere().products().bySlug("donut-box").fetch().orNull();
-    }
 
     public static Result showProduct() {
         Cart cart = sphere().currentCart().fetch();
-        return ok(index.render(cart, getProduct()));
+        return ok(index.render(cart, Util.getProduct()));
     }
 
     public static Result submitProduct() {
@@ -51,7 +48,7 @@ public class Application extends ShopController {
         }
         // Case invalid product
         AddToCart addToCart = cartForm.get();
-        Variant variant = getProduct().getVariants().byId(addToCart.variantId).orNull();
+        Variant variant = Util.getProduct().getVariants().byId(addToCart.variantId).orNull();
         if (variant == null) {
             flash("error", "Product not found. Please try again.");
             return showProduct();
@@ -61,7 +58,7 @@ public class Application extends ShopController {
         for (LineItem item : cart.getLineItems()) {
             sphere().currentCart().removeLineItem(item.getId());
         }
-        cart = sphere().currentCart().addLineItem(getProduct().getId(), variant.getId(), 1);
+        cart = sphere().currentCart().addLineItem(Util.getProduct().getId(), variant.getId(), 1);
         /* Store frequency in a custom object related to current cart */
         sphere().customObjects().set("cart-frequency", cart.getId(), addToCart.howOften);
         return redirect(routes.Application.showOrder());
@@ -81,18 +78,11 @@ public class Application extends ShopController {
         }
         // Case product in cart
         LineItem item = cart.getLineItems().get(0);
-        Form<SetAddress> addressForm = setAddressForm.fill(new SetAddress(cart.getShippingAddress()));
-        return ok(order.render(cart, item, frequency.getValue().asInt(), addressForm));
+        return ok(order.render(cart, item, frequency.getValue().asInt()));
     }
 
     public static Result clearOrder() {
-        // Remove box item
-        Cart cart = sphere().currentCart().fetch();
-        for (LineItem item : cart.getLineItems()) {
-            sphere().currentCart().removeLineItem(item.getId());
-        }
-        // Remove frequency
-        sphere().customObjects().delete("cart-frequency", cart.getId()).execute();
+        Util.clearCart();
         return redirect(routes.Application.showProduct());
     }
 
@@ -110,33 +100,27 @@ public class Application extends ShopController {
 
     /* Method called by Pactas every time an order must be placed (weekly, monthly...) */
     public static Result executeSubscription() {
+        // Clear previous cart
+        Util.clearCart();
 
         // Read order data from Pactas
-        String payload = request().body().asJson().toString();
-        play.Logger.debug("------ Pactas webhook: " + payload);
-
-        WebhookCallbackData callbackData;
-        try {
-            callbackData = jsonMapper.readValue(payload, new TypeReference<WebhookCallbackData>() {});
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (request().body().asJson() != null) {
+            String payload = request().body().asJson().toString();
+            System.out.println("------ Pactas webhook: " + payload);
+            //play.Logger.debug("------ Pactas webhook: " + payload);
         }
-        if (callbackData.Items.isEmpty()) {
-            return badRequest("No line items in callback data");
-        }
-        WebhookCallbackData.LineItem lineItemToOrder = callbackData.Items.get(0);
-        // TODO Read address and other information from Pactas
-        Address address = new Address(CountryCode.DE);
 
-        // Create cart with Pactas data
-        Cart cart = sphere().client().carts().createCart(Currency.getInstance("EUR"), CountryCode.DE, Cart.InventoryMode.None).execute();
-        CartUpdate cartUpdate = new CartUpdate()
-                .setShippingAddress(address)
-                .addLineItem(1, lineItemToOrder.productId(), lineItemToOrder.variantId());
-        cart = sphere().client().carts().updateCart(cart.getIdAndVersion(), cartUpdate).execute();
+        Invoice invoice = new Invoice();
+        invoice.get("524071211d8dd00e489eb1e6");
 
-        // Create order from cart
-        sphere().client().orders().createOrder(cart.getIdAndVersion(), PaymentState.Paid).execute();
+        // Set cart with subscription data
+        sphere().currentCart().addLineItem(Util.getProduct().getId(), invoice.getVariant().getId(), 1);
+        sphere().currentCart().setShippingAddress(invoice.getAddress());
+
+        // Create order
+        String cartSnapshot = sphere().currentCart().createCartSnapshotId();
+        while (!Util.isValidCartSnapshot(cartSnapshot)) { }
+        sphere().currentCart().createOrder(cartSnapshot, PaymentState.Paid);
 
         play.Logger.debug("------ Order created!");
         return ok("Order created!");
