@@ -25,13 +25,18 @@ public class Util {
     }
 
     public static void clearCart() {
+        // Clear session cart
         Session.current().clearCart();
+        // Remove all line items
+        Cart cart = Sphere.getInstance().currentCart().fetch();
+        for (LineItem item : cart.getLineItems()) {
+            cart = Sphere.getInstance().currentCart().removeLineItem(item.getId());
+        }
+        // Remove frequency value
         try {
-            Cart cart = Sphere.getInstance().currentCart().fetch();
-            for (LineItem item : cart.getLineItems()) {
-                cart = Sphere.getInstance().currentCart().removeLineItem(item.getId());
+            if (Sphere.getInstance().customObjects().get("cart-frequency", cart.getId()).fetch().isPresent()) {
+                Sphere.getInstance().customObjects().delete("cart-frequency", cart.getId()).execute();
             }
-            Sphere.getInstance().customObjects().delete("cart-frequency", cart.getId()).execute();
         } catch (Exception e) {}
     }
 
