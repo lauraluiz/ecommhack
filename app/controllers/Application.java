@@ -3,6 +3,7 @@ package controllers;
 import forms.*;
 import io.sphere.client.model.CustomObject;
 import io.sphere.client.shop.model.*;
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import play.data.Form;
@@ -92,14 +93,22 @@ public class Application extends ShopController {
         Util.clearCart();
 
         // Read order data from Pactas
-        if (request().body().asJson() != null) {
-            String payload = request().body().asJson().toString();
-            System.out.println("------ Pactas webhook: " + payload);
-            //play.Logger.debug("------ Pactas webhook: " + payload);
-        }
-
         Invoice invoice = new Invoice();
-        invoice.get("524071211d8dd00e489eb1e6");
+
+        if (request().body().asJson() != null) {
+            JsonNode webhook = request().body().asJson();
+            System.out.println("------ Pactas webhook: " + webhook.toString());
+            if (webhook.get("Event").getTextValue().equals("PaymentSucceeded")) {
+                System.out.println("------ Payment succeeded!!");
+                invoice.get(webhook.get("InvoiceId").getTextValue());
+            } else {
+                System.out.println("------ No idea what is it...");
+                invoice.get("524071211d8dd00e489eb1e6");
+            }
+            //play.Logger.debug("------ Pactas webhook: " + payload);
+        } else {
+            System.out.println("------ No pactas received!!");
+        }
 
         // Set cart with subscription data
         sphere().currentCart().addLineItem(Util.getProduct().getId(), invoice.getVariant().getId(), 1);
