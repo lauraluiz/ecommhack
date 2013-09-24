@@ -89,6 +89,8 @@ public class Application extends ShopController {
 
     /* Method called by Pactas every time an order must be placed (weekly, monthly...) */
     public static Result executeSubscription() {
+        System.out.println("------ Execute transaction");
+
         // Clear previous cart
         Util.clearCart();
 
