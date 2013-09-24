@@ -1,35 +1,23 @@
 package controllers;
 
-import com.neovisionaries.i18n.CountryCode;
 import forms.*;
 import io.sphere.client.model.CustomObject;
 import io.sphere.client.shop.model.*;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
 import play.data.Form;
 import play.mvc.Result;
 import sphere.ShopController;
-import sphere.Sphere;
 import utils.Util;
-import utils.pactas.Id;
 import utils.pactas.Invoice;
 import utils.pactas.PactasClient;
-import utils.pactas.WebhookCallbackData;
 import views.html.index;
 import views.html.order;
 import views.html.success;
 
-import java.io.IOException;
-import java.util.Currency;
-
 import static play.data.Form.form;
 
 public class Application extends ShopController {
-
-    private static final PactasClient pactas = new PactasClient();
-    private static final ObjectMapper jsonMapper = new ObjectMapper()
-            .configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     final static Form<AddToCart> addToCartForm = form(AddToCart.class);
 
@@ -122,7 +110,6 @@ public class Application extends ShopController {
         while (!Util.isValidCartSnapshot(cartSnapshot)) { }
         sphere().currentCart().createOrder(cartSnapshot, PaymentState.Paid);
 
-        play.Logger.debug("------ Order created!");
         return ok("Order created!");
     }
 }
