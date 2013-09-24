@@ -4,14 +4,12 @@ import forms.*;
 import io.sphere.client.model.CustomObject;
 import io.sphere.client.shop.model.*;
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
 import play.data.Form;
 import play.mvc.Result;
 import sphere.ShopController;
 import utils.Util;
-import utils.pactas.Invoice;
-import utils.pactas.PactasClient;
+import utils.pactas.Contract;
+import utils.pactas.Customer;
 import views.html.index;
 import views.html.order;
 import views.html.success;
@@ -94,28 +92,28 @@ public class Application extends ShopController {
         // Clear previous cart
         Util.clearCart();
 
-        // Read order data from Pactas
-        Invoice invoice = new Invoice();
-
+        // Read webhook data from Pactas
+        String contractId = "";
         if (request().body().asJson() != null) {
             JsonNode webhook = request().body().asJson();
             System.out.println("------ Pactas webhook: " + webhook.toString());
-            if (webhook.get("Event").getTextValue().equals("PaymentSucceeded")) {
-                System.out.println("------ Payment succeeded!!");
-                invoice.get(webhook.get("PaymentTransactionId").getTextValue());
+            if (webhook.get("Event").getTextValue().equals("AccountCreated")) {
+                System.out.println("------ Subscription succeeded!!");
+                contractId = webhook.get("ContractId").getTextValue();
             } else {
                 System.out.println("------ No idea what is it...");
-                invoice.get("524071211d8dd00e489eb1e6");
             }
-            //play.Logger.debug("------ Pactas webhook: " + payload);
         } else {
             System.out.println("------ No pactas received!!");
-            invoice.get("524071211d8dd00e489eb1e6");
         }
 
+        // Get additional information from Pactas
+        Contract contract = new Contract(contractId);
+        Customer customer = new Customer(contract.getCustomerId());
+
         // Set cart with subscription data
-        sphere().currentCart().addLineItem(Util.getProduct().getId(), invoice.getVariant().getId(), 1);
-        sphere().currentCart().setShippingAddress(invoice.getAddress());
+        sphere().currentCart().addLineItem(Util.getProduct().getId(), contract.getVariant().getId(), 1);
+        sphere().currentCart().setShippingAddress(customer.getAddress());
 
         // Create order
         String cartSnapshot = sphere().currentCart().createCartSnapshotId();
