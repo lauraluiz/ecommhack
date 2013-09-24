@@ -4,6 +4,7 @@ import io.sphere.client.shop.model.Cart;
 import io.sphere.client.shop.model.LineItem;
 import io.sphere.client.shop.model.Product;
 import io.sphere.client.shop.model.Variant;
+import sphere.Session;
 import sphere.Sphere;
 
 public class Util {
@@ -24,12 +25,14 @@ public class Util {
     }
 
     public static void clearCart() {
-        Cart cart = Sphere.getInstance().currentCart().fetch();
-        for (LineItem item : cart.getLineItems()) {
-            cart = Sphere.getInstance().currentCart().removeLineItem(item.getId());
-        }
-        Sphere.getInstance().customObjects().delete("cart-frequency", cart.getId()).execute();
-        System.out.println("ID " + cart.getIdAndVersion().getVersion());
+        Session.current().clearCart();
+        try {
+            Cart cart = Sphere.getInstance().currentCart().fetch();
+            for (LineItem item : cart.getLineItems()) {
+                cart = Sphere.getInstance().currentCart().removeLineItem(item.getId());
+            }
+            Sphere.getInstance().customObjects().delete("cart-frequency", cart.getId()).execute();
+        } catch (Exception e) {}
     }
 
     public static boolean isValidCartSnapshot(String cartSnapshot) {
