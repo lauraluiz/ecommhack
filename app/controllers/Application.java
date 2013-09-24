@@ -89,7 +89,7 @@ public class Application extends ShopController {
 
     /* Method called by Pactas every time an order must be placed (weekly, monthly...) */
     public static Result executeSubscription() {
-        System.out.println("------ Execute transaction");
+        play.Logger.debug("------ Execute transaction");
 
         // Clear previous cart
         Util.clearCart();
@@ -102,7 +102,7 @@ public class Application extends ShopController {
             System.out.println("------ Pactas webhook: " + webhook.toString());
             if (webhook.get("Event").getTextValue().equals("PaymentSucceeded")) {
                 System.out.println("------ Payment succeeded!!");
-                invoice.get(webhook.get("InvoiceId").getTextValue());
+                invoice.get(webhook.get("PaymentTransactionId").getTextValue());
             } else {
                 System.out.println("------ No idea what is it...");
                 invoice.get("524071211d8dd00e489eb1e6");
