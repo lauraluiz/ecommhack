@@ -110,6 +110,7 @@ public class Application extends ShopController {
             //play.Logger.debug("------ Pactas webhook: " + payload);
         } else {
             System.out.println("------ No pactas received!!");
+            invoice.get("524071211d8dd00e489eb1e6");
         }
 
         // Set cart with subscription data
